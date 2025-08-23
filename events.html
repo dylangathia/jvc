@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events & Announcements - Journey Village Church</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1995AD;
+      --secondary-color: #e9c675;
+      --accent-color: #BCB382;
+      --dark-blue: #0E4E64;
+      --light-bg: #F8F9FA;
+      --text-dark: #343A40;
+      --text-light: #F8F9FA;
+      --white: #FFFFFF;
+      --black: #000000;
+      --header-font: "Playfair Display", serif;
+      --body-font: "Montserrat", sans-serif;
+      --transition: all 0.3s ease;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --border-radius: 10px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--body-font);
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: var(--box-shadow);
+    }
+
+    .nav__bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .nav__links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav__links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .nav__links a:hover {
+      color: var(--secondary-color);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav__links a.active {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+                 url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=80') center/cover;
+      color: white;
+      text-align: center;
+      padding: 4rem 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-family: var(--header-font);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #eee;
+    }
+
+    .tab-btn {
+      padding: 1rem 2rem;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #888;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary-color);
+    }
+
+    .tab-btn.active {
+      color: var(--primary-color);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--primary-color);
+    }
+
+    /* Content Sections */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--header-font);
+      color: var(--dark-blue);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .event-card, .announcement-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .event-card:hover, .announcement-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+      background: var(--secondary-color);
+      padding: 1.2rem;
+      color: var(--text-dark);
+    }
+
+    .card-header h3 {
+      font-family: var(--header-font);
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .card-date {
+      color: var(--primary-color);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-description {
+      color: #555;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .card-location {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .card-actions {
+      padding: 0 1.5rem 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--dark-blue);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-color);
+      color: var(--white);
+    }
+
+    /* Loading and Empty States */
+    .loading, .empty-state {
+      text-align: center;
+      padding: 3rem;
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      grid-column: 1 / -1;
+    }
+
+    .empty-state h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .empty-state p {
+      color: #666;
+    }
+
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top: 4px solid var(--primary-color);
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-blue);
+      color: white;
+      padding: 3rem 0 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .footer__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer__col h4 {
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .footer__col p, .footer__col a {
+      margin-bottom: 1rem;
+      display: block;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer__col a:hover {
+      color: var(--secondary-color);
+    }
+
+    .footer__socials {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .footer__socials a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .footer__socials a:hover {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+    }
+
+    .footer__bar {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav__bar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .nav__links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .tabs {
+        flex-direction: column;
+      }
+      
+      .tab-btn {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header>
+    <div class="container nav__bar">
+      <div class="logo">
+        <img src="https://i.ibb.co/0QYZT8k/church-logo.png" alt="Journey Village Church Logo">
+        Journey Village Church
+      </div>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="giving.html">Giving</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <h1>Events & Announcements</h1>
+      <p>Stay connected with our church community through upcoming events and important announcements</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="container">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="openTab('events')">Events</button>
+      <button class="tab-btn" onclick="openTab('announcements')">Announcements</button>
+    </div>
+
+    <div id="events" class="tab-content active">
+      <h2 class="section-title">Upcoming Events</h2>
+      <div id="events-list" class="cards-grid">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading events...</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="announcements" class="tab-content">
+      <h2 class="section-title">Church Announcements</h2>
+      <div id="announcements-list" class="cards-grid">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading announcements...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer__container">
+        <div class="footer__col">
+          <h4>Journey Village Church</h4>
+          <p>123 Faith Avenue, Kikuyu</p>
+          <p>Nairobi, Kenya</p>
+          <p>Sunday Services: 8AM & 10:30AM</p>
+        </div>
+        
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="events.html">Events</a>
+          <a href="giving.html">Online Giving</a>
+        </div>
+        
+        <div class="footer__col">
+          <h4>Connect With Us</h4>
+          <p>Email: info@journeyvillage.org</p>
+          <p>Phone: +254 712 345 678</p>
+          <div class="footer__socials">
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+            <a href="#"><i class="ri-instagram-fill"></i></a>
+            <a href="#"><i class="ri-youtube-fill"></i></a>
+            <a href="#"><i class="ri-whatsapp-fill"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer__bar">
+        <p>&copy; 2025 Journey Village Church. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
+      authDomain: "journeyvill.firebaseapp.com",
+      projectId: "journeyvill",
+      storageBucket: "journeyvill.firebasestorage.app",
+      messagingSenderId: "494172807963",
+      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
+      measurementId: "G-E1RNC9M7CK"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Tab switching
+    function openTab(tabName) {
+      // Update active tab button
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.tab-btn[onclick="openTab('${tabName}')"]`).classList.add('active');
+      
+      // Show active tab content
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+
+      // Load content if empty
+      if (tabName === 'events' && document.getElementById('events-list').children.length === 1) {
+        loadEvents();
+      } else if (tabName === 'announcements' && document.getElementById('announcements-list').children.length === 1) {
+        loadAnnouncements();
+      }
+    }
+
+    // Load Events
+    async function loadEvents() {
+      const eventsContainer = document.getElementById("events-list");
+      
+      try {
+        const querySnapshot = await getDocs(collection(db, "events"));
+        
+        if (querySnapshot.empty) {
+          eventsContainer.innerHTML = `
+            <div class="empty-state">
+              <h3>No Upcoming Events</h3>
+              <p>Check back later for our upcoming events and gatherings.</p>
+            </div>
+          `;
+          return;
+        }
+
+        eventsContainer.innerHTML = '';
+        
+        querySnapshot.forEach((doc) => {
+          const event = doc.data();
+          const eventDate = event.date.toDate();
+          const formattedDate = eventDate.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          });
+          const formattedTime = eventDate.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+          
+          const card = document.createElement("div");
+          card.className = "event-card";
+          card.innerHTML = `
+            <div class="card-header">
+              <h3>${event.title}</h3>
+            </div>
+            <div class="card-body">
+              <div class="card-date">
+                <i class="ri-calendar-event-line"></i> ${formattedDate} at ${formattedTime}
+              </div>
+              ${event.location ? `
+                <div class="card-location">
+                  <i class="ri-map-pin-line"></i> ${event.location}
+                </div>
+              ` : ''}
+              <p class="card-description">${event.description}</p>
+            </div>
+            ${event.signupLink ? `
+              <div class="card-actions">
+                <a href="${event.signupLink}" target="_blank" class="btn btn-primary">
+                  <i class="ri-user-add-line"></i> Sign Up
+                </a>
+              </div>
+            ` : ""}
+          `;
+          eventsContainer.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Error loading events:", err);
+        eventsContainer.innerHTML = `
+          <div class="empty-state">
+            <h3>Unable to Load Events</h3>
+            <p>Please check your connection and try again later.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Load Announcements
+    async function loadAnnouncements() {
+      const announcementsContainer = document.getElementById("announcements-list");
+      
+      try {
+        const querySnapshot = await getDocs(collection(db, "announcements"));
+        
+        if (querySnapshot.empty) {
+          announcementsContainer.innerHTML = `
+            <div class="empty-state">
+              <h3>No Announcements</h3>
+              <p>There are no announcements at this time.</p>
+            </div>
+          `;
+          return;
+        }
+
+        announcementsContainer.innerHTML = '';
+        
+        querySnapshot.forEach((doc) => {
+          const ann = doc.data();
+          const annDate = ann.date.toDate();
+          const formattedDate = annDate.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          });
+          
+          const card = document.createElement("div");
+          card.className = "announcement-card";
+          card.innerHTML = `
+            <div class="card-header">
+              <h3>${ann.title}</h3>
+            </div>
+            <div class="card-body">
+              <div class="card-date">
+                <i class="ri-calendar-line"></i> Posted on ${formattedDate}
+              </div>
+              <p class="card-description">${ann.description}</p>
+            </div>
+          `;
+          announcementsContainer.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Error loading announcements:", err);
+        announcementsContainer.innerHTML = `
+          <div class="empty-state">
+            <h3>Unable to Load Announcements</h3>
+            <p>Please check your connection and try again later.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Make functions available globally
+    window.openTab = openTab;
+
+    // Load events by default
+    window.addEventListener('DOMContentLoaded', () => {
+      loadEvents();
+    });
+  </script>
+</body>
+</html>

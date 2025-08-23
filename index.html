@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Journey Village Church - A Christ-centered community in Kikuyu">
+  <title>Journey Village Church | Faith, Fellowship, Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header/Hero Section -->
+  <header class="header" id="home">
+    <nav>
+      <div class="nav__bar">
+        <div class="logo nav__logo">
+          <a href="/"><img src="logo.png" alt="Journey Village Church Logo" loading="lazy"></a>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="/" class="active">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="giving.html">Giving</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+        
+        <!-- Account Authentication Modal -->
+        <div class="account-modal" id="account-modal">
+          <div class="modal-content">
+            <span class="close-modal" id="account-modal-close">&times;</span>
+            
+            <div class="auth-tabs">
+              <button class="auth-tab active" data-tab="login">Sign In</button>
+              <button class="auth-tab" data-tab="register">Create Account</button>
+            </div>
+            
+            <!-- Login -->
+            <div class="auth-content active" id="login">
+              <form class="auth-form" id="login-form">
+                <div class="form-group">
+                  <label for="login-email">Email</label>
+                  <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                  <label for="login-password">Password</label>
+                  <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn__primary">Sign In</button>
+                <a href="#forgot-password" class="text-link">Forgot password?</a>
+              </form>
+            </div>
+            
+            <!-- Register -->
+            <div class="auth-content" id="register">
+              <form class="auth-form" id="register-form">
+                <div class="form-group">
+                  <label for="reg-email">Email</label>
+                  <input type="email" id="reg-email" required>
+                </div>
+                <div class="form-group">
+                  <label for="reg-password">Password</label>
+                  <input type="password" id="reg-password" minlength="8" required>
+                </div>
+                <button type="submit" class="btn btn__primary">Create Account</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-modal" id="username-modal" style="display:none;">
+          <div class="modal-content">
+            <span class="close-modal" id="username-modal-close">&times;</span>
+            <h3>Choose a Username</h3>
+            <form id="username-form">
+              <div class="form-group">
+                <label for="username-input">Username</label>
+                <input type="text" id="username-input" required>
+              </div>
+              <button type="submit" class="btn btn__primary">Save Username</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="nav__action__btn">
+          <button class="btn" id="account-btn">
+            <span><i class="ri-user-line"></i></span> Account
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero__content">
+      <div class="hero__text">
+        <h3>A Christ-Centered Community in Kikuyu</h3>
+        <h1>Find Belonging, Grow in Faith</h1>
+        <p>Sunday Services at 10:30AM</p>
+        <div class="hero__cta">
+          <a href="/visit" class="btn btn__primary">Visit Us</a>
+          <a href="/live" class="btn btn__outline">Our Youtube Channel</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header__socials">
+      <a href="https://www.facebook.com/p/The-Journey-Village-Kikuyu-100064713729585/" target="_blank" aria-label="Facebook" class="social__icon">
+        <i class="ri-facebook-fill"></i>
+        <span class="tooltip">Facebook</span>
+      </a>
+      <a href="https://wa.me/message/" target="_blank" aria-label="WhatsApp" class="social__icon">
+        <i class="ri-whatsapp-fill"></i>
+        <span class="tooltip">WhatsApp</span>
+      </a>
+      <a href="https://www.instagram.com/journeyvillage.ke/" target="_blank" aria-label="Instagram" class="social__icon">
+        <i class="ri-instagram-fill"></i>
+        <span class="tooltip">Instagram</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Sections -->
+  <main>
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="section__container">
+        <h2 class="section__upperheader">Our Community</h2>
+        
+        <div class="about__grid">
+          <div class="about__card">
+            <div class="about__image">
+              <img src="images/worship.jpg" alt="Worship service" loading="lazy">
+            </div>
+            <div class="about__text">
+              <h3>Sunday Worship</h3>
+              <p>Come encounter God through heartfelt worship, joyful praise, and a welcoming community.</p>
+              <a href="/services" class="btn btn__outline">
+                Service Times <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="about__card reverse">
+            <div class="about__image">
+              <img src="images/comm.jpg" alt="Small group gathering" loading="lazy">
+            </div>
+            <div class="about__text">
+              <h3>Small Groups</h3>
+              <p>Build meaningful relationships and grow spiritually through weekly home-based gatherings.</p>
+              <a href="/groups" class="btn btn__outline">
+                Find a Group <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="about__card">
+            <div class="about__image">
+              <img src="images/pastor.jpg" alt="Worship service" loading="lazy">
+            </div>
+            <div class="about__text">
+              <h3>Biblical Preaching</h3>
+              <p>Be encouraged and challenged by dynamic sermons that bring God’s Word to life.</p>
+              <a href="/services" class="btn btn__outline">
+                Service Times <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Ministries Section -->
+    <section class="ministries">
+      <div class="section__container">
+        <h2 class="section__upperheader">Serve With Us</h2>
+        
+        <div class="ministries__grid">
+          <div class="ministry__card">
+            <div class="ministry__icon">
+              <i class="ri-team-line"></i>
+            </div>
+            <h3>Sunday School</h3>
+            <p>Nurturing young hearts through engaging Bible lessons and activities.</p>
+          </div>
+          
+          <div class="ministry__card">
+            <div class="ministry__icon">
+              <i class="ri-music-2-line"></i>
+            </div>
+            <h3>Worship</h3>
+            <p>Using musical gifts to lead the congregation in praise.</p>
+          </div>
+          
+          <div class="ministry__card">
+            <div class="ministry__icon">
+              <i class="ri-community-line"></i>
+            </div>
+            <h3>Outreach</h3>
+            <p>Serving our local community with practical help and hope.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Giving Section -->
+    <section class="giving">
+      <div class="section__container">
+        <div class="giving__content">
+          <h2 class="section__header">Your Generosity Changes Lives</h2>
+          <p>When you give to Journey Village, you support:</p>
+          <ul class="giving__list">
+            <li><i class="ri-check-line"></i> Local community outreach programs</li>
+            <li><i class="ri-check-line"></i> Discipleship materials and training</li>
+            <li><i class="ri-check-line"></i> Church facilities and operations</li>
+          </ul>
+          <a href="giving.html" class="btn btn__primary">Give Online</a>
+        </div>
+        <div class="giving__image">
+          <img src="images/outreach.jpg" alt="Community outreach" loading="lazy">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+          <img src="logo.png" alt="Journey Village Church Logo" loading="lazy">
+        </div>
+        <p>QM54+ J2H, Rungiri<br>Kiambu, Kenya</p>
+        <div class="footer__socials">
+          <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+          <a href="#" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
+          <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer__col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/beliefs">Our Beliefs</a></li>
+          <li><a href="/sermons">Sermons</a></li>
+          <li><a href="/events">Events</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h3>Get Involved</h3>
+        <ul>
+          <li><a href="/serve">Serve</a></li>
+          <li><a href="/give">Give</a></li>
+          <li><a href="/prayer">Prayer</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer__bottom">
+      <p>&copy; 2025 Journey Village Church. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script type="module">
+import { 
+  initializeApp 
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  onAuthStateChanged, 
+  signOut 
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import { 
+  getFirestore, 
+  doc, 
+  setDoc, 
+  getDoc,
+  getDocs,
+  query,
+  collection,
+  where
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+// ✅ Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
+  authDomain: "journeyvill.firebaseapp.com",
+  projectId: "journeyvill",
+  storageBucket: "journeyvill.firebasestorage.app",
+  messagingSenderId: "494172807963",
+  appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
+  measurementId: "G-E1RNC9M7CK"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// 🔑 Pastor UID (replace with actual UID from Firebase Auth console)
+const PASTOR_UID = "DV79sAoDttTb5MR3uEDyBCGvlbm1";
+
+// 🔹 Register
+document.getElementById("register-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("reg-email").value;
+  const password = document.getElementById("reg-password").value;
+
+  try {
+    const userCred = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCred.user;
+
+    // Create Firestore profile without username yet
+    await setDoc(doc(db, "users", user.uid), {
+      email: email,
+      username: null,
+      role: user.uid === PASTOR_UID ? "admin" : "member"
+    });
+
+    alert("✅ Account created. Please choose a username.");
+    closeModal();
+    showUsernameModal();
+
+  } catch (err) {
+    alert("❌ " + err.message);
+  }
+});
+
+// 🔹 Login
+document.getElementById("login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    closeModal();
+    // redirection happens in onAuthStateChanged
+  } catch (err) {
+    alert("❌ " + err.message);
+  }
+});
+
+// 🔹 Session Management
+onAuthStateChanged(auth, async (user) => {
+  const accountBtn = document.getElementById("account-btn");
+  if (user) {
+    accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
+
+    // Fetch profile
+    const docRef = doc(db, "users", user.uid);
+    const snap = await getDoc(docRef);
+
+    if (snap.exists()) {
+      const data = snap.data();
+
+      // If no username → force user to pick one
+      if (!data.username) {
+        showUsernameModal();
+        return;
+      }
+
+      // Always redirect admin
+      if (data.role === "admin") {
+        const hasWelcomed = sessionStorage.getItem("welcomed");
+        if (!hasWelcomed) {
+          alert("Welcome Admin 🚀");
+          sessionStorage.setItem("welcomed", "true");
+        }
+        window.location.href = "events-admin.html"; // ✅ always redirect
+        return;
+      }
+
+      // For normal users → only show welcome once
+      const hasWelcomed = sessionStorage.getItem("welcomed");
+      if (!hasWelcomed) {
+        alert("Welcome back, " + data.username + "!");
+        sessionStorage.setItem("welcomed", "true");
+      }
+    }
+  } else {
+    accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
+  }
+});
+
+
+
+// 🔹 Logout / Open Modal
+document.getElementById("account-btn").addEventListener("click", async () => {
+  const user = auth.currentUser;
+  if (user) {
+    await signOut(auth);
+    alert("✅ Signed out");
+  } else {
+    document.getElementById("account-modal").style.display = "block";
+  }
+});
+
+// 🔹 Save Username
+document.getElementById("username-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const username = document.getElementById("username-input").value.trim();
+  const user = auth.currentUser;
+
+  if (!user) return;
+  if (username.length < 3) {
+    alert("❌ Username must be at least 3 characters long.");
+    return;
+  }
+
+  // Check for username uniqueness
+  const usernameQuery = await getDocs(query(collection(db, "users"), where("username", "==", username)));
+  if (!usernameQuery.empty) {
+    alert("❌ Username already taken.");
+    return;
+  }
+
+  try {
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      username: username,
+      role: user.uid === PASTOR_UID ? "admin" : "member"
+    });
+
+    alert("✅ Username set successfully!");
+    closeUsernameModal();
+
+    // Redirect after username set
+    if (user.uid === PASTOR_UID) {
+      window.location.href = "/admin";
+    } else {
+      window.location.href = "index.html";
+    }
+
+  } catch (err) {
+    alert("❌ " + err.message);
+  }
+});
+
+// 🔹 Modal Helpers
+function closeModal() {
+  document.getElementById("account-modal").style.display = "none";
+}
+function showUsernameModal() {
+  document.getElementById("username-modal").style.display = "block";
+}
+function closeUsernameModal() {
+  document.getElementById("username-modal").style.display = "none";
+}
+document.getElementById("account-modal-close").addEventListener("click", closeModal);
+document.getElementById("username-modal-close").addEventListener("click", closeUsernameModal);
+</script>
+</body>
+</html>

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Journey Village Church - A Christ-centered community in Kikuyu">
+  <title>Contact Us | Journey Village Church</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== Base Styles ===== */
+    :root {
+      --primary-color: #1995AD;
+      --secondary-color: #e9c675;
+      --accent-color: #BCB382;
+      --dark-blue: #0E4E64;
+      --light-bg: #F8F9FA;
+      --text-dark: #343A40;
+      --text-light: #F8F9FA;
+      --white: #FFFFFF;
+      --black: #000000;
+      --max-width: 1200px;
+      --header-font: "Playfair Display", serif;
+      --body-font: "Montserrat", sans-serif;
+      --transition: all 0.3s ease;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--body-font);
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--header-font);
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 1rem;
+    }
+
+    .btn__primary {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+    }
+
+    .btn__primary:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+    }
+
+    .btn__outline {
+      border: 2px solid var(--secondary-color);
+      color: var(--secondary-color);
+      background: transparent;
+    }
+
+    .btn__outline:hover {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+    }
+
+    .section__container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 1rem;
+    }
+
+    .section__upperheader {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--secondary-color);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section__upperheader::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--secondary-color);
+      margin: 1rem auto;
+    }
+
+    .section__header {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+    }
+
+    /* ===== Header/Hero ===== */
+    .header-contact {
+      position: relative;
+      min-height: 60vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                  url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-contact-content {
+      max-width: 800px;
+      padding: 2rem;
+      margin-top: 200px;
+      margin-bottom: 100px;
+    }
+
+    .hero-contact-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      line-height: 1.1;
+    }
+
+    .hero-contact-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Navigation */
+    .nav__bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+      transition: var(--transition);
+    }
+
+    .logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-weight: 600;
+      color: var(--white);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .nav__links a:hover::after,
+    .nav__links a.active::after {
+      width: 100%;
+    }
+
+    .nav__menu__btn {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--white);
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    /* ===== Contact Section ===== */
+    .contact-section {
+      background-color: var(--light-bg);
+      
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .info-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .info-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--secondary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--text-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .info-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark-blue);
+    }
+
+    .info-card p {
+      margin-bottom: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark-blue);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(25, 149, 173, 0.2);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Status Message */
+    .status-message {
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+
+    .status-message.success {
+      display: block;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status-message.error {
+      display: block;
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Map Section */
+    .map-section {
+      padding: 5rem 0;
+      background: var(--white);
+    }
+
+    .map-container {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      height: 400px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Service Times */
+    .service-times {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 5rem 0;
+      text-align: center;
+    }
+
+    .service-times .section__header {
+      color: var(--white);
+    }
+
+    .times-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .time-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+
+    .time-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+
+    .time-card p {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background-color: var(--dark-blue);
+      color: var(--text-light);
+      padding-top: 5rem;
+    }
+
+    .footer__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .footer__logo img {
+      width: 180px;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer__col p {
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+
+    .footer__socials {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer__socials a {
+      font-size: 1.2rem;
+      color: var(--white);
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer__socials a:hover {
+      opacity: 1;
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    .footer__col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+    }
+
+    .footer__col ul {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .footer__col ul li {
+      margin-bottom: 1rem;
+    }
+
+    .footer__col ul li a {
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer__col ul li a:hover {
+      opacity: 1;
+      color: var(--secondary-color);
+      padding-left: 5px;
+    }
+
+    .footer__bottom {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 992px) {
+      .section__header {
+        font-size: 2rem;
+      }
+      
+      .hero-contact-content h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--dark-blue);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      .nav__links.active {
+        left: 0;
+      }
+
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero-contact-content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero-contact-content {
+        margin-top: 60px; /* Adjusted for mobile */
+      }
+    }
+
+    @media (max-width: 576px) {
+      html {
+        font-size: 14px;
+      }
+
+      .section__container {
+        padding: 3rem 1rem;
+      }
+
+      .hero-contact-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-contact-content p {
+        font-size: 1rem;
+      }
+      
+      .contact-form {
+        padding: 1.5rem;
+      }
+      
+      .hero-contact-content {
+        margin-top: 50px; /* Adjusted for small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header/Hero Section -->
+  <header class="header-contact" id="home">
+    <nav>
+      <div class="nav__bar">
+        <!-- Left: Logo -->
+        <div class="logo nav__logo">
+          <a href="/"><img src="logo.png" alt="Journey Village Church Logo"></a>
+        </div>
+
+        <!-- Center: Links -->
+        <ul class="nav__links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="giving.html">Giving</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+
+        <!-- Right: Account button -->
+        <div class="nav__actions">
+          <button id="account-btn" class="btn btn__outline">Login</button>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <hr>
+    <br>
+
+    <div class="hero-contact-content">
+      <h1>Get In Touch With Us</h1>
+      <p>We'd love to hear from you. Reach out to us with any questions, prayer requests, or to learn more about our community.</p>
+    </div>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="section__container">
+      <h2 class="section__upperheader">Contact Us</h2>
+      
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="ri-map-pin-line"></i>
+            </div>
+            <h3>Our Location</h3>
+            <p>QM54+ J2H, Rungiri</p>
+            <p>Kiambu, Kenya</p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="ri-phone-line"></i>
+            </div>
+            <h3>Phone Number</h3>
+            <p>0113 713 742</p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="ri-mail-line"></i>
+            </div>
+            <h3>Email Address</h3>
+            <p>info@journeyvillage.org</p>
+            <p>pastor@journeyvillage.org</p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="ri-chat-smile-2-line"></i>
+            </div>
+            <h3>Follow Us</h3>
+          
+            <p>Stay connected through our social media channels</p>
+            <div class="social-links">
+              <a href="https://www.facebook.com/p/The-Journey-Village-Kikuyu-100064713729585/" target="_blank" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+              <a href="https://www.instagram.com/journeyvillage.ke/" target="_blank" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
+              <a href="#" aria-label="YouTube" target="_blank"><i class="ri-youtube-fill"></i></a>
+              <a href="https://wa.me/message/" target="_blank" aria-label="WhatsApp"><i class="ri-whatsapp-fill"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <h3>Send Us a Message</h3>
+          <div id="status-message" class="status-message"></div>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Phone Number (Optional)</label>
+              <input type="tel" id="phone">
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" required>
+                <option value="">Select a subject</option>
+                <option value="prayer">Prayer Request</option>
+                <option value="question">General Question</option>
+                <option value="visit">Planning a Visit</option>
+                <option value="ministry">Ministry Inquiry</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn__primary" id="submit-btn">
+              <span id="submit-text">Send Message</span>
+              <span id="loading-spinner" style="display: none;">
+                <i class="ri-loader-4-line ri-spin"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="section__container">
+      <h2 class="section__upperheader">Find Us</h2>
+      <div class="map-container">
+        <iframe width="500px" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?q=Journey%20Village%20Church&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Times -->
+  <section class="service-times">
+    <div class="section__container">
+      <h2 class="section__upperheader">Join Us</h2>
+      <h2 class="section__header">Service Times</h2>
+      
+      <div class="times-grid">
+        <div class="time-card">
+          <h3>Sunday Worship</h3>
+          <p>10:30 AM - 12:30 PM</p>
+          <p>Main Sanctuary</p>
+        </div>
+        
+        <div class="time-card">
+          <h3>Sunday School</h3>
+          <p>10:30 AM - 12:30 PM</p>
+          <p>Children's Building</p>
+        </div>
+        
+        <div class="time-card">
+          <h3>Saturday Prayer</h3>
+          <p>Saturday, 8:00 AM</p>
+          <p>Main Sanctuary</p>
+        </div>
+        
+        <div class="time-card">
+          <h3>Bible Study</h3>
+          <p>Thursday, 5:30 PM</p>
+          <p>Fellowship Hall</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+          <img src="logo.png" alt="Journey Village Church Logo">
+        </div>
+        <p>QM54+ J2H, Rungiri<br>Kiambu, Kenya</p>
+        <div class="footer__socials">
+          <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+          <a href="#" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
+          <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer__col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h3>Get Involved</h3>
+        <ul>
+          <li><a href="events.html">Serve</a></li>
+          <li><a href="giving.html">Give</a></li>
+          <li><a href="contact.html">Visit Us</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer__bottom">
+      <p>&copy; 2025 Journey Village Church. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
+      authDomain: "journeyvill.firebaseapp.com",
+      projectId: "journeyvill",
+      storageBucket: "journeyvill.firebasestorage.app",
+      messagingSenderId: "494172807963",
+      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
+      measurementId: "G-E1RNC9M7CK"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Check authentication state
+    onAuthStateChanged(auth, (user) => {
+      const accountBtn = document.getElementById('account-btn');
+      
+      if (user) {
+        // User is signed in
+        accountBtn.textContent = 'Logout';
+        accountBtn.onclick = handleLogout;
+      } else {
+        // User is signed out
+        accountBtn.textContent = 'Login';
+        accountBtn.onclick = redirectToLogin;
+      }
+    });
+
+    // Handle logout
+    function handleLogout() {
+      signOut(auth).then(() => {
+        // Sign-out successful
+        alert('You have been logged out successfully.');
+        window.location.reload();
+      }).catch((error) => {
+        // An error happened
+        console.error('Logout error:', error);
+        alert('Error logging out. Please try again.');
+      });
+    }
+
+    // Redirect to login page
+    function redirectToLogin() {
+      window.location.href = 'index.html'; // Redirect to your login page
+    }
+
+    // Contact form submission
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Simple validation
+      if (!name || !email || !subject || !message) {
+        showStatus('Please fill in all required fields', 'error');
+        return;
+      }
+      
+      // Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        showStatus('Please enter a valid email address', 'error');
+        return;
+      }
+      
+      // Show loading state
+      const submitBtn = document.getElementById('submit-btn');
+      const submitText = document.getElementById('submit-text');
+      const loadingSpinner = document.getElementById('loading-spinner');
+      
+      submitText.style.display = 'none';
+      loadingSpinner.style.display = 'inline-block';
+      submitBtn.disabled = true;
+      
+      try {
+        // Save to Firestore
+        await addDoc(collection(db, "contactSubmissions"), {
+          name: name,
+          email: email,
+          phone: phone || 'Not provided',
+          subject: subject,
+          message: message,
+          timestamp: serverTimestamp(),
+          status: 'new'
+        });
+        
+        // Show success message
+        showStatus('Thank you for your message! We will get back to you soon.', 'success');
+        
+        // Reset form
+        document.getElementById('contactForm').reset();
+      } catch (error) {
+        console.error("Error saving contact form: ", error);
+        showStatus('Sorry, there was an error sending your message. Please try again later.', 'error');
+      } finally {
+        // Reset loading state
+        submitText.style.display = 'inline-block';
+        loadingSpinner.style.display = 'none';
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Function to show status messages
+    function showStatus(message, type) {
+      const statusElement = document.getElementById('status-message');
+      statusElement.textContent = message;
+      statusElement.className = `status-message ${type}`;
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        statusElement.style.display = 'none';
+      }, 5000);
+    }
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') 
+          ? '<i class="ri-close-line"></i>' 
+          : '<i class="ri-menu-line"></i>';
+      });
+    }
+  </script>
+</body>
+</html>

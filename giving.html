@@ -6,154 +6,840 @@
   <title>Give | Journey Village Church</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-
-    // ✅ Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
-      authDomain: "journeyvill.firebaseapp.com",
-      projectId: "journeyvill",
-      storageBucket: "journeyvill.firebasestorage.app",
-      messagingSenderId: "494172807963",
-      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
-      measurementId: "G-E1RNC9M7CK"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // ✅ Handle login form
-    const loginForm = document.getElementById("login-form");
-    if (loginForm) {
-      loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = document.getElementById("login-email").value;
-        const password = document.getElementById("login-password").value;
-
-        try {
-          const userCredential = await signInWithEmailAndPassword(auth, email, password);
-          const token = await userCredential.user.getIdToken();
-          localStorage.setItem("authToken", token);
-          alert("Login successful ✅");
-          window.location.href = "index.html"; // or check role and redirect
-        } catch (err) {
-          alert("Login failed: " + err.message);
-        }
-      });
+  <style>
+    /* ===== Base Styles ===== */
+    :root {
+      --primary-color: #1995AD;
+      --secondary-color: #e9c675;
+      --accent-color: #BCB382;
+      --dark-blue: #0E4E64;
+      --light-bg: #F8F9FA;
+      --text-dark: #343A40;
+      --text-light: #F8F9FA;
+      --white: #FFFFFF;
+      --black: #000000;
+      --max-width: 1200px;
+      --header-font: "Playfair Display", serif;
+      --body-font: "Montserrat", sans-serif;
+      --transition: all 0.3s ease;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
-    // ✅ Logout function
-    window.logout = function () {
-      signOut(auth).then(() => {
-        localStorage.removeItem("authToken");
-        window.location.href = "login.html";
-      });
-    };
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    // ✅ Auto-check session on page load
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        console.log("Not logged in");
-        // optional: window.location.href = "login.html";
-      } else {
-        console.log("Logged in as:", user.email);
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--body-font);
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--header-font);
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 1rem;
+    }
+
+    .btn__primary {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+    }
+
+    .btn__primary:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+    }
+
+    .btn__outline {
+      border: 2px solid var(--secondary-color);
+      color: var(--secondary-color);
+      background: transparent;
+    }
+
+    .btn__outline:hover {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+    }
+
+    .section__container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 1rem;
+    }
+
+    .section__upperheader {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--secondary-color);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section__upperheader::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--secondary-color);
+      margin: 1rem auto;
+    }
+
+    .section__header {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+      text-align: center; /* Added to ensure center alignment */
+    }
+
+    /* ===== Header/Hero ===== */
+    .header {
+      position: relative;
+      min-height: 60vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                  url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero__content {
+      max-width: 800px;
+      padding: 2rem;
+      margin: 0 auto; /* Added to ensure centering */
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Added to center content */
+      justify-content: center; /* Added to center content */
+    }
+
+    .hero__content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .hero__content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    /* Navigation - FIXED */
+    .nav__bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+      transition: var(--transition);
+    }
+
+    .logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .nav__container {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Changed from space-between */
+      width: 100%;
+      position: relative;
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+      margin: 0; /* Removed auto margin */
+    }
+
+    .nav__links a {
+      font-weight: 600;
+      color: var(--white);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .nav__links a:hover::after,
+    .nav__links a.active::after {
+      width: 100%;
+    }
+
+    /* Account Button - Gold Style */
+    .nav__action__btn {
+      position: absolute;
+      right: 2rem;
+    }
+
+    .nav__action__btn .btn {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+      border: 2px solid var(--secondary-color);
+    }
+
+    .nav__action__btn .btn:hover {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+    }
+
+    /* Giving Hero Section - FIXED */
+    .giving-hero {
+      background: linear-gradient(rgba(25, 149, 173, 0.85), rgba(25, 149, 173, 0.9)), 
+                  url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+      color: white;
+      padding: 6rem 1rem;
+      text-align: center;
+      display: flex;
+      padding-top: 170px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+    }
+
+    .giving-hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .scripture {
+      font-style: italic;
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .scripture span {
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+
+    /* Donation Cards */
+    .donation-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .donation-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .donation-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      background: var(--primary-color);
+      color: white;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .card-header i {
+      font-size: 1.8rem;
+    }
+
+    .card-header h3 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .card-footer {
+      padding: 1rem 1.5rem;
+      background: #f9f9f9;
+      border-top: 1px solid #eee;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .card-footer i {
+      margin-right: 0.5rem;
+      color: var(--secondary-color);
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark-blue);
+    }
+
+    .input-with-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-with-icon .currency,
+    .input-with-icon .prefix {
+      padding: 0 12px;
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-right: none;
+      border-radius: 5px 0 0 5px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+    }
+
+    .input-with-icon input {
+      flex: 1;
+      border-radius: 0 5px 5px 0;
+      height: 48px;
+      padding: 0 12px;
+      border: 1px solid #ddd;
+      border-left: none;
+    }
+
+    input[type="number"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .hint {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.8rem;
+      color: 666;
+    }
+
+    /* Amount Options */
+    .amount-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .amount-option {
+      padding: 10px;
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .amount-option:hover {
+      background: #eee;
+    }
+
+    .amount-option.active {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      border-color: var(--secondary-color);
+      font-weight: 600;
+    }
+
+    #custom-amount {
+      grid-column: span 3;
+    }
+
+    /* Payment Status */
+    .payment-status {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .payment-status.success {
+      display: block;
+      background: rgba(40, 167, 69, 0.1);
+      border: 1px solid rgba(40, 167, 69, 0.3);
+      color: #28a745;
+    }
+
+    .payment-status.error {
+      display: block;
+      background: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.3);
+      color: #dc3545;
+    }
+
+    .payment-status i {
+      margin-right: 8px;
+    }
+
+    /* Bank Details */
+    .bank-details {
+      margin: 1.5rem 0;
+    }
+
+    .detail-row {
+      display: flex;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px dashed #eee;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      width: 120px;
+      color: var(--dark-blue);
+    }
+
+    .detail-value {
+      flex: 1;
+    }
+
+    .copy-btn {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    /* Popular Badge */
+    .popular-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* FAQ Styles */
+    .faq-container {
+      max-width: 800px;
+      margin: 3rem auto 0;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.2rem;
+      text-align: left;
+      background: white;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: var(--dark-blue);
+      cursor: pointer;
+    }
+
+    .faq-question i {
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #f9f9f9;
+    }
+
+    .faq-answer p {
+      padding: 0 1.2rem 1.2rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+    }
+
+    /* Payment Modal */
+    .payment-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      overflow: hidden;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-body {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .loader {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .loader-circle {
+      width: 12px;
+      height: 12px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      animation: bounce 1s infinite ease-in-out;
+    }
+
+    .loader-circle:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .loader-circle:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    #payment-message {
+      margin-bottom: 0.5rem;
+    }
+
+    #payment-details {
+      color: 666;
+      font-size: 0.9rem;
+    }
+
+    #close-payment-modal {
+      width: 100%;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--dark-blue);
+      color: var(--text-light);
+      padding-top: 5rem;
+    }
+
+    .footer__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .footer__logo img {
+      width: 180px;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer__col p {
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+
+    .footer__socials {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer__socials a {
+      font-size: 1.2rem;
+      color: var(--white);
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer__socials a:hover {
+      opacity: 1;
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    .footer__col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+    }
+
+    .footer__col ul {
+      list-style: none;
+    }
+
+    .footer__col ul li {
+      margin-bottom: 1rem;
+    }
+
+    .footer__col ul li a {
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer__col ul li a:hover {
+      opacity: 1;
+      color: var(--secondary-color);
+      padding-left: 5px;
+    }
+
+    .footer__bottom {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 992px) {
+      .section__header {
+        font-size: 2rem;
       }
-    });
-  </script>
+      
+      .hero__content h1 {
+        font-size: 2.8rem;
+      }
+      
+      .nav__container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .nav__links {
+        margin: 0;
+      }
+    }
 
+    @media (max-width: 768px) {
+      .nav__bar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      
+      .nav__container {
+        width: 100%;
+        flex-direction: column;
+      }
+      
+      .nav__links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      
+      .nav__action__btn {
+        position: static;
+        margin-top: 1rem;
+      }
+      
+      .hero__content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .giving-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .donation-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .amount-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      #custom-amount {
+        grid-column: span 2;
+      }
+    }
 
-  <!-- Header (Same as your main site) -->
-  <header class="header" id="home">
+    @media (max-width: 576px) {
+      html {
+        font-size: 14px;
+      }
+
+      .section__container {
+        padding: 3rem 1rem;
+      }
+
+      .hero__content h1 {
+        font-size: 2rem;
+      }
+
+      .hero__content p {
+        font-size: 1rem;
+      }
+      
+      .nav__links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .nav__action__btn {
+        margin: 1rem 0 0 0;
+      }
+      
+      .giving-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .detail-row {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .detail-label {
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header class="giving-hero" id="home">
     <nav>
       <div class="nav__bar">
-        <div class="logo nav__logo">
-          <a href="/"><img src="logo.png" alt="Journey Village Church Logo" loading="lazy"></a>
+        <div class="logo">
+          <a href="/"><img src="logo.png" alt="Journey Village Church Logo"></a>
         </div>
-        <ul class="nav__links" id="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="/about">About Us</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="giving.html" class="active">Giving</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/news">News</a></li>
-        </ul>
-        <div class="nav__menu__btn" id="menu-btn">
-          <i class="ri-menu-line"></i>
-        </div>
-        <!-- Account Authentication Modal -->
-        <div class="account-modal" id="account-modal">
-          <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            
-            <div class="auth-tabs">
-              <button class="auth-tab active" data-tab="login">Sign In</button>
-              <button class="auth-tab" data-tab="register">Create Account</button>
-            </div>
-            
-            <div class="auth-content active" id="login">
-              <form class="auth-form" id="login-form">
-                <div class="form-group">
-                  <label for="login-email">Email or Phone</label>
-                  <input type="text" id="login-email" required>
-                </div>
-                <div class="form-group">
-                  <label for="login-password">Password</label>
-                  <input type="password" id="login-password" required>
-                </div>
-                <button type="submit" class="btn btn__primary">Sign In</button>
-                <a href="#forgot-password" class="text-link">Forgot password?</a>
-              </form>
-            </div>
-            
-            <div class="auth-content" id="register">
-              <form class="auth-form" id="register-form">
-                <div class="form-group">
-                  <label for="reg-name">Full Name</label>
-                  <input type="text" id="reg-name" required>
-                </div>
-                <div class="form-group">
-                  <label for="reg-phone">Phone Number</label>
-                  <input type="tel" id="reg-phone" pattern="[0-9]{10}" required>
-                  <small>Format: 07XXXXXXXX</small>
-                </div>
-                <div class="form-group">
-                  <label for="reg-email">Email</label>
-                  <input type="email" id="reg-email">
-                </div>
-                <div class="form-group">
-                  <label for="reg-password">Password</label>
-                  <input type="password" id="reg-password" minlength="8" required>
-                </div>
-                <button type="submit" class="btn btn__primary">Create Account</button>
-              </form>
-            </div>
+        
+        <div class="nav__container">
+          <ul class="nav__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="giving.html" class="active">Giving</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          
+          <div class="nav__action__btn">
+            <button class="btn" id="account-btn">
+              <span><i class="ri-user-line"></i></span> Login
+            </button>
           </div>
-        </div>
-        <div class="nav__action__btn">
-          <button class="btn" id="account-btn">
-            <span><i class="ri-user-line"></i></span> Account
-          </button>
         </div>
       </div>
     </nav>
+
+    <div class="hero__content">
+      <h1>Partner With Our Mission</h1>
+      <p class="scripture">"Each of you should give what you have decided in your heart to give..." <br><span>2 Corinthians 9:7</span></p>
+    </div>
   </header>
 
   <!-- Main Giving Content -->
   <main class="giving-page">
-    <section class="giving-hero">
-      <div class="section__container">
-        <div class="hero-content">
-          <h1>Partner With Our Mission</h1>
-          <p class="scripture">"Each of you should give what you have decided in your heart to give..." <br><span>2 Corinthians 9:7</span></p>
-        </div>
-      </div>
-    </section>
-
     <section class="giving-options">
       <div class="section__container">
         <h2 class="section__upperheader">Ways to Give</h2>
@@ -203,19 +889,19 @@
               <div class="bank-details">
                 <div class="detail-row">
                   <span class="detail-label">Bank Name:</span>
-                  <span class="detail-value">Kenya Commercial Bank</span>
+                  <span class="detail-value">NCBA Bank</span>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Account Name:</span>
-                  <span class="detail-value">Journey Village Church</span>
+                  <span class="detail-value">International Christian Centre</span>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Account Number:</span>
-                  <span class="detail-value">1234567890</span>
+                  <span class="detail-value">1318960048</span>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Branch:</span>
-                  <span class="detail-value">Kikuyu</span>
+                  <span class="detail-value">NCBA House</span>
                 </div>
               </div>
               <button class="btn btn__outline copy-btn" data-clipboard-text="Journey Village Church, KCB Kikuyu, A/C 1234567890">
@@ -307,7 +993,7 @@
     <div class="section__container footer__container">
       <div class="footer__col">
         <div class="footer__logo">
-          <img src="logo.png" alt="Journey Village Church Logo" loading="lazy">
+          <img src="logo.png" alt="Journey Village Church Logo">
         </div>
         <p>QM54+ J2H, Rungiri<br>Kiambu, Kenya</p>
         <div class="footer__socials">
@@ -321,19 +1007,17 @@
         <h3>Quick Links</h3>
         <ul>
           <li><a href="/about">About Us</a></li>
-          <li><a href="/beliefs">Our Beliefs</a></li>
-          <li><a href="/sermons">Sermons</a></li>
-          <li><a href="/events">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="events.html">Events</a></li>
         </ul>
       </div>
       
       <div class="footer__col">
         <h3>Get Involved</h3>
         <ul>
-          <li><a href="/serve">Serve</a></li>
-          <li><a href="/give">Give</a></li>
-          <li><a href="/prayer">Prayer</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="events.html">Serve</a></li>
+          <li><a href="giving.html">Give</a></li>
+          <li><a href="contact.html">Visit Us</a></li>
         </ul>
       </div>
     </div>
@@ -343,23 +1027,100 @@
     </div>
   </footer>
 
-  <!-- Payment Processing Modal -->
-  <div class="payment-modal" id="payment-modal">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="loader" id="payment-loader">
-          <div class="loader-circle"></div>
-          <div class="loader-circle"></div>
-          <div class="loader-circle"></div>
-        </div>
-        <h3 id="payment-message">Processing your donation...</h3>
-        <p id="payment-details"></p>
-      </div>
-      <button class="btn btn__outline" id="close-payment-modal">Close</button>
-    </div>
-  </div>
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  <script src="giving.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
+      authDomain: "journeyvill.firebaseapp.com",
+      projectId: "journeyvill",
+      storageBucket: "journeyvill.firebasestorage.app",
+      messagingSenderId: "494172807963",
+      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
+      measurementId: "G-E1RNC9M7CK"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Check authentication state
+    onAuthStateChanged(auth, (user) => {
+      const accountBtn = document.getElementById('account-btn');
+      
+      if (user) {
+        // User is signed in
+        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
+        accountBtn.onclick = handleLogout;
+      } else {
+        // User is signed out
+        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
+        accountBtn.onclick = redirectToLogin;
+      }
+    });
+
+    // Handle logout
+    function handleLogout() {
+      signOut(auth).then(() => {
+        // Sign-out successful
+        alert('You have been logged out successfully.');
+        window.location.reload();
+      }).catch((error) => {
+        // An error happened
+        console.error('Logout error:', error);
+        alert('Error logging out. Please try again.');
+      });
+    }
+
+    // Redirect to login page
+    function redirectToLogin() {
+      window.location.href = 'index.html'; // Redirect to your login page
+    }
+
+    // FAQ functionality
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.parentElement;
+        faqItem.classList.toggle('active');
+      });
+    });
+
+    // Amount options selection
+    document.querySelectorAll('.amount-option').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.amount-option').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById('custom-amount').value = button.getAttribute('data-amount');
+      });
+    });
+
+    // Copy bank details
+    document.querySelector('.copy-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const text = this.getAttribute('data-clipboard-text');
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Bank details copied to clipboard!');
+      });
+    });
+
+    // Form submissions (simulated)
+    document.getElementById('mpesa-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const amount = document.getElementById('amount').value;
+      const phone = document.getElementById('phone').value;
+      
+      document.getElementById('mpesa-status').className = 'payment-status success';
+      document.getElementById('mpesa-status').innerHTML = '<i class="ri-check-line"></i> Payment request sent to +254' + phone;
+    });
+
+    document.getElementById('recurring-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Recurring giving setup would be processed here');
+    });
+  </script>
 </body>
 </html>

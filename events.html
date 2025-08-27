@@ -6,6 +6,7 @@
   <title>Events & Announcements - Journey Village Church</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
   <style>
+    /* ===== Base Styles ===== */
     :root {
       --primary-color: #1995AD;
       --secondary-color: #e9c675;
@@ -16,11 +17,11 @@
       --text-light: #F8F9FA;
       --white: #FFFFFF;
       --black: #000000;
+      --max-width: 1200px;
       --header-font: "Playfair Display", serif;
       --body-font: "Montserrat", sans-serif;
       --transition: all 0.3s ease;
       --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      --border-radius: 10px;
     }
 
     * {
@@ -29,94 +30,196 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: var(--body-font);
-      background-color: var(--light-bg);
-      color: var(--text-dark);
       line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--white);
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
+    h1, h2, h3, h4 {
+      font-family: var(--header-font);
+      line-height: 1.2;
     }
 
-    /* Header Styles */
-    header {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 1rem 0;
-      box-shadow: var(--box-shadow);
-    }
-
-    .nav__bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo img {
-      height: 50px;
-      width: auto;
-    }
-
-    .nav__links {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-
-    .nav__links a {
-      color: white;
+    a {
       text-decoration: none;
-      font-weight: 500;
+      color: inherit;
       transition: var(--transition);
-      padding: 0.5rem 1rem;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 1rem;
     }
 
-    .nav__links a:hover {
-      color: var(--secondary-color);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav__links a.active {
+    .btn__primary {
       background-color: var(--secondary-color);
       color: var(--text-dark);
     }
 
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
-                 url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=80') center/cover;
-      color: white;
-      text-align: center;
-      padding: 4rem 1rem;
-      margin-bottom: 3rem;
+    .btn__primary:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
     }
 
-    .hero h1 {
-      font-family: var(--header-font);
-      font-size: 3rem;
-      margin-bottom: 1rem;
+    .btn__outline {
+      border: 2px solid var(--secondary-color);
+      color: var(--secondary-color);
+      background: transparent;
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 600px;
+    .btn__outline:hover {
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+    }
+
+    .section__container {
+      max-width: var(--max-width);
       margin: 0 auto;
+      padding: 5rem 1rem;
     }
 
+    .section__upperheader {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--secondary-color);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section__upperheader::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--secondary-color);
+      margin: 1rem auto;
+    }
+
+    .section__header {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+    }
+
+    /* ===== Header/Hero ===== */
+    .header-contact {
+      position: relative;
+      min-height: 60vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                  url("images/events.jpg") no-repeat center center/cover;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-contact-content {
+      max-width: 800px;
+      padding: 2rem;
+      margin-top: 200px;
+      margin-bottom: 100px;
+    }
+
+    .hero-contact-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      line-height: 1.1;
+    }
+
+    .hero-contact-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Navigation */
+    .nav__bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+      transition: var(--transition);
+    }
+
+    .logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-weight: 600;
+      color: var(--white);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .nav__links a:hover::after,
+    .nav__links a.active::after {
+      width: 100%;
+    }
+
+    .nav__menu__btn {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--white);
+      cursor: pointer;
+      z-index: 11;
+    }
     /* Tabs */
     .tabs {
       display: flex;
@@ -124,56 +227,25 @@
       border-bottom: 2px solid #eee;
     }
 
-    .tab-btn {
-      padding: 1rem 2rem;
-      background: none;
-      border: none;
-      font-size: 1.1rem;
+    .tab {
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
       font-weight: 600;
       color: #888;
-      cursor: pointer;
-      transition: var(--transition);
-      position: relative;
+      border-bottom: 3px solid transparent;
     }
 
-    .tab-btn:hover {
+    .tab.active {
       color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
     }
 
-    .tab-btn.active {
-      color: var(--primary-color);
-    }
-
-    .tab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--primary-color);
-    }
-
-    /* Content Sections */
     .tab-content {
       display: none;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .tab-content.active {
       display: block;
-    }
-
-    .section-title {
-      font-family: var(--header-font);
-      color: var(--dark-blue);
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
     }
 
     /* Cards Grid */
@@ -186,7 +258,7 @@
 
     .event-card, .announcement-card {
       background: var(--white);
-      border-radius: var(--border-radius);
+      border-radius: 10px;
       overflow: hidden;
       box-shadow: var(--box-shadow);
       transition: var(--transition);
@@ -199,14 +271,14 @@
 
     .card-header {
       background: var(--secondary-color);
-      padding: 1.2rem;
+      padding: 1.5rem;
       color: var(--text-dark);
     }
 
     .card-header h3 {
       font-family: var(--header-font);
       margin: 0;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
     }
 
     .card-body {
@@ -241,45 +313,12 @@
       padding: 0 1.5rem 1.5rem;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.5rem;
-      border-radius: 6px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: var(--transition);
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--primary-color);
-      color: var(--white);
-    }
-
-    .btn-primary:hover {
-      background: var(--dark-blue);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary-color);
-      color: var(--primary-color);
-    }
-
-    .btn-outline:hover {
-      background: var(--primary-color);
-      color: var(--white);
-    }
-
     /* Loading and Empty States */
     .loading, .empty-state {
       text-align: center;
       padding: 3rem;
       background: var(--white);
-      border-radius: var(--border-radius);
+      border-radius: 10px;
       box-shadow: var(--box-shadow);
       grid-column: 1 / -1;
     }
@@ -309,138 +348,207 @@
     }
 
     /* Footer */
-    footer {
-      background: var(--dark-blue);
-      color: white;
-      padding: 3rem 0 1.5rem;
-      margin-top: 3rem;
+    .footer {
+      background-color: var(--dark-blue);
+      color: var(--text-light);
+      padding-top: 5rem;
     }
 
     .footer__container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
+      gap: 3rem;
     }
 
-    .footer__col h4 {
-      color: var(--secondary-color);
+    .footer__logo img {
+      width: 180px;
       margin-bottom: 1.5rem;
-      font-size: 1.2rem;
     }
 
-    .footer__col p, .footer__col a {
-      margin-bottom: 1rem;
-      display: block;
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      transition: var(--transition);
-    }
-
-    .footer__col a:hover {
-      color: var(--secondary-color);
+    .footer__col p {
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
     }
 
     .footer__socials {
       display: flex;
       gap: 1rem;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
     }
 
     .footer__socials a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
+      font-size: 1.2rem;
+      color: var(--white);
+      opacity: 0.8;
       transition: var(--transition);
     }
 
     .footer__socials a:hover {
-      background: var(--secondary-color);
-      color: var(--text-dark);
+      opacity: 1;
+      color: var(--secondary-color);
+      transform: translateY(-3px);
     }
 
-    .footer__bar {
+    .footer__col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+    }
+
+    .footer__col ul {
+      list-style: none;
+    }
+
+    .footer__col ul li {
+      margin-bottom: 1rem;
+    }
+
+    .footer__col ul li a {
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer__col ul li a:hover {
+      opacity: 1;
+      color: var(--secondary-color);
+      padding-left: 5px;
+    }
+
+    .footer__bottom {
       text-align: center;
-      padding-top: 1.5rem;
+      padding: 2rem 0;
+      margin-top: 3rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.9rem;
     }
 
-    /* Responsive */
+    /* ===== Responsive Design ===== */
+    @media (max-width: 992px) {
+      .section__header {
+        font-size: 2rem;
+      }
+      
+      .hero-contact-content h1 {
+        font-size: 2.8rem;
+      }
+    }
+
     @media (max-width: 768px) {
-      .nav__bar {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
       .nav__links {
-        flex-wrap: wrap;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--dark-blue);
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
       }
-      
-      .hero h1 {
+
+      .nav__links.active {
+        left: 0;
+      }
+
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero-contact-content h1 {
         font-size: 2.2rem;
       }
       
-      .hero p {
-        font-size: 1rem;
+      .hero-contact-content {
+        margin-top: 60px; /* Adjusted for mobile */
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
       }
       
       .tabs {
         flex-direction: column;
       }
-      
-      .tab-btn {
-        width: 100%;
-        text-align: center;
+    }
+
+   
+    @media (max-width: 576px) {
+      html {
+        font-size: 14px;
+      }
+
+      .section__container {
+        padding: 3rem 1rem;
+      }
+
+      .hero__content h1 {
+        font-size: 2rem;
+      }
+
+      .hero__content p {
+        font-size: 1rem;
       }
       
-      .cards-grid {
-        grid-template-columns: 1fr;
+      .nav__links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .nav__action__btn {
+        margin: 1rem 0 0 0;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header with Navigation -->
-  <header>
-    <div class="container nav__bar">
-      <div class="logo">
-        <img src="https://i.ibb.co/0QYZT8k/church-logo.png" alt="Journey Village Church Logo">
-        Journey Village Church
-      </div>
-      <ul class="nav__links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="events.html" class="active">Events</a></li>
-        <li><a href="giving.html">Giving</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-  </header>
+  <!-- Header/Hero Section -->
+  <header class="header-contact" id="home">
+    <nav>
+      <div class="nav__bar">
+        <!-- Left: Logo -->
+        <div class="logo nav__logo">
+          <a href="/"><img src="logo.png" alt="Journey Village Church Logo"></a>
+        </div>
 
-  <!-- Hero Section -->
-  <div class="hero">
-    <div class="container">
+        <!-- Center: Links -->
+        <ul class="nav__links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="events.html" class="active">Events</a></li>
+          <li><a href="giving.html">Giving</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Right: Account button -->
+        <div class="nav__actions">
+          <button id="account-btn" class="btn btn__outline">Login</button>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <hr>
+    <br>
+
+    <div class="hero-contact-content">
       <h1>Events & Announcements</h1>
       <p>Stay connected with our church community through upcoming events and important announcements</p>
     </div>
-  </div>
-
+  </header>
   <!-- Main Content -->
-  <main class="container">
+  <main class="section__container">
     <div class="tabs">
-      <button class="tab-btn active" onclick="openTab('events')">Events</button>
-      <button class="tab-btn" onclick="openTab('announcements')">Announcements</button>
+      <div class="tab active" data-tab="events">Events</div>
+      <div class="tab" data-tab="announcements">Announcements</div>
     </div>
 
     <div id="events" class="tab-content active">
-      <h2 class="section-title">Upcoming Events</h2>
+      <h2 class="section__header">Upcoming Events</h2>
       <div id="events-list" class="cards-grid">
         <div class="loading">
           <div class="spinner"></div>
@@ -450,7 +558,7 @@
     </div>
 
     <div id="announcements" class="tab-content">
-      <h2 class="section-title">Church Announcements</h2>
+      <h2 class="section__header">Church Announcements</h2>
       <div id="announcements-list" class="cards-grid">
         <div class="loading">
           <div class="spinner"></div>
@@ -461,47 +569,50 @@
   </main>
 
   <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer__container">
-        <div class="footer__col">
-          <h4>Journey Village Church</h4>
-          <p>123 Faith Avenue, Kikuyu</p>
-          <p>Nairobi, Kenya</p>
-          <p>Sunday Services: 8AM & 10:30AM</p>
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+          <img src="logo.png" alt="Journey Village Church Logo">
         </div>
-        
-        <div class="footer__col">
-          <h4>Quick Links</h4>
-          <a href="index.html">Home</a>
-          <a href="about.html">About Us</a>
-          <a href="events.html">Events</a>
-          <a href="giving.html">Online Giving</a>
-        </div>
-        
-        <div class="footer__col">
-          <h4>Connect With Us</h4>
-          <p>Email: info@journeyvillage.org</p>
-          <p>Phone: +254 712 345 678</p>
-          <div class="footer__socials">
-            <a href="#"><i class="ri-facebook-fill"></i></a>
-            <a href="#"><i class="ri-instagram-fill"></i></a>
-            <a href="#"><i class="ri-youtube-fill"></i></a>
-            <a href="#"><i class="ri-whatsapp-fill"></i></a>
-          </div>
+        <p>QM54+ J2H, Rungiri<br>Kiambu, Kenya</p>
+        <div class="footer__socials">
+          <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+          <a href="#" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
+          <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
         </div>
       </div>
       
-      <div class="footer__bar">
-        <p>&copy; 2025 Journey Village Church. All rights reserved.</p>
+      <div class="footer__col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
       </div>
+      
+      <div class="footer__col">
+        <h3>Get Involved</h3>
+        <ul>
+          <li><a href="events.html">Serve</a></li>
+          <li><a href="giving.html">Give</a></li>
+          <li><a href="contact.html">Visit Us</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer__bottom">
+      <p>&copy; 2025 Journey Village Church. All rights reserved.</p>
     </div>
   </footer>
 
+  <!-- Firebase SDK -->
   <script type="module">
     // Import Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     // Your Firebase config
     const firebaseConfig = {
@@ -517,23 +628,69 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Check authentication state
+    onAuthStateChanged(auth, (user) => {
+      const accountBtn = document.getElementById('account-btn');
+      
+      if (user) {
+        // User is signed in
+        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
+        accountBtn.onclick = handleLogout;
+      } else {
+        // User is signed out
+        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
+        accountBtn.onclick = redirectToLogin;
+      }
+    });
+
+    // Handle logout
+    function handleLogout() {
+      signOut(auth).then(() => {
+        // Sign-out successful
+        alert('You have been logged out successfully.');
+        window.location.reload();
+      }).catch((error) => {
+        // An error happened
+        console.error('Logout error:', error);
+        alert('Error logging out. Please try again.');
+      });
+    }
+
+    // Redirect to login page
+    function redirectToLogin() {
+      window.location.href = 'index.html'; // Redirect to your login page
+    }
 
     // Tab switching
-    function openTab(tabName) {
-      // Update active tab button
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`.tab-btn[onclick="openTab('${tabName}')"]`).classList.add('active');
+    function setupTabs() {
+      const tabs = document.querySelectorAll('.tab');
       
-      // Show active tab content
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.getElementById(tabName).classList.add('active');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const tabName = tab.getAttribute('data-tab');
+          
+          // Remove active class from all tabs
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          
+          // Add active class to clicked tab
+          tab.classList.add('active');
+          
+          // Hide all tab content
+          document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+          
+          // Show the selected tab content
+          document.getElementById(tabName).classList.add('active');
 
-      // Load content if empty
-      if (tabName === 'events' && document.getElementById('events-list').children.length === 1) {
-        loadEvents();
-      } else if (tabName === 'announcements' && document.getElementById('announcements-list').children.length === 1) {
-        loadAnnouncements();
-      }
+          // Load content if empty
+          if (tabName === 'events' && document.getElementById('events-list').children.length === 1) {
+            loadEvents();
+          } else if (tabName === 'announcements' && document.getElementById('announcements-list').children.length === 1) {
+            loadAnnouncements();
+          }
+        });
+      });
     }
 
     // Load Events
@@ -541,7 +698,8 @@
       const eventsContainer = document.getElementById("events-list");
       
       try {
-        const querySnapshot = await getDocs(collection(db, "events"));
+        const q = query(collection(db, "events"), orderBy("date", "asc"));
+        const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
           eventsContainer.innerHTML = `
@@ -588,7 +746,7 @@
             </div>
             ${event.signupLink ? `
               <div class="card-actions">
-                <a href="${event.signupLink}" target="_blank" class="btn btn-primary">
+                <a href="${event.signupLink}" target="_blank" class="btn btn__primary">
                   <i class="ri-user-add-line"></i> Sign Up
                 </a>
               </div>
@@ -612,7 +770,8 @@
       const announcementsContainer = document.getElementById("announcements-list");
       
       try {
-        const querySnapshot = await getDocs(collection(db, "announcements"));
+        const q = query(collection(db, "announcements"), orderBy("date", "desc"));
+        const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
           announcementsContainer.innerHTML = `
@@ -645,7 +804,7 @@
               <div class="card-date">
                 <i class="ri-calendar-line"></i> Posted on ${formattedDate}
               </div>
-              <p class="card-description">${ann.description}</p>
+              <p class="card-description">${ann.content || ann.description}</p>
             </div>
           `;
           announcementsContainer.appendChild(card);
@@ -661,11 +820,9 @@
       }
     }
 
-    // Make functions available globally
-    window.openTab = openTab;
-
     // Load events by default
     window.addEventListener('DOMContentLoaded', () => {
+      setupTabs();
       loadEvents();
     });
   </script>

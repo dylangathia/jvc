@@ -21,11 +21,11 @@
           <a href="/"><img src="logo.png" alt="Journey Village Church Logo" loading="lazy"></a>
         </div>
         <ul class="nav__links" id="nav-links">
-          <li><a href="/" class="active">Home</a></li>
+          <li><a href="index.html" class="active">Home</a></li>
           <li><a href="/about">About Us</a></li>
           <li><a href="events.html">Events</a></li>
           <li><a href="giving.html">Giving</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
         <div class="nav__menu__btn" id="menu-btn">
           <i class="ri-menu-line"></i>
@@ -248,19 +248,17 @@
         <h3>Quick Links</h3>
         <ul>
           <li><a href="/about">About Us</a></li>
-          <li><a href="/beliefs">Our Beliefs</a></li>
-          <li><a href="/sermons">Sermons</a></li>
-          <li><a href="/events">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="events.html">Events</a></li>
         </ul>
       </div>
       
       <div class="footer__col">
         <h3>Get Involved</h3>
         <ul>
-          <li><a href="/serve">Serve</a></li>
-          <li><a href="/give">Give</a></li>
-          <li><a href="/prayer">Prayer</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="events.html">Serve</a></li>
+          <li><a href="giving.html">Give</a></li>
+          <li><a href="contact.html">Visit Us</a></li>
         </ul>
       </div>
     </div>
@@ -380,7 +378,7 @@ onAuthStateChanged(auth, async (user) => {
           alert("Welcome Admin 🚀");
           sessionStorage.setItem("welcomed", "true");
         }
-        window.location.href = "events-admin.html"; // ✅ always redirect
+        window.location.href = "admin-dashboard.html"; // ✅ always redirect
         return;
       }
 
@@ -455,7 +453,7 @@ function closeModal() {
   document.getElementById("account-modal").style.display = "none";
 }
 function showUsernameModal() {
-  document.getElementById("username-modal").style.display = "block";
+  document.getElementById("username-modal").style.display = "flex";
 }
 function closeUsernameModal() {
   document.getElementById("username-modal").style.display = "none";

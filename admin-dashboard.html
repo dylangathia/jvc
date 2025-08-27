@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Admin - Journey Village Church</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <style>
+        :root {
+            --primary-color: #1995AD;
+            --secondary-color: #e9c675;
+            --accent-color: #BCB382;
+            --dark-blue: #0E4E64;
+            --light-bg: #F8F9FA;
+            --text-dark: #343A40;
+            --text-light: #F8F9FA;
+            --white: #FFFFFF;
+            --black: #000000;
+            --header-font: "Playfair Display", serif;
+            --body-font: "Montserrat", sans-serif;
+            --transition: all 0.3s ease;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a.active {
+            background-color: var(--secondary-color);
+            color: var(--text-dark);
+        }
+
+        /* Admin Header */
+        .admin-header {
+            background: var(--dark-blue);
+            color: white;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-title {
+            font-family: var(--header-font);
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            height: fit-content;
+        }
+
+        .admin-nav {
+            list-style: none;
+        }
+
+        .admin-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .admin-nav a:hover, .admin-nav a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .admin-panel h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--text-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #bd2130;
+        }
+
+        .btn-secondary {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #888;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Events Table */
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .events-table th,
+        .events-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .events-table th {
+            background-color: var(--light-bg);
+            font-weight: 600;
+        }
+
+        .events-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: #28a745;
+        }
+
+        .toast.error {
+            background: #dc3545;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column p, .footer-column a {
+            margin-bottom: 1rem;
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            color: var(--text-dark);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Inquiries Styles */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select, .filter-group input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .inquiry-row {
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .inquiry-row:hover {
+            background-color: #f0f8ff !important;
+        }
+
+        .inquiry-detail {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .inquiry-detail.active {
+            display: block;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            min-width: 120px;
+            color: var(--dark-blue);
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-new {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-in-progress {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-resolved {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-archived {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* User Management Styles */
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        
+        .user-table th,
+        .user-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .user-table th {
+            background-color: var(--light-bg);
+            font-weight: 600;
+        }
+        
+        .user-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .role-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .role-admin {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .role-user {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        /* Spinner Styles */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 1rem;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .admin-header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .admin-actions {
+                justify-content: center;
+            }
+            
+            .events-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .detail-label {
+                min-width: auto;
+            }
+            
+            .user-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .user-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="toast" class="toast">
+        <i class="ri-checkbox-circle-fill"></i>
+        <span id="toast-message"></span>
+    </div>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="logo.png" alt="Journey Village Church Logo">
+                Journey Village Church
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="events.html" class="active">Events</a></li>
+                <li><a href="giving.html">Giving</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="admin-header">
+        <div class="container admin-header-content">
+            <h1 class="admin-title">Events Administration</h1>
+            <div class="admin-actions">
+                <button class="btn btn-secondary" id="view-site">
+                    <i class="ri-eye-line"></i> View Site
+                </button>
+                <button class="btn btn-danger" id="admin-logout">
+                    <i class="ri-logout-box-r-line"></i> Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container main-content">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <ul class="admin-nav">
+                <li><a href="#" class="active"><i class="ri-dashboard-line"></i> Dashboard</a></li>
+                <li><a href="#" id="nav-events"><i class="ri-calendar-event-line"></i> Events</a></li>
+                <li><a href="#" id="nav-announcements"><i class="ri-megaphone-line"></i> Announcements</a></li>
+                <li><a href="#" id="nav-users"><i class="ri-user-line"></i> User Management</a></li>
+                <li><a href="#" id="nav-inquiries"><i class="ri-inbox-line"></i> Inquiries</a></li>
+                <li><a href="#"><i class="ri-settings-3-line"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" data-tab="add-event">Add Event</div>
+                <div class="tab" data-tab="add-announcement">Add Announcement</div>
+                <div class="tab" data-tab="manage">Manage Content</div>
+                <div class="tab" data-tab="users">User Management</div>
+                <div class="tab" data-tab="inquiries">Inquiries</div>
+            </div>
+
+            <!-- Add Event Form -->
+            <div class="admin-panel tab-content active" id="add-event">
+                <h2>Add New Event</h2>
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title *</label>
+                        <input type="text" id="eventTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventDate">Date *</label>
+                        <input type="datetime-local" id="eventDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDescription">Description *</label>
+                        <textarea id="eventDescription" required placeholder="Describe the event for attendees..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventSignupLink">Registration Link (optional)</label>
+                        <input type="url" id="eventSignupLink" placeholder="https://forms.gle/...">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="ri-calendar-event-line"></i> Add Event
+                    </button>
+                </form>
+            </div>
+
+            <!-- Add Announcement Form -->
+            <div class="admin-panel tab-content" id="add-announcement">
+                <h2>Add New Announcement</h2>
+                <form id="announcementForm">
+                    <div class="form-group">
+                        <label for="announcementTitle">Title *</label>
+                        <input type="text" id="announcementTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="announcementContent">Content *</label>
+                        <textarea id="announcementContent" required placeholder="Share your announcement with the church community..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="announcementDate">Date *</label>
+                        <input type="datetime-local" id="announcementDate" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="ri-megaphone-line"></i> Add Announcement
+                    </button>
+                </form>
+            </div>
+
+            <!-- Manage Content -->
+            <div class="admin-panel tab-content" id="manage">
+                <h2>Manage Content</h2>
+                
+                <div class="tabs" style="margin-top: 1.5rem;">
+                    <div class="tab active" data-tab="events-list">Events</div>
+                    <div class="tab" data-tab="announcements-list">Announcements</div>
+                </div>
+
+                <div class="tab-content active" id="events-list">
+                    <h3>All Events</h3>
+                    <div class="events-table-container">
+                        <table class="events-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="events-table-body">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 2rem;">
+                                        <div class="spinner"></div>
+                                        <p>Loading events...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="announcements-list">
+                    <h3>All Announcements</h3>
+                    <div class="events-table-container">
+                        <table class="events-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Content</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="announcements-table-body">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 2rem;">
+                                        <div class="spinner"></div>
+                                        <p>Loading announcements...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Management -->
+            <div class="admin-panel tab-content" id="users">
+                <h2>User Management</h2>
+                <p>Manage user accounts and permissions. You can upgrade users to admin status or delete accounts.</p>
+                
+                <div class="events-table-container">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>User ID</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 2rem;">
+                                    <div class="spinner"></div>
+                                    <p>Loading users...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Inquiries Management -->
+            <div class="admin-panel tab-content" id="inquiries">
+                <h2>Contact Form Inquiries</h2>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="status-filter">Status</label>
+                        <select id="status-filter">
+                            <option value="all">All Statuses</option>
+                            <option value="new">New</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="subject-filter">Subject</label>
+                        <select id="subject-filter">
+                            <option value="all">All Subjects</option>
+                            <option value="prayer">Prayer Request</option>
+                            <option value="question">General Question</option>
+                            <option value="visit">Planning a Visit</option>
+                            <option value="ministry">Ministry Inquiry</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="date-filter">Sort By</label>
+                        <select id="date-filter">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="events-table-container">
+                    <table class="events-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inquiries-table-body">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem;">
+                                    <div class="spinner"></div>
+                                    <p>Loading inquiries...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Inquiry Detail View -->
+                <div id="inquiry-detail" class="inquiry-detail">
+                    <div class="detail-row">
+                        <div class="detail-label">Name:</div>
+                        <div id="detail-name"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Email:</div>
+                        <div id="detail-email"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Phone:</div>
+                        <div id="detail-phone"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Subject:</div>
+                        <div id="detail-subject"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Message:</div>
+                        <div id="detail-message" style="white-space: pre-line;"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Date Submitted:</div>
+                        <div id="detail-date"></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Status:</div>
+                        <div>
+                            <select id="detail-status" class="status-badge">
+                                <option value="new">New</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                                <option value="archived">Archived</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="detail-actions">
+                        <button class="btn btn-primary" id="update-status">
+                            <i class="ri-save-line"></i> Update Status
+                        </button>
+                        <a href="#" id="reply-email" class="btn btn-info">
+                            <i class="ri-mail-send-line"></i> Reply via Email
+                        </a>
+                        <button class="btn btn-danger" id="delete-inquiry">
+                            <i class="ri-delete-bin-line"></i> Delete
+                        </button>
+                        <button class="btn btn-secondary" id="close-detail">
+                            <i class="ri-close-line"></i> Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Journey Village Church</h3>
+                    <p>123 Faith Avenue, Kikuyu</p>
+                    <p>Nairobi, Kenya</p>
+                    <p>Sunday Services: 8AM & 10:30AM</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Admin Resources</h3>
+                    <a href="#">Event Management Guide</a>
+                    <a href="#">Google Forms Setup</a>
+                    <a href="#">User Manual</a>
+                    <a href="#">Support Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <p>Email: admin@journeyvillage.org</p>
+                    <p>Phone: +254 712 345 678</p>
+                    <div class="social-links">
+                        <a href="#"><i class="ri-facebook-fill"></i></a>
+                        <a href="#"><i class="ri-instagram-fill"></i></a>
+                        <a href="#"><i class="ri-youtube-fill"></i></a>
+                        <a href="#"><i class="ri-whatsapp-fill"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Journey Village Church. All rights reserved. | Admin Portal v1.2</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Delete User Confirmation Modal -->
+    <div class="modal" id="deleteUserModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm User Deletion</h3>
+                <button class="modal-close" data-modal="deleteUserModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the user account for <strong id="delete-user-name"></strong>?</p>
+                <p class="text-danger">This action cannot be undone. All data associated with this account will be permanently removed.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="deleteUserModal">Cancel</button>
+                <button class="btn btn-danger" id="confirm-delete-user">Delete User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Role Confirmation Modal -->
+    <div class="modal" id="changeRoleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change User Role</h3>
+                <button class="modal-close" data-modal="changeRoleModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Change role for user: <strong id="change-role-user-name"></strong></p>
+                <div class="form-group">
+                    <label for="new-role">Select New Role:</label>
+                    <select id="new-role" class="form-control">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="changeRoleModal">Cancel</button>
+                <button class="btn btn-primary" id="confirm-change-role">Update Role</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Event Modal -->
+    <div class="modal" id="editEventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Event</h3>
+                <button class="modal-close" data-modal="editEventModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editEventForm">
+                    <input type="hidden" id="editEventId">
+                    <div class="form-group">
+                        <label for="editEventTitle">Event Title *</label>
+                        <input type="text" id="editEventTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editEventDate">Date *</label>
+                        <input type="datetime-local" id="editEventDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editEventDescription">Description *</label>
+                        <textarea id="editEventDescription" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editEventSignupLink">Registration Link (optional)</label>
+                        <input type="url" id="editEventSignupLink">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="editEventModal">Cancel</button>
+                <button class="btn btn-primary" id="confirm-edit-event">Update Event</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Announcement Modal -->
+    <div class="modal" id="editAnnouncementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Announcement</h3>
+                <button class="modal-close" data-modal="editAnnouncementModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editAnnouncementForm">
+                    <input type="hidden" id="editAnnouncementId">
+                    <div class="form-group">
+                        <label for="editAnnouncementTitle">Title *</label>
+                        <input type="text" id="editAnnouncementTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editAnnouncementContent">Content *</label>
+                        <textarea id="editAnnouncementContent" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editAnnouncementDate">Date *</label>
+                        <input type="datetime-local" id="editAnnouncementDate" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="editAnnouncementModal">Cancel</button>
+                <button class="btn btn-primary" id="confirm-edit-announcement">Update Announcement</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
+            authDomain: "journeyvill.firebaseapp.com",
+            projectId: "journeyvill",
+            storageBucket: "journeyvill.firebasestorage.app",
+            messagingSenderId: "494172807963",
+            appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
+            measurementId: "G-E1RNC9M7CK"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        // Current selected inquiry
+        let currentInquiryId = null;
+        
+        // Current selected user for operations
+        let currentUserId = null;
+        let currentUserData = null;
+
+        // Current selected event/announcement for editing
+        let currentEditEventId = null;
+        let currentEditAnnouncementId = null;
+
+        // 🔒 Auth + Role Check
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const doc = await db.collection("users").doc(user.uid).get();
+                if (!doc.exists || doc.data().role !== "admin") {
+                    showToast("⛔ Access denied. Admins only.", "error");
+                    setTimeout(() => window.location.href = "index.html", 500);
+                } else {
+                    // ✅ Admin is logged in → load data
+                    loadEvents();
+                    loadAnnouncements();
+                    loadUsers();
+                    loadInquiries();
+                }
+            } catch (err) {
+                console.error("Error verifying admin:", err);
+                window.location.href = "index.html";
+            }
+        });
+
+        // ✅ Toast Notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => { toast.className = 'toast'; }, 3000);
+        }
+
+        // Tab functionality
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs in the same container
+                    const parent = tab.closest('.tabs');
+                    parent.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Hide all tab content in the same section
+                    const tabContents = parent.parentElement.querySelectorAll('.tab-content');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Show the selected tab content
+                    document.getElementById(tabName).classList.add('active');
+                    
+                    // If switching to users tab, refresh the data
+                    if (tabName === 'users') {
+                        loadUsers();
+                    }
+                    
+                    // If switching to inquiries tab, refresh the data
+                    if (tabName === 'inquiries') {
+                        loadInquiries();
+                    }
+                });
+            });
+
+            // Navigation link to events
+            document.getElementById('nav-events').addEventListener('click', (e) => {
+                e.preventDefault();
+                // Activate the events tab
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.getAttribute('data-tab') === 'add-event') {
+                        tab.classList.add('active');
+                    }
+                });
+                
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === 'add-event') {
+                        content.classList.add('active');
+                    }
+                });
+            });
+
+            // Navigation link to announcements
+            document.getElementById('nav-announcements').addEventListener('click', (e) => {
+                e.preventDefault();
+                // Activate the announcements tab
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.getAttribute('data-tab') === 'add-announcement') {
+                        tab.classList.add('active');
+                    }
+                });
+                
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === 'add-announcement') {
+                        content.classList.add('active');
+                    }
+                });
+            });
+
+            // Navigation link to users
+            document.getElementById('nav-users').addEventListener('click', (e) => {
+                e.preventDefault();
+                // Activate the users tab
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.getAttribute('data-tab') === 'users') {
+                        tab.classList.add('active');
+                    }
+                });
+                
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === 'users') {
+                        content.classList.add('active');
+                    }
+                });
+                
+                loadUsers();
+            });
+
+            // Navigation link to inquiries
+            document.getElementById('nav-inquiries').addEventListener('click', (e) => {
+                e.preventDefault();
+                // Activate the inquiries tab
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.getAttribute('data-tab') === 'inquiries') {
+                        tab.classList.add('active');
+                    }
+                });
+                
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === 'inquiries') {
+                        content.classList.add('active');
+                    }
+                });
+                
+                loadInquiries();
+            });
+        }
+
+        // Modal functionality
+        function setupModals() {
+            // Close modals when clicking on close button or outside
+            document.querySelectorAll('.modal-close, [data-modal]').forEach(element => {
+                element.addEventListener('click', (e) => {
+                    if (e.target.hasAttribute('data-modal')) {
+                        const modalId = e.target.getAttribute('data-modal');
+                        document.getElementById(modalId).style.display = 'none';
+                    } else {
+                        e.target.closest('.modal').style.display = 'none';
+                    }
+                });
+            });
+            
+            // Close modal when clicking outside content
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Handle Event submission
+        document.getElementById("eventForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById("eventTitle").value;
+            const date = new Date(document.getElementById("eventDate").value);
+            const description = document.getElementById("eventDescription").value;
+            const signupLink = document.getElementById("eventSignupLink").value;
+
+            try {
+                await db.collection("events").add({
+                    title,
+                    date,
+                    description,
+                    signupLink: signupLink || "",
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showToast("Event added successfully!");
+                e.target.reset();
+                loadEvents(); // Refresh the events list
+            } catch (error) {
+                console.error("Error adding event: ", error);
+                showToast("Error adding event. Please try again.", "error");
+            }
+        });
+
+        // Handle Announcement submission
+        document.getElementById("announcementForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById("announcementTitle").value;
+            const content = document.getElementById("announcementContent").value;
+            const date = new Date(document.getElementById("announcementDate").value);
+
+            try {
+                await db.collection("announcements").add({
+                    title,
+                    content,
+                    date,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showToast("Announcement added successfully!");
+                e.target.reset();
+                loadAnnouncements(); // Refresh the announcements list
+            } catch (error) {
+                console.error("Error adding announcement: ", error);
+                showToast("Error adding announcement. Please try again.", "error");
+            }
+        });
+
+        // Load events for management
+        async function loadEvents() {
+            const eventsBody = document.getElementById("events-table-body");
+            
+            try {
+                const querySnapshot = await db.collection("events").orderBy("date", "desc").get();
+                
+                if (querySnapshot.empty) {
+                    eventsBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No events found</td></tr>`;
+                    return;
+                }
+                
+                eventsBody.innerHTML = "";
+                
+                querySnapshot.forEach((doc) => {
+                    const event = doc.data();
+                    const eventDate = event.date.toDate();
+                    const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    // Shorten description for table view
+                    const shortDescription = event.description.length > 50 
+                        ? event.description.substring(0, 50) + '...' 
+                        : event.description;
+                    
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${event.title}</td>
+                        <td>${formattedDate}</td>
+                        <td>${shortDescription}</td>
+                        <td class="event-actions">
+                            <button class="btn btn-sm btn-primary edit-event-btn" data-id="${doc.id}">
+                                <i class="ri-edit-line"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteEvent('${doc.id}')">
+                                <i class="ri-delete-bin-line"></i> Delete
+                            </button>
+                        </td>
+                    `;
+                    eventsBody.appendChild(row);
+                });
+                
+                // Add event listeners to edit buttons
+                document.querySelectorAll('.edit-event-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const eventId = button.getAttribute('data-id');
+                        showEditEventModal(eventId);
+                    });
+                });
+                
+            } catch (error) {
+                console.error("Error loading events: ", error);
+                eventsBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Error loading events</td></tr>`;
+            }
+        }
+
+        // Show edit event modal
+        async function showEditEventModal(eventId) {
+            try {
+                const doc = await db.collection("events").doc(eventId).get();
+                
+                if (!doc.exists) {
+                    showToast("Event not found", "error");
+                    return;
+                }
+                
+                const event = doc.data();
+                currentEditEventId = eventId;
+                
+                // Populate form
+                document.getElementById("editEventId").value = eventId;
+                document.getElementById("editEventTitle").value = event.title;
+                
+                // Format date for datetime-local input
+                const eventDate = event.date.toDate();
+                const formattedDate = eventDate.toISOString().slice(0, 16);
+                document.getElementById("editEventDate").value = formattedDate;
+                
+                document.getElementById("editEventDescription").value = event.description;
+                document.getElementById("editEventSignupLink").value = event.signupLink || "";
+                
+                // Show modal
+                document.getElementById("editEventModal").style.display = "flex";
+                
+            } catch (error) {
+                console.error("Error loading event details: ", error);
+                showToast("Error loading event details", "error");
+            }
+        }
+
+        // Handle edit event submission
+        document.getElementById("confirm-edit-event").addEventListener("click", async () => {
+            if (!currentEditEventId) return;
+            
+            const title = document.getElementById("editEventTitle").value;
+            const date = new Date(document.getElementById("editEventDate").value);
+            const description = document.getElementById("editEventDescription").value;
+            const signupLink = document.getElementById("editEventSignupLink").value;
+            
+            try {
+                await db.collection("events").doc(currentEditEventId).update({
+                    title,
+                    date,
+                    description,
+                    signupLink: signupLink || "",
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showToast("Event updated successfully!");
+                document.getElementById("editEventModal").style.display = "none";
+                loadEvents();
+            } catch (error) {
+                console.error("Error updating event: ", error);
+                showToast("Error updating event", "error");
+            }
+        });
+
+        // Load announcements for management
+        async function loadAnnouncements() {
+            const announcementsBody = document.getElementById("announcements-table-body");
+            
+            try {
+                const querySnapshot = await db.collection("announcements").orderBy("date", "desc").get();
+                
+                if (querySnapshot.empty) {
+                    announcementsBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No announcements found</td></tr>`;
+                    return;
+                }
+                
+                announcementsBody.innerHTML = "";
+                
+                querySnapshot.forEach((doc) => {
+                    const announcement = doc.data();
+                    const announcementDate = announcement.date.toDate();
+                    const formattedDate = announcementDate.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    // Shorten content for table view
+                    const shortContent = announcement.content.length > 50 
+                        ? announcement.content.substring(0, 50) + '...' 
+                        : announcement.content;
+                    
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${announcement.title}</td>
+                        <td>${formattedDate}</td>
+                        <td>${shortContent}</td>
+                        <td class="event-actions">
+                            <button class="btn btn-sm btn-primary edit-announcement-btn" data-id="${doc.id}">
+                                <i class="ri-edit-line"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteAnnouncement('${doc.id}')">
+                                <i class="ri-delete-bin-line"></i> Delete
+                            </button>
+                        </td>
+                    `;
+                    announcementsBody.appendChild(row);
+                });
+                
+                // Add event listeners to edit buttons
+                document.querySelectorAll('.edit-announcement-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const announcementId = button.getAttribute('data-id');
+                        showEditAnnouncementModal(announcementId);
+                    });
+                });
+                
+            } catch (error) {
+                console.error("Error loading announcements: ", error);
+                announcementsBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Error loading announcements</td></tr>`;
+            }
+        }
+
+        // Show edit announcement modal
+        async function showEditAnnouncementModal(announcementId) {
+            try {
+                const doc = await db.collection("announcements").doc(announcementId).get();
+                
+                if (!doc.exists) {
+                    showToast("Announcement not found", "error");
+                    return;
+                }
+                
+                const announcement = doc.data();
+                currentEditAnnouncementId = announcementId;
+                
+                // Populate form
+                document.getElementById("editAnnouncementId").value = announcementId;
+                document.getElementById("editAnnouncementTitle").value = announcement.title;
+                document.getElementById("editAnnouncementContent").value = announcement.content;
+                
+                // Format date for datetime-local input
+                const announcementDate = announcement.date.toDate();
+                const formattedDate = announcementDate.toISOString().slice(0, 16);
+                document.getElementById("editAnnouncementDate").value = formattedDate;
+                
+                // Show modal
+                document.getElementById("editAnnouncementModal").style.display = "flex";
+                
+            } catch (error) {
+                console.error("Error loading announcement details: ", error);
+                showToast("Error loading announcement details", "error");
+            }
+        }
+
+        // Handle edit announcement submission
+        document.getElementById("confirm-edit-announcement").addEventListener("click", async () => {
+            if (!currentEditAnnouncementId) return;
+            
+            const title = document.getElementById("editAnnouncementTitle").value;
+            const content = document.getElementById("editAnnouncementContent").value;
+            const date = new Date(document.getElementById("editAnnouncementDate").value);
+            
+            try {
+                await db.collection("announcements").doc(currentEditAnnouncementId).update({
+                    title,
+                    content,
+                    date,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showToast("Announcement updated successfully!");
+                document.getElementById("editAnnouncementModal").style.display = "none";
+                loadAnnouncements();
+            } catch (error) {
+                console.error("Error updating announcement: ", error);
+                showToast("Error updating announcement", "error");
+            }
+        });
+
+        // Load users for management
+        async function loadUsers() {
+            const usersBody = document.getElementById("users-table-body");
+            
+            try {
+                const querySnapshot = await db.collection("users").get();
+                
+                if (querySnapshot.empty) {
+                    usersBody.innerHTML = `<tr><td colspan="5" style="text-align: center;">No users found</td></tr>`;
+                    return;
+                }
+                
+                usersBody.innerHTML = "";
+                
+                querySnapshot.forEach((doc) => {
+                    const user = doc.data();
+                    const roleClass = user.role === 'admin' ? 'role-admin' : 'role-user';
+                    const roleText = user.role === 'admin' ? 'Admin' : 'User';
+                    
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${user.username || 'N/A'}</td>
+                        <td>${user.email}</td>
+                        <td><span class="role-badge ${roleClass}">${roleText}</span></td>
+                        <td>${doc.id}</td>
+                        <td class="user-actions">
+                            <button class="btn btn-sm btn-info change-role-btn" data-id="${doc.id}">
+                                <i class="ri-user-settings-line"></i> Change Role
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-user-btn" data-id="${doc.id}">
+                                <i class="ri-delete-bin-line"></i> Delete
+                            </button>
+                        </td>
+                    `;
+                    usersBody.appendChild(row);
+                });
+                
+                // Add event listeners to action buttons
+                document.querySelectorAll('.change-role-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const userId = button.getAttribute('data-id');
+                        showChangeRoleModal(userId);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-user-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const userId = button.getAttribute('data-id');
+                        showDeleteUserModal(userId);
+                    });
+                });
+                
+            } catch (error) {
+                console.error("Error loading users: ", error);
+                usersBody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Error loading users</td></tr>`;
+            }
+        }
+
+        // Show delete user confirmation modal
+        async function showDeleteUserModal(userId) {
+            try {
+                const doc = await db.collection("users").doc(userId).get();
+                
+                if (!doc.exists) {
+                    showToast("User not found", "error");
+                    return;
+                }
+                
+                const user = doc.data();
+                currentUserId = userId;
+                currentUserData = user;
+                
+                // Populate modal
+                document.getElementById("delete-user-name").textContent = user.email;
+                
+                // Show modal
+                document.getElementById("deleteUserModal").style.display = "flex";
+                
+            } catch (error) {
+                console.error("Error loading user details: ", error);
+                showToast("Error loading user details", "error");
+            }
+        }
+
+        // Show change role modal
+        async function showChangeRoleModal(userId) {
+            try {
+                const doc = await db.collection("users").doc(userId).get();
+                
+                if (!doc.exists) {
+                    showToast("User not found", "error");
+                    return;
+                }
+                
+                const user = doc.data();
+                currentUserId = userId;
+                currentUserData = user;
+                
+                // Populate modal
+                document.getElementById("change-role-user-name").textContent = user.email;
+                document.getElementById("new-role").value = user.role || "user";
+                
+                // Show modal
+                document.getElementById("changeRoleModal").style.display = "flex";
+                
+            } catch (error) {
+                console.error("Error loading user details: ", error);
+                showToast("Error loading user details", "error");
+            }
+        }
+
+        // Delete user account
+        document.getElementById("confirm-delete-user").addEventListener("click", async () => {
+            if (!currentUserId) return;
+            
+            try {
+                // Delete user document from Firestore
+                await db.collection("users").doc(currentUserId).delete();
+                
+                // Try to delete the user from Firebase Auth (requires admin privileges on the backend)
+                // Note: This typically requires a Cloud Function for security reasons
+                showToast("User document deleted. Note: Auth account may still exist.", "success");
+                
+                // Close modal and refresh list
+                document.getElementById("deleteUserModal").style.display = "none";
+                loadUsers();
+                
+            } catch (error) {
+                console.error("Error deleting user: ", error);
+                showToast("Error deleting user", "error");
+            }
+        });
+
+        // Change user role
+        document.getElementById("confirm-change-role").addEventListener("click", async () => {
+            if (!currentUserId) return;
+            
+            const newRole = document.getElementById("new-role").value;
+            
+            try {
+                await db.collection("users").doc(currentUserId).update({
+                    role: newRole,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showToast("User role updated successfully!");
+                
+                // Close modal and refresh list
+                document.getElementById("changeRoleModal").style.display = "none";
+                loadUsers();
+            } catch (error) {
+                console.error("Error updating user role: ", error);
+                showToast("Error updating user role", "error");
+            }
+        });
+
+        // Load inquiries for management
+        async function loadInquiries() {
+            const inquiriesBody = document.getElementById("inquiries-table-body");
+            const statusFilter = document.getElementById("status-filter").value;
+            const subjectFilter = document.getElementById("subject-filter").value;
+            const dateFilter = document.getElementById("date-filter").value;
+            
+            try {
+                let query = db.collection("contactSubmissions");
+                
+                // Apply filters
+                if (statusFilter !== "all") {
+                    query = query.where("status", "==", statusFilter);
+                }
+                
+                if (subjectFilter !== "all") {
+                    query = query.where("subject", "==", subjectFilter);
+                }
+                
+                // Apply sorting
+                if (dateFilter === "newest") {
+                    query = query.orderBy("timestamp", "desc");
+                } else {
+                    query = query.orderBy("timestamp", "asc");
+                }
+                
+                const querySnapshot = await query.get();
+                
+                if (querySnapshot.empty) {
+                    inquiriesBody.innerHTML = `<tr><td colspan="6" style="text-align: center;">No inquiries found</td></tr>`;
+                    return;
+                }
+                
+                inquiriesBody.innerHTML = "";
+                
+                querySnapshot.forEach((doc) => {
+                    const inquiry = doc.data();
+                    const inquiryDate = inquiry.timestamp.toDate();
+                    const formattedDate = inquiryDate.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric'
+                    });
+                    
+                    // Determine status badge class
+                    let statusClass = "status-new";
+                    if (inquiry.status === "in-progress") statusClass = "status-in-progress";
+                    if (inquiry.status === "resolved") statusClass = "status-resolved";
+                    if (inquiry.status === "archived") statusClass = "status-archived";
+                    
+                    const row = document.createElement("tr");
+                    row.className = "inquiry-row";
+                    row.setAttribute("data-id", doc.id);
+                    row.innerHTML = `
+                        <td>${inquiry.name}</td>
+                        <td>${inquiry.email}</td>
+                        <td>${formatSubject(inquiry.subject)}</td>
+                        <td>${formattedDate}</td>
+                        <td><span class="status-badge ${statusClass}">${formatStatus(inquiry.status)}</span></td>
+                        <td class="event-actions">
+                            <button class="btn btn-sm btn-info view-inquiry" data-id="${doc.id}">
+                                <i class="ri-eye-line"></i> View
+                            </button>
+                        </td>
+                    `;
+                    inquiriesBody.appendChild(row);
+                });
+                
+                // Add event listeners to view buttons
+                document.querySelectorAll('.view-inquiry').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const inquiryId = button.getAttribute('data-id');
+                        showInquiryDetail(inquiryId);
+                    });
+                });
+                
+                // Add event listeners to rows
+                document.querySelectorAll('.inquiry-row').forEach(row => {
+                    row.addEventListener('click', () => {
+                        const inquiryId = row.getAttribute('data-id');
+                        showInquiryDetail(inquiryId);
+                    });
+                });
+                
+            } catch (error) {
+                console.error("Error loading inquiries: ", error);
+                inquiriesBody.innerHTML = `<tr><td colspan="6" style="text-align: center;">Error loading inquiries</td></tr>`;
+            }
+        }
+
+        // Format subject for display
+        function formatSubject(subject) {
+            const subjectMap = {
+                "prayer": "Prayer Request",
+                "question": "General Question",
+                "visit": "Planning a Visit",
+                "ministry": "Ministry Inquiry",
+                "other": "Other"
+            };
+            return subjectMap[subject] || subject;
+        }
+
+        // Format status for display
+        function formatStatus(status) {
+            const statusMap = {
+                "new": "New",
+                "in-progress": "In Progress",
+                "resolved": "Resolved",
+                "archived": "Archived"
+            };
+            return statusMap[status] || status;
+        }
+
+        // Show inquiry detail
+        async function showInquiryDetail(inquiryId) {
+            try {
+                const doc = await db.collection("contactSubmissions").doc(inquiryId).get();
+                
+                if (!doc.exists) {
+                    showToast("Inquiry not found", "error");
+                    return;
+                }
+                
+                const inquiry = doc.data();
+                currentInquiryId = inquiryId;
+                
+                // Populate detail view
+                document.getElementById("detail-name").textContent = inquiry.name;
+                document.getElementById("detail-email").textContent = inquiry.email;
+                document.getElementById("detail-phone").textContent = inquiry.phone || "Not provided";
+                document.getElementById("detail-subject").textContent = formatSubject(inquiry.subject);
+                document.getElementById("detail-message").textContent = inquiry.message;
+                
+                const inquiryDate = inquiry.timestamp.toDate();
+                const formattedDate = inquiryDate.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                document.getElementById("detail-date").textContent = formattedDate;
+                
+                // Set status dropdown
+                document.getElementById("detail-status").value = inquiry.status || "new";
+                
+                // Set up reply email link
+                document.getElementById("reply-email").href = `mailto:${inquiry.email}?subject=Re: Your inquiry to Journey Village Church`;
+                
+                // Show detail section
+                document.getElementById("inquiry-detail").classList.add("active");
+                
+            } catch (error) {
+                console.error("Error loading inquiry details: ", error);
+                showToast("Error loading inquiry details", "error");
+            }
+        }
+
+        // Update inquiry status
+        document.getElementById("update-status").addEventListener("click", async () => {
+            if (!currentInquiryId) return;
+            
+            const newStatus = document.getElementById("detail-status").value;
+            
+            try {
+                await db.collection("contactSubmissions").doc(currentInquiryId).update({
+                    status: newStatus,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showToast("Status updated successfully!");
+                loadInquiries(); // Refresh the list
+            } catch (error) {
+                console.error("Error updating status: ", error);
+                showToast("Error updating status", "error");
+            }
+        });
+
+        // Delete inquiry
+        document.getElementById("delete-inquiry").addEventListener("click", async () => {
+            if (!currentInquiryId) return;
+            
+            if (confirm("Are you sure you want to delete this inquiry? This action cannot be undone.")) {
+                try {
+                    await db.collection("contactSubmissions").doc(currentInquiryId).delete();
+                    showToast("Inquiry deleted successfully!");
+                    document.getElementById("inquiry-detail").classList.remove("active");
+                    loadInquiries(); // Refresh the list
+                } catch (error) {
+                    console.error("Error deleting inquiry: ", error);
+                    showToast("Error deleting inquiry", "error");
+                }
+            }
+        });
+
+        // Close detail view
+        document.getElementById("close-detail").addEventListener("click", () => {
+            document.getElementById("inquiry-detail").classList.remove("active");
+            currentInquiryId = null;
+        });
+
+
+        // Add filter event listeners
+        document.getElementById("status-filter").addEventListener("change", loadInquiries);
+        document.getElementById("subject-filter").addEventListener("change", loadInquiries);
+        document.getElementById("date-filter").addEventListener("change", loadInquiries);
+
+        // Delete event
+        async function deleteEvent(eventId) {
+            if (confirm("Are you sure you want to delete this event?")) {
+                try {
+                    await db.collection("events").doc(eventId).delete();
+                    showToast("Event deleted successfully!");
+                    loadEvents();
+                } catch (error) {
+                    console.error("Error deleting event: ", error);
+                    showToast("Error deleting event. Please try again.", "error");
+                }
+            }
+        }
+
+        // Delete announcement
+        async function deleteAnnouncement(announcementId) {
+            if (confirm("Are you sure you want to delete this announcement?")) {
+                try {
+                    await db.collection("announcements").doc(announcementId).delete();
+                    showToast("Announcement deleted successfully!");
+                    loadAnnouncements();
+                } catch (error) {
+                    console.error("Error deleting announcement: ", error);
+                    showToast("Error deleting announcement. Please try again.", "error");
+                }
+            }
+        }
+
+        // View site button
+        document.getElementById("view-site").addEventListener("click", () => {
+            window.open("events.html", "_blank");
+        });
+
+        // Logout button
+        document.getElementById("admin-logout").addEventListener("click", () => {
+            firebase.auth().signOut().then(() => {
+                window.location.href = "index.html";
+            }).catch((error) => {
+                console.error("Error signing out: ", error);
+            });
+        });
+
+        // Initialize the page
+        document.addEventListener("DOMContentLoaded", () => {
+            setupTabs();
+            setupModals();
+            loadEvents();
+            loadAnnouncements();
+        });
+
+        // Make functions available globally
+        window.deleteEvent = deleteEvent;
+        window.deleteAnnouncement = deleteAnnouncement;
+    </script>
+</body>
+</html>

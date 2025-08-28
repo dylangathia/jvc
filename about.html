@@ -186,7 +186,6 @@
     }
 
     .nav__container {
-        padding-left: 190px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -240,6 +239,15 @@
       border-color: var(--accent-color);
       transform: translateY(-3px);
       box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+    }
+
+    /* Mobile menu button */
+    .nav__menu__btn {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--white);
+      z-index: 100;
     }
 
     /* About Content Styles */
@@ -442,7 +450,7 @@
 
     /* Call to Action */
     .cta-section {
-      background: linear-gradient(rgba(25, 149, 173, 0.9), rgba(25, 149, 173, 0.9)), 
+      background: linear-gradient(rgza(25, 149, 173, 0.9), rgba(25, 149, 173, 0.9)), 
                   url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
       color: var(--white);
       text-align: center;
@@ -567,19 +575,55 @@
 
     @media (max-width: 768px) {
       .nav__bar {
-        flex-direction: column;
+        flex-direction: row;
         gap: 1rem;
         padding: 1rem;
       }
       
       .nav__container {
         width: 100%;
+        justify-content: flex-end;
+      }
+      
+      .nav__menu__btn {
+        display: block;
+        order: 2;
       }
       
       .nav__links {
-        flex-wrap: wrap;
-        justify-content: center;
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--dark-blue);
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 100;
         gap: 1rem;
+      }
+      
+      .nav__links.active {
+        display: flex;
+      }
+      
+      .nav__links a {
+        color: var(--white);
+        padding: 0.75rem 0;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .nav__action__btn {
+        margin: 1rem 0 0 0;
+        order: 3;
+        width: 100%;
+        display: none;
+      }
+      
+      .nav__links.active + .nav__action__btn {
+        display: block;
       }
       
       .hero__content h1 {
@@ -631,56 +675,15 @@
         gap: 0.5rem;
       }
       
-      .nav__action__btn {
-        margin: 1rem 0 0 0;
-      }
-      
       .cta-buttons {
         flex-direction: column;
         align-items: center;
       }
-    }
-
-    /* Mobile menu hidden by default */
-    @media (max-width: 768px) {
-      .nav__links {
-        display: none;
-        flex-direction: column;
-        gap: 1rem;
-        background: var(--white);
-        position: absolute;
-        top: 100px; /* adjust if header size differs */
-        right: 20px;
-        padding: 1rem 1.5rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        z-index: 99;
-      }
-
-      .nav__links.active {
-        display: flex;
-      }
-
-      .nav__links a {
-        color: var(--text-dark);
-      }
-
-      .nav__menu__btn {
-        display: block;
-        font-size: 1.8rem;
-        cursor: pointer;
-        color: var(--white);
-        z-index: 100;
+      
+      .nav__action__btn {
+        margin: 1rem 0 0 0;
       }
     }
-
-    /* Desktop: always show menu */
-    @media (min-width: 769px) {
-      .nav__menu__btn {
-        display: none;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -696,9 +699,8 @@
           <i class="ri-menu-line"></i>
         </div>
 
-
         <div class="nav__container">
-          <ul class="nav__links">
+          <ul class="nav__links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html" class="active">About</a></li>
             <li><a href="events.html">Events</a></li>
@@ -950,25 +952,47 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    // Mobile menu functionality
     const menuBtn = document.getElementById("menu-btn");
-  const navLinks = document.getElementById("nav-links");
+    const navLinks = document.getElementById("nav-links");
+    const accountBtn = document.getElementById("account-btn");
 
-  menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+      
+      // Show/hide account button when menu is toggled on mobile
+      if (window.innerWidth <= 768) {
+        const actionBtn = document.querySelector('.nav__action__btn');
+        if (navLinks.classList.contains("active")) {
+          actionBtn.style.display = 'block';
+        } else {
+          actionBtn.style.display = 'none';
+        }
+      }
+      
+      // Toggle icon between hamburger and close
+      const icon = menuBtn.querySelector("i");
+      if (navLinks.classList.contains("active")) {
+        icon.classList.replace("ri-menu-line", "ri-close-line");
+      } else {
+        icon.classList.replace("ri-close-line", "ri-menu-line");
+      }
+    });
 
-    // Toggle icon between hamburger and close
-    const icon = menuBtn.querySelector("i");
-    if (navLinks.classList.contains("active")) {
-      icon.classList.replace("ri-menu-line", "ri-close-line");
-    } else {
-      icon.classList.replace("ri-close-line", "ri-menu-line");
-    }
-  });
+    // Close menu when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768 && 
+          !e.target.closest('.nav__links') && 
+          !e.target.closest('#menu-btn') &&
+          navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        document.querySelector('.nav__action__btn').style.display = 'none';
+        menuBtn.querySelector("i").classList.replace("ri-close-line", "ri-menu-line");
+      }
+    });
 
     // Check authentication state
     onAuthStateChanged(auth, (user) => {
-      const accountBtn = document.getElementById('account-btn');
-      
       if (user) {
         // User is signed in
         accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;

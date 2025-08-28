@@ -102,8 +102,8 @@
         <h1>Find Belonging, Grow in Faith</h1>
         <p>Sunday Services at 10:30AM</p>
         <div class="hero__cta">
-          <a href="/visit" class="btn btn__primary">Visit Us</a>
-          <a href="/live" class="btn btn__outline">Our Youtube Channel</a>
+          <a href="contact.html" class="btn btn__primary">Visit Us</a>
+          <a href="https://www.youtube.com/@journeyvillage3430" class="btn btn__outline">Our Youtube Channel</a>
         </div>
       </div>
     </div>
@@ -139,9 +139,6 @@
             <div class="about__text">
               <h3>Sunday Worship</h3>
               <p>Come encounter God through heartfelt worship, joyful praise, and a welcoming community.</p>
-              <a href="/services" class="btn btn__outline">
-                Service Times <i class="ri-arrow-right-line"></i>
-              </a>
             </div>
           </div>
 
@@ -152,9 +149,6 @@
             <div class="about__text">
               <h3>Small Groups</h3>
               <p>Build meaningful relationships and grow spiritually through weekly home-based gatherings.</p>
-              <a href="/groups" class="btn btn__outline">
-                Find a Group <i class="ri-arrow-right-line"></i>
-              </a>
             </div>
           </div>
 
@@ -165,9 +159,6 @@
             <div class="about__text">
               <h3>Biblical Preaching</h3>
               <p>Be encouraged and challenged by dynamic sermons that bring God’s Word to life.</p>
-              <a href="/services" class="btn btn__outline">
-                Service Times <i class="ri-arrow-right-line"></i>
-              </a>
             </div>
           </div>
         </div>
@@ -238,9 +229,9 @@
         </div>
         <p>QM54+ J2H, Rungiri<br>Kiambu, Kenya</p>
         <div class="footer__socials">
-          <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
-          <a href="#" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
-          <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+          <a href="https://www.facebook.com/p/The-Journey-Village-Kikuyu-100064713729585/" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+          <a href="https://www.instagram.com/journeyvillage.ke/" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
+          <a href="https://www.youtube.com/@journeyvillage3430" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
         </div>
       </div>
       
@@ -310,6 +301,13 @@ const db = getFirestore(app);
 
 // 🔑 Pastor UID (replace with actual UID from Firebase Auth console)
 const PASTOR_UID = "DV79sAoDttTb5MR3uEDyBCGvlbm1";
+
+  const menuBtn = document.getElementById("menu-btn");
+  const navLinks = document.getElementById("nav-links");
+
+  menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
 
 // 🔹 Register
 document.getElementById("register-form").addEventListener("submit", async (e) => {

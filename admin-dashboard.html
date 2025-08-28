@@ -726,7 +726,6 @@
                 <li><a href="#" id="nav-announcements"><i class="ri-megaphone-line"></i> Announcements</a></li>
                 <li><a href="#" id="nav-users"><i class="ri-user-line"></i> User Management</a></li>
                 <li><a href="#" id="nav-inquiries"><i class="ri-inbox-line"></i> Inquiries</a></li>
-                <li><a href="#"><i class="ri-settings-3-line"></i> Settings</a></li>
             </ul>
         </aside>
 
@@ -1178,7 +1177,7 @@
         // 🔒 Auth + Role Check
         auth.onAuthStateChanged(async (user) => {
             if (!user) {
-                window.location.href = "login.html";
+                window.location.href = "index.html";
                 return;
             }
 

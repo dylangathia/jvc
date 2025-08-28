@@ -18,11 +18,11 @@
     <nav>
       <div class="nav__bar">
         <div class="logo nav__logo">
-          <a href="/"><img src="logo.png" alt="Journey Village Church Logo" loading="lazy"></a>
+          <a href="index.html"><img src="logo.png" alt="Journey Village Church Logo" loading="lazy"></a>
         </div>
         <ul class="nav__links" id="nav-links">
           <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="/about">About Us</a></li>
+          <li><a href="about.html">About Us</a></li>
           <li><a href="events.html">Events</a></li>
           <li><a href="giving.html">Giving</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -247,7 +247,7 @@
       <div class="footer__col">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="/about">About Us</a></li>
+          <li><a href="about.html">About Us</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="events.html">Events</a></li>
         </ul>
@@ -396,70 +396,83 @@ onAuthStateChanged(auth, async (user) => {
 
 
 
-// 🔹 Logout / Open Modal
-document.getElementById("account-btn").addEventListener("click", async () => {
-  const user = auth.currentUser;
-  if (user) {
-    await signOut(auth);
-    alert("✅ Signed out");
-  } else {
-    document.getElementById("account-modal").style.display = "block";
-  }
-});
-
-// 🔹 Save Username
-document.getElementById("username-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const username = document.getElementById("username-input").value.trim();
-  const user = auth.currentUser;
-
-  if (!user) return;
-  if (username.length < 3) {
-    alert("❌ Username must be at least 3 characters long.");
-    return;
-  }
-
-  // Check for username uniqueness
-  const usernameQuery = await getDocs(query(collection(db, "users"), where("username", "==", username)));
-  if (!usernameQuery.empty) {
-    alert("❌ Username already taken.");
-    return;
-  }
-
-  try {
-    await setDoc(doc(db, "users", user.uid), {
-      email: user.email,
-      username: username,
-      role: user.uid === PASTOR_UID ? "admin" : "member"
-    });
-
-    alert("✅ Username set successfully!");
-    closeUsernameModal();
-
-    // Redirect after username set
-    if (user.uid === PASTOR_UID) {
-      window.location.href = "/admin";
+  // 🔹 Logout / Open Modal
+  document.getElementById("account-btn").addEventListener("click", async () => {
+    const user = auth.currentUser;
+    if (user) {
+      await signOut(auth);
+      alert("✅ Signed out");
     } else {
-      window.location.href = "index.html";
+      document.getElementById("account-modal").style.display = "block";
+    }
+  });
+
+  // 🔹 Save Username
+  document.getElementById("username-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username-input").value.trim();
+    const user = auth.currentUser;
+
+    if (!user) return;
+    if (username.length < 3) {
+      alert("❌ Username must be at least 3 characters long.");
+      return;
     }
 
-  } catch (err) {
-    alert("❌ " + err.message);
-  }
-});
+    // Check for username uniqueness
+    const usernameQuery = await getDocs(query(collection(db, "users"), where("username", "==", username)));
+    if (!usernameQuery.empty) {
+      alert("❌ Username already taken.");
+      return;
+    }
 
-// 🔹 Modal Helpers
-function closeModal() {
-  document.getElementById("account-modal").style.display = "none";
-}
-function showUsernameModal() {
-  document.getElementById("username-modal").style.display = "flex";
-}
-function closeUsernameModal() {
-  document.getElementById("username-modal").style.display = "none";
-}
-document.getElementById("account-modal-close").addEventListener("click", closeModal);
-document.getElementById("username-modal-close").addEventListener("click", closeUsernameModal);
+    try {
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        username: username,
+        role: user.uid === PASTOR_UID ? "admin" : "member"
+      });
+
+      alert("✅ Username set successfully!");
+      closeUsernameModal();
+
+      // Redirect after username set
+      if (user.uid === PASTOR_UID) {
+        window.location.href = "/admin";
+      } else {
+        window.location.href = "index.html";
+      }
+
+    } catch (err) {
+      alert("❌ " + err.message);
+    }
+  });
+
+  // 🔹 Modal Helpers
+  function closeModal() {
+    document.getElementById("account-modal").style.display = "none";
+  }
+  function showUsernameModal() {
+    document.getElementById("username-modal").style.display = "flex";
+  }
+  function closeUsernameModal() {
+    document.getElementById("username-modal").style.display = "none";
+  }
+  document.getElementById("account-modal-close").addEventListener("click", closeModal);
+  document.getElementById("username-modal-close").addEventListener("click", closeUsernameModal);
+
+  document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+
+      if (params.get("login") === "true") {
+        // Example if using Bootstrap modal
+        const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+        modal.show();
+
+        // If using custom modal:
+        // document.getElementById("loginModal").style.display = "block";
+      }
+  });
 </script>
 </body>
 </html>

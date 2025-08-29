@@ -615,6 +615,238 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+
+        /* Add these styles to your existing CSS */
+
+    /* Mobile-first improvements */
+    @media (max-width: 768px) {
+        /* Header improvements */
+        .header-content {
+            flex-direction: column;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            margin-bottom: 1rem;
+            justify-content: center;
+        }
+        
+        .nav-links {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-links a {
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Admin header improvements */
+        .admin-header-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+        
+        .admin-actions {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Main content improvements */
+        .main-content {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .admin-sidebar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin-bottom: 1rem;
+        }
+        
+        .admin-nav {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .admin-nav li {
+            flex-shrink: 0;
+            margin-bottom: 0;
+        }
+        
+        .admin-nav a {
+            white-space: nowrap;
+        }
+
+        /* Tab improvements */
+        .tabs {
+            overflow-x: auto;
+            white-space: nowrap;
+            flex-wrap: nowrap;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .tab {
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Form improvements */
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        input, textarea, select {
+            font-size: 16px; /* Prevents zoom on iOS */
+        }
+
+        /* Table improvements */
+        .events-table, .user-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .events-table th, 
+        .events-table td,
+        .user-table th,
+        .user-table td {
+            padding: 0.75rem 0.5rem;
+            font-size: 0.85rem;
+        }
+        
+        .event-actions, .user-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .btn-sm {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        /* Modal improvements */
+        .modal-content {
+            width: 95%;
+            margin: 1rem;
+            padding: 1.5rem;
+            max-height: 85vh;
+        }
+        
+        .modal-footer {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .modal-footer .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Filter improvements */
+        .filters {
+            flex-direction: column;
+        }
+        
+        .filter-group {
+            width: 100%;
+        }
+
+        /* Inquiry detail improvements */
+        .detail-row {
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .detail-label {
+            min-width: auto;
+            font-weight: 700;
+        }
+        
+        .detail-actions {
+            flex-direction: column;
+        }
+        
+        .detail-actions .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Footer improvements */
+        .footer-content {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        
+        .social-links {
+            justify-content: center;
+        }
+    }
+
+    /* Very small devices */
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 1.5rem;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .admin-title {
+            font-size: 1.5rem;
+        }
+        
+        .admin-panel {
+            padding: 1.5rem 1rem;
+        }
+        
+        .admin-panel h2 {
+            font-size: 1.3rem;
+        }
+        
+        .btn {
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Make sure form buttons don't get double margin */
+        form .btn:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    /* Additional touch-friendly improvements */
+    .btn, .tab {
+        min-height: 44px; /* Minimum touch target size */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    input, select, textarea {
+        min-height: 44px; /* Better touch targets for form elements */
+    }
+    
+    /* Prevent horizontal scrolling on entire page */
+    body {
+        overflow-x: hidden;
+    }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
@@ -1208,6 +1440,43 @@
             setTimeout(() => { toast.className = 'toast'; }, 3000);
         }
 
+
+        // Add this to your existing JavaScript
+    
+    // Handle mobile menu if needed (though our CSS should handle it)
+    document.addEventListener('DOMContentLoaded', function() {
+        // Close modals when tapping outside on mobile
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('touchstart', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+        });
+        
+        // Improve touch experience for dropdowns
+        const selects = document.querySelectorAll('select');
+        selects.forEach(select => {
+            select.addEventListener('touchstart', function() {
+                // Add slight delay to prevent immediate dismissal on iOS
+                setTimeout(() => {
+                    this.focus();
+                }, 100);
+            });
+        });
+    });
+    
+    // Function to handle viewport scaling
+    function setViewportScale() {
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+        }
+    }
+    
+    // Call on load and resize
+    window.addEventListener('load', setViewportScale);
+    window.addEventListener('resize', setViewportScale);
         // Tab functionality
         function setupTabs() {
             const tabs = document.querySelectorAll('.tab');

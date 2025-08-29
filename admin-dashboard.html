@@ -36,6 +36,7 @@
             line-height: 1.6;
             color: var(--text-dark);
             background-color: var(--light-bg);
+            overflow-x: hidden;
         }
 
         .container {
@@ -56,6 +57,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .logo {
@@ -75,7 +77,8 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
@@ -83,8 +86,11 @@
             text-decoration: none;
             font-weight: 500;
             transition: var(--transition);
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1rem;
             border-radius: 5px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
         }
 
         .nav-links a:hover {
@@ -109,23 +115,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .admin-title {
             font-family: var(--header-font);
             font-size: 1.8rem;
             margin: 0;
+            text-align: center;
         }
 
         .admin-actions {
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         /* Main Content */
         .main-content {
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 1fr;
             gap: 2rem;
             margin-bottom: 3rem;
         }
@@ -137,14 +148,23 @@
             padding: 1.5rem;
             box-shadow: var(--box-shadow);
             height: fit-content;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .admin-nav {
             list-style: none;
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+            gap: 0.5rem;
         }
 
         .admin-nav li {
-            margin-bottom: 0.5rem;
+            flex-shrink: 0;
+            margin-bottom: 0;
         }
 
         .admin-nav a {
@@ -156,6 +176,8 @@
             text-decoration: none;
             border-radius: 5px;
             transition: var(--transition);
+            min-height: 44px;
+            white-space: nowrap;
         }
 
         .admin-nav a:hover, .admin-nav a.active {
@@ -167,7 +189,7 @@
         .admin-panel {
             background: white;
             border-radius: 10px;
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: var(--box-shadow);
             margin-bottom: 2rem;
         }
@@ -177,6 +199,7 @@
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--secondary-color);
+            font-size: 1.5rem;
         }
 
         .form-group {
@@ -198,6 +221,8 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-family: inherit;
+            font-size: 16px; /* Prevents zoom on iOS */
+            min-height: 44px;
         }
 
         .form-group textarea {
@@ -207,13 +232,14 @@
 
         .form-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 1rem;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             padding: 0.75rem 1.5rem;
             border-radius: 5px;
@@ -222,6 +248,8 @@
             transition: var(--transition);
             border: none;
             font-size: 1rem;
+            min-height: 44px;
+            text-align: center;
         }
 
         .btn-primary {
@@ -253,8 +281,9 @@
         }
 
         .btn-sm {
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1rem;
             font-size: 0.9rem;
+            min-height: 40px;
         }
 
         .btn-info {
@@ -266,24 +295,35 @@
             background-color: #138496;
         }
 
-        /* Tabs */
+        /* Tabs - Stacked on mobile */
         .tabs {
             display: flex;
+            flex-direction: column;
             margin-bottom: 1.5rem;
             border-bottom: 2px solid #eee;
+            width: 100%;
         }
 
         .tab {
-            padding: 0.8rem 1.5rem;
+            padding: 1rem;
             cursor: pointer;
             font-weight: 600;
             color: #888;
-            border-bottom: 3px solid transparent;
+            border-bottom: 2px solid #eee;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .tab:last-child {
+            border-bottom: none;
         }
 
         .tab.active {
             color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
+            background-color: rgba(25, 149, 173, 0.1);
+            border-left: 4px solid var(--primary-color);
         }
 
         .tab-content {
@@ -299,11 +339,14 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 1.5rem;
+            display: block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .events-table th,
         .events-table td {
-            padding: 1rem;
+            padding: 0.75rem;
             text-align: left;
             border-bottom: 1px solid #eee;
         }
@@ -320,6 +363,7 @@
         .event-actions {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
         /* Toast Notification */
@@ -338,6 +382,7 @@
             gap: 10px;
             transform: translateX(100%);
             transition: transform 0.3s ease;
+            max-width: calc(100vw - 40px);
         }
 
         .toast.show {
@@ -362,7 +407,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 1fr;
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -371,6 +416,7 @@
             color: var(--secondary-color);
             margin-bottom: 1.5rem;
             font-size: 1.2rem;
+            text-align: center;
         }
 
         .footer-column p, .footer-column a {
@@ -379,6 +425,7 @@
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: var(--transition);
+            text-align: center;
         }
 
         .footer-column a:hover {
@@ -390,14 +437,15 @@
             gap: 1rem;
             margin-top: 1rem;
             margin-bottom: 20px;
+            justify-content: center;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             transition: var(--transition);
@@ -422,12 +470,14 @@
             gap: 1rem;
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
+            flex-direction: column;
         }
 
         .filter-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            width: 100%;
         }
 
         .filter-group label {
@@ -436,9 +486,11 @@
         }
 
         .filter-group select, .filter-group input {
-            padding: 0.5rem;
+            padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 5px;
+            min-height: 44px;
+            font-size: 16px;
         }
 
         .inquiry-row {
@@ -464,14 +516,15 @@
 
         .detail-row {
             display: flex;
+            flex-direction: column;
             margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid #eee;
+            gap: 0.5rem;
         }
 
         .detail-label {
             font-weight: 600;
-            min-width: 120px;
             color: var(--dark-blue);
         }
 
@@ -481,13 +534,19 @@
             margin-top: 1.5rem;
             padding-top: 1rem;
             border-top: 1px solid #eee;
+            flex-direction: column;
+        }
+
+        .detail-actions .btn {
+            width: 100%;
         }
 
         .status-badge {
-            padding: 0.3rem 0.8rem;
+            padding: 0.5rem 1rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            min-height: auto;
         }
 
         .status-new {
@@ -515,11 +574,14 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 1.5rem;
+            display: block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .user-table th,
         .user-table td {
-            padding: 1rem;
+            padding: 0.75rem;
             text-align: left;
             border-bottom: 1px solid #eee;
         }
@@ -536,13 +598,15 @@
         .user-actions {
             display: flex;
             gap: 0.5rem;
+            flex-direction: column;
         }
         
         .role-badge {
-            padding: 0.3rem 0.8rem;
+            padding: 0.5rem 1rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            min-height: auto;
         }
         
         .role-admin {
@@ -567,13 +631,15 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 1rem;
+            overflow-y: auto;
         }
         
         .modal-content {
             background-color: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 10px;
-            width: 90%;
+            width: 100%;
             max-width: 500px;
             max-height: 80vh;
             overflow-y: auto;
@@ -594,6 +660,11 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #888;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .modal-footer {
@@ -603,6 +674,11 @@
             margin-top: 1.5rem;
             padding-top: 1rem;
             border-top: 1px solid #eee;
+            flex-direction: column;
+        }
+        
+        .modal-footer .btn {
+            width: 100%;
         }
 
         /* Spinner Styles */
@@ -616,299 +692,191 @@
             animation: spin 1s linear infinite;
         }
 
-        /* Add these styles to your existing CSS */
-
-    /* Mobile-first improvements */
-    @media (max-width: 768px) {
-        /* Header improvements */
-        .header-content {
-            flex-direction: column;
-            padding: 1rem 0;
-        }
-        
-        .logo {
-            margin-bottom: 1rem;
-            justify-content: center;
-        }
-        
-        .nav-links {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .nav-links a {
-            padding: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        /* Admin header improvements */
-        .admin-header-content {
-            flex-direction: column;
-            text-align: center;
-            gap: 1rem;
-        }
-        
-        .admin-actions {
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* Main content improvements */
-        .main-content {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        
-        .admin-sidebar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            margin-bottom: 1rem;
-        }
-        
-        .admin-nav {
-            display: flex;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .admin-nav li {
-            flex-shrink: 0;
-            margin-bottom: 0;
-        }
-        
-        .admin-nav a {
-            white-space: nowrap;
-        }
-
-        /* Tab improvements */
-        .tabs {
-            overflow-x: auto;
-            white-space: nowrap;
-            flex-wrap: nowrap;
-            padding-bottom: 0.5rem;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .tab {
-            padding: 0.8rem 1rem;
-            font-size: 0.9rem;
-        }
-
-        /* Form improvements */
-        .form-row {
-            grid-template-columns: 1fr;
-            gap: 0;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        input, textarea, select {
-            font-size: 16px; /* Prevents zoom on iOS */
-        }
-
-        /* Table improvements */
-        .events-table, .user-table {
-            display: block;
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .events-table th, 
-        .events-table td,
-        .user-table th,
-        .user-table td {
-            padding: 0.75rem 0.5rem;
-            font-size: 0.85rem;
-        }
-        
-        .event-actions, .user-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-        
-        .btn-sm {
-            padding: 0.4rem 0.6rem;
-            font-size: 0.8rem;
-        }
-
-        /* Modal improvements */
-        .modal-content {
-            width: 95%;
-            margin: 1rem;
-            padding: 1.5rem;
-            max-height: 85vh;
-        }
-        
-        .modal-footer {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .modal-footer .btn {
-            width: 100%;
-            justify-content: center;
-        }
-
-        /* Filter improvements */
-        .filters {
-            flex-direction: column;
-        }
-        
-        .filter-group {
-            width: 100%;
-        }
-
-        /* Inquiry detail improvements */
-        .detail-row {
-            flex-direction: column;
-            gap: 0.25rem;
-            margin-bottom: 1rem;
-        }
-        
-        .detail-label {
-            min-width: auto;
-            font-weight: 700;
-        }
-        
-        .detail-actions {
-            flex-direction: column;
-        }
-        
-        .detail-actions .btn {
-            width: 100%;
-            justify-content: center;
-        }
-
-        /* Footer improvements */
-        .footer-content {
-            grid-template-columns: 1fr;
-            text-align: center;
-        }
-        
-        .social-links {
-            justify-content: center;
-        }
-    }
-
-    /* Very small devices */
-    @media (max-width: 480px) {
-        .logo {
-            font-size: 1.5rem;
-        }
-        
-        .logo img {
-            height: 40px;
-        }
-        
-        .admin-title {
-            font-size: 1.5rem;
-        }
-        
-        .admin-panel {
-            padding: 1.5rem 1rem;
-        }
-        
-        .admin-panel h2 {
-            font-size: 1.3rem;
-        }
-        
-        .btn {
-            width: 100%;
-            justify-content: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Make sure form buttons don't get double margin */
-        form .btn:last-child {
-            margin-bottom: 0;
-        }
-    }
-
-    /* Additional touch-friendly improvements */
-    .btn, .tab {
-        min-height: 44px; /* Minimum touch target size */
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    input, select, textarea {
-        min-height: 44px; /* Better touch targets for form elements */
-    }
-    
-    /* Prevent horizontal scrolling on entire page */
-    body {
-        overflow-x: hidden;
-    }
-        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive */
-        @media (max-width: 968px) {
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            min-width: 44px;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 768px) {
             .main-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: 250px 1fr;
             }
             
             .form-row {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
-
+            
             .filters {
-                flex-direction: column;
+                flex-direction: row;
+            }
+            
+            .filter-group {
+                width: auto;
+            }
+            
+            .admin-nav {
+                display: block;
+                overflow-x: visible;
+            }
+            
+            .admin-nav li {
+                margin-bottom: 0.5rem;
+            }
+            
+            .event-actions, .user-actions {
+                flex-direction: row;
+            }
+            
+            .detail-row {
+                flex-direction: row;
+            }
+            
+            .detail-label {
+                min-width: 120px;
+            }
+            
+            .detail-actions {
+                flex-direction: row;
+            }
+            
+            .detail-actions .btn {
+                width: auto;
+            }
+            
+            .modal-footer {
+                flex-direction: row;
+            }
+            
+            .modal-footer .btn {
+                width: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .footer-column h3,
+            .footer-column p, 
+            .footer-column a {
+                text-align: left;
+            }
+            
+            .social-links {
+                justify-content: flex-start;
+            }
+            
+            /* Horizontal tabs on larger screens */
+            .tabs {
+                flex-direction: row;
+                border-bottom: 2px solid #eee;
+                overflow-x: auto;
+                white-space: nowrap;
+                flex-wrap: nowrap;
+                padding-bottom: 0.5rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .tab {
+                padding: 0.8rem 1.5rem;
+                border-bottom: 3px solid transparent;
+                border-left: none;
+            }
+            
+            .tab.active {
+                color: var(--primary-color);
+                border-bottom: 3px solid var(--primary-color);
+                background-color: transparent;
+                border-left: none;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             .header-content {
                 flex-direction: column;
+                text-align: center;
                 gap: 1rem;
             }
             
             .nav-links {
-                flex-wrap: wrap;
+                width: 100%;
                 justify-content: center;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-links.active {
+                display: flex;
             }
             
             .admin-header-content {
                 flex-direction: column;
-                gap: 1rem;
                 text-align: center;
             }
             
-            .admin-actions {
-                justify-content: center;
+            .admin-title {
+                margin-bottom: 1rem;
             }
             
-            .events-table {
-                display: block;
-                overflow-x: auto;
+            .events-table, .user-table {
+                font-size: 0.85rem;
             }
+            
+            .events-table th, 
+            .events-table td,
+            .user-table th,
+            .user-table td {
+                padding: 0.5rem;
+            }
+        }
 
-            .detail-row {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .detail-label {
-                min-width: auto;
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
             }
             
-            .user-table {
-                display: block;
-                overflow-x: auto;
+            .logo img {
+                height: 40px;
             }
             
-            .user-actions {
-                flex-direction: column;
+            .admin-title {
+                font-size: 1.5rem;
+            }
+            
+            .admin-panel {
+                padding: 1rem;
+            }
+            
+            .admin-panel h2 {
+                font-size: 1.3rem;
+            }
+            
+            .btn {
+                width: 100%;
             }
         }
     </style>
@@ -921,11 +889,14 @@
 
     <header>
         <div class="container header-content">
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <i class="ri-menu-line"></i>
+            </button>
             <div class="logo">
                 <img src="logo.png" alt="Journey Village Church Logo">
                 Journey Village Church
             </div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="events.html" class="active">Events</a></li>
@@ -963,7 +934,7 @@
 
         <!-- Main Content -->
         <div class="admin-content">
-            <!-- Tabs -->
+            <!-- Tabs - Now stacked on mobile -->
             <div class="tabs">
                 <div class="tab active" data-tab="add-event">Add Event</div>
                 <div class="tab" data-tab="add-announcement">Add Announcement</div>
@@ -1167,7 +1138,7 @@
                                 <td colspan="6" style="text-align: center; padding: 2rem;">
                                     <div class="spinner"></div>
                                     <p>Loading inquiries...</p>
-                                </td>
+                                    </td>
                             </tr>
                         </tbody>
                     </table>
@@ -1440,43 +1411,23 @@
             setTimeout(() => { toast.className = 'toast'; }, 3000);
         }
 
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+        });
 
-        // Add this to your existing JavaScript
-    
-    // Handle mobile menu if needed (though our CSS should handle it)
-    document.addEventListener('DOMContentLoaded', function() {
-        // Close modals when tapping outside on mobile
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('touchstart', function(e) {
-                if (e.target === this) {
-                    this.style.display = 'none';
-                }
-            });
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('nav-links');
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
         });
-        
-        // Improve touch experience for dropdowns
-        const selects = document.querySelectorAll('select');
-        selects.forEach(select => {
-            select.addEventListener('touchstart', function() {
-                // Add slight delay to prevent immediate dismissal on iOS
-                setTimeout(() => {
-                    this.focus();
-                }, 100);
-            });
-        });
-    });
-    
-    // Function to handle viewport scaling
-    function setViewportScale() {
-        const viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport) {
-            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-        }
-    }
-    
-    // Call on load and resize
-    window.addEventListener('load', setViewportScale);
-    window.addEventListener('resize', setViewportScale);
+
         // Tab functionality
         function setupTabs() {
             const tabs = document.querySelectorAll('.tab');
@@ -1494,10 +1445,15 @@
                     
                     // Hide all tab content in the same section
                     const tabContents = parent.parentElement.querySelectorAll('.tab-content');
-                    tabContents.forEach(content => content.classList.remove('active'));
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        content.style.display = 'none';
+                    });
                     
                     // Show the selected tab content
-                    document.getElementById(tabName).classList.add('active');
+                    const activeContent = document.getElementById(tabName);
+                    activeContent.classList.add('active');
+                    activeContent.style.display = 'block';
                     
                     // If switching to users tab, refresh the data
                     if (tabName === 'users') {
@@ -1524,8 +1480,10 @@
                 
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
+                    content.style.display = 'none';
                     if (content.id === 'add-event') {
                         content.classList.add('active');
+                        content.style.display = 'block';
                     }
                 });
             });
@@ -1543,8 +1501,10 @@
                 
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
+                    content.style.display = 'none';
                     if (content.id === 'add-announcement') {
                         content.classList.add('active');
+                        content.style.display = 'block';
                     }
                 });
             });
@@ -1562,8 +1522,10 @@
                 
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
+                    content.style.display = 'none';
                     if (content.id === 'users') {
                         content.classList.add('active');
+                        content.style.display = 'block';
                     }
                 });
                 
@@ -1583,8 +1545,10 @@
                 
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
+                    content.style.display = 'none';
                     if (content.id === 'inquiries') {
                         content.classList.add('active');
+                        content.style.display = 'block';
                     }
                 });
                 
@@ -1684,7 +1648,9 @@
                 
                 querySnapshot.forEach((doc) => {
                     const event = doc.data();
-                    const eventDate = event.date.toDate();
+                    const eventDate = event.date && typeof event.date.toDate === 'function' 
+                        ? event.date.toDate() 
+                        : new Date(event.date);
                     const formattedDate = eventDate.toLocaleDateString('en-US', { 
                         year: 'numeric', 
                         month: 'short', 
@@ -1715,13 +1681,15 @@
                     eventsBody.appendChild(row);
                 });
                 
-                // Add event listeners to edit buttons
-                document.querySelectorAll('.edit-event-btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                // Add event listeners to edit buttons using event delegation
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('edit-event-btn') || e.target.closest('.edit-event-btn')) {
+                        const button = e.target.classList.contains('edit-event-btn') 
+                            ? e.target 
+                            : e.target.closest('.edit-event-btn');
                         const eventId = button.getAttribute('data-id');
                         showEditEventModal(eventId);
-                    });
+                    }
                 });
                 
             } catch (error) {
@@ -1748,7 +1716,9 @@
                 document.getElementById("editEventTitle").value = event.title;
                 
                 // Format date for datetime-local input
-                const eventDate = event.date.toDate();
+                const eventDate = event.date && typeof event.date.toDate === 'function' 
+                    ? event.date.toDate() 
+                    : new Date(event.date);
                 const formattedDate = eventDate.toISOString().slice(0, 16);
                 document.getElementById("editEventDate").value = formattedDate;
                 
@@ -1807,7 +1777,9 @@
                 
                 querySnapshot.forEach((doc) => {
                     const announcement = doc.data();
-                    const announcementDate = announcement.date.toDate();
+                    const announcementDate = announcement.date && typeof announcement.date.toDate === 'function' 
+                        ? announcement.date.toDate() 
+                        : new Date(announcement.date);
                     const formattedDate = announcementDate.toLocaleDateString('en-US', { 
                         year: 'numeric', 
                         month: 'short', 
@@ -1838,13 +1810,15 @@
                     announcementsBody.appendChild(row);
                 });
                 
-                // Add event listeners to edit buttons
-                document.querySelectorAll('.edit-announcement-btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                // Add event listeners to edit buttons using event delegation
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('edit-announcement-btn') || e.target.closest('.edit-announcement-btn')) {
+                        const button = e.target.classList.contains('edit-announcement-btn') 
+                            ? e.target 
+                            : e.target.closest('.edit-announcement-btn');
                         const announcementId = button.getAttribute('data-id');
                         showEditAnnouncementModal(announcementId);
-                    });
+                    }
                 });
                 
             } catch (error) {
@@ -1872,7 +1846,9 @@
                 document.getElementById("editAnnouncementContent").value = announcement.content;
                 
                 // Format date for datetime-local input
-                const announcementDate = announcement.date.toDate();
+                const announcementDate = announcement.date && typeof announcement.date.toDate === 'function' 
+                    ? announcement.date.toDate() 
+                    : new Date(announcement.date);
                 const formattedDate = announcementDate.toISOString().slice(0, 16);
                 document.getElementById("editAnnouncementDate").value = formattedDate;
                 
@@ -1947,21 +1923,23 @@
                     usersBody.appendChild(row);
                 });
                 
-                // Add event listeners to action buttons
-                document.querySelectorAll('.change-role-btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                // Add event listeners to action buttons using event delegation
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('change-role-btn') || e.target.closest('.change-role-btn')) {
+                        const button = e.target.classList.contains('change-role-btn') 
+                            ? e.target 
+                            : e.target.closest('.change-role-btn');
                         const userId = button.getAttribute('data-id');
                         showChangeRoleModal(userId);
-                    });
-                });
-                
-                document.querySelectorAll('.delete-user-btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                    }
+                    
+                    if (e.target.classList.contains('delete-user-btn') || e.target.closest('.delete-user-btn')) {
+                        const button = e.target.classList.contains('delete-user-btn') 
+                            ? e.target 
+                            : e.target.closest('.delete-user-btn');
                         const userId = button.getAttribute('data-id');
                         showDeleteUserModal(userId);
-                    });
+                    }
                 });
                 
             } catch (error) {
@@ -2105,7 +2083,9 @@
                 
                 querySnapshot.forEach((doc) => {
                     const inquiry = doc.data();
-                    const inquiryDate = inquiry.timestamp.toDate();
+                    const inquiryDate = inquiry.timestamp && typeof inquiry.timestamp.toDate === 'function' 
+                        ? inquiry.timestamp.toDate() 
+                        : new Date(inquiry.timestamp);
                     const formattedDate = inquiryDate.toLocaleDateString('en-US', { 
                         year: 'numeric', 
                         month: 'short', 
@@ -2136,13 +2116,15 @@
                     inquiriesBody.appendChild(row);
                 });
                 
-                // Add event listeners to view buttons
-                document.querySelectorAll('.view-inquiry').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                // Add event listeners to view buttons using event delegation
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('view-inquiry') || e.target.closest('.view-inquiry')) {
+                        const button = e.target.classList.contains('view-inquiry') 
+                            ? e.target 
+                            : e.target.closest('.view-inquiry');
                         const inquiryId = button.getAttribute('data-id');
                         showInquiryDetail(inquiryId);
-                    });
+                    }
                 });
                 
                 // Add event listeners to rows
@@ -2202,7 +2184,9 @@
                 document.getElementById("detail-subject").textContent = formatSubject(inquiry.subject);
                 document.getElementById("detail-message").textContent = inquiry.message;
                 
-                const inquiryDate = inquiry.timestamp.toDate();
+                const inquiryDate = inquiry.timestamp && typeof inquiry.timestamp.toDate === 'function' 
+                    ? inquiry.timestamp.toDate() 
+                    : new Date(inquiry.timestamp);
                 const formattedDate = inquiryDate.toLocaleDateString('en-US', { 
                     year: 'numeric', 
                     month: 'long', 
@@ -2265,11 +2249,10 @@
         });
 
         // Close detail view
-        document.getElementById("close-detail").addEventListener("click", () => {
+        document.getElementById("close-detail").addEventListener('click', () => {
             document.getElementById("inquiry-detail").classList.remove("active");
             currentInquiryId = null;
         });
-
 
         // Add filter event listeners
         document.getElementById("status-filter").addEventListener("change", loadInquiries);

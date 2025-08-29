@@ -213,6 +213,12 @@
       width: 100%;
     }
 
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
     .nav__menu__btn {
       display: none;
       font-size: 1.5rem;
@@ -220,6 +226,43 @@
       cursor: pointer;
       z-index: 11;
     }
+
+    /* Mobile Navigation Styles */
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--dark-blue);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      .nav__links.active {
+        left: 0;
+      }
+
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero-contact-content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero-contact-content {
+        margin-top: 60px; /* Adjusted for mobile */
+      }
+    }
+
     /* Tabs */
     .tabs {
       display: flex;
@@ -433,31 +476,6 @@
     }
 
     @media (max-width: 768px) {
-      .nav__links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        height: 100vh;
-        background: var(--dark-blue);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        transition: var(--transition);
-        z-index: 10;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-      }
-
-      .nav__links.active {
-        left: 0;
-      }
-
-      .nav__menu__btn {
-        display: block;
-      }
-
       .hero-contact-content h1 {
         font-size: 2.2rem;
       }
@@ -474,7 +492,6 @@
       }
     }
 
-   
     @media (max-width: 576px) {
       html {
         font-size: 14px;
@@ -484,21 +501,12 @@
         padding: 3rem 1rem;
       }
 
-      .hero__content h1 {
+      .hero-contact-content h1 {
         font-size: 2rem;
       }
 
-      .hero__content p {
+      .hero-contact-content p {
         font-size: 1rem;
-      }
-      
-      .nav__links {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
-      .nav__action__btn {
-        margin: 1rem 0 0 0;
       }
     }
   </style>
@@ -531,9 +539,6 @@
         </div>
       </div>
     </nav>
-
-    <hr>
-    <br>
 
     <div class="hero-contact-content">
       <h1>Events & Announcements</h1>
@@ -630,17 +635,30 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
+    // Mobile menu functionality
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') 
+          ? '<i class="ri-close-line"></i>' 
+          : '<i class="ri-menu-line"></i>';
+      });
+    }
+
     // Check authentication state
     onAuthStateChanged(auth, (user) => {
       const accountBtn = document.getElementById('account-btn');
       
       if (user) {
         // User is signed in
-        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
+        accountBtn.textContent = 'Logout';
         accountBtn.onclick = handleLogout;
       } else {
         // User is signed out
-        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
+        accountBtn.textContent = 'Login';
         accountBtn.onclick = redirectToLogin;
       }
     });

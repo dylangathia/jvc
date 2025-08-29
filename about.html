@@ -185,19 +185,10 @@
       transform: scale(1.05);
     }
 
-    .nav__container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-    }
-
     .nav__links {
       display: flex;
       gap: 2rem;
       list-style: none;
-      align-items: center;
-      margin: 0 auto;
     }
 
     .nav__links a {
@@ -223,11 +214,21 @@
       width: 100%;
     }
 
-    /* Account Button - Gold Style */
-    .nav__action__btn {
-      margin-left: auto;
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
+    .nav__menu__btn {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--white);
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    /* Account Button - Gold Style */
     .nav__action__btn .btn {
       background-color: var(--secondary-color);
       color: var(--text-dark);
@@ -241,13 +242,40 @@
       box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
     }
 
-    /* Mobile menu button */
-    .nav__menu__btn {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: var(--white);
-      z-index: 100;
+    /* Mobile Navigation Styles */
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--dark-blue);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      .nav__links.active {
+        left: 0;
+      }
+
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero__content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero__content {
+        margin-top: 60px; /* Adjusted for mobile */
+      }
     }
 
     /* About Content Styles */
@@ -562,59 +590,9 @@
         grid-template-columns: 1fr;
         gap: 3rem;
       }
-      
-      .nav__container {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .nav__links {
-        margin: 0;
-      }
     }
 
     @media (max-width: 768px) {
-      .nav__bar {
-        flex-direction: row;
-        padding: 1rem;
-      }
-      
-      .nav__menu__btn {
-        display: block;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-      
-      .nav__links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--dark-blue);
-        padding: 1.5rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        z-index: 100;
-        gap: 1rem;
-      }
-      
-      .nav__links.active {
-        display: flex;
-      }
-      
-      .nav__links a {
-        color: var(--white);
-        padding: 0.75rem 0;
-        width: 100%;
-        text-align: center;
-      }
-      
-      .nav__action__btn {
-        margin: 0;
-      }
-      
       .hero__content h1 {
         font-size: 2.2rem;
       }
@@ -659,11 +637,6 @@
         font-size: 1rem;
       }
       
-      .nav__links {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
       .cta-buttons {
         flex-direction: column;
         align-items: center;
@@ -671,6 +644,34 @@
       
       .logo img {
         height: 60px;
+      }
+      
+      .nav__bar {
+        padding: 0.75rem;
+      }
+      
+      .nav__menu__btn {
+        right: 0.75rem;
+        top: 1.25rem;
+      }
+    }
+    
+    /* Extra small devices */
+    @media (max-width: 400px) {
+      .nav__links {
+        width: 85%;
+      }
+      
+      .hero__content h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section__upperheader {
+        font-size: 1.5rem;
+      }
+      
+      .section__header {
+        font-size: 1.8rem;
       }
     }
   </style>
@@ -680,27 +681,25 @@
   <header class="header" id="home">
     <nav>
       <div class="nav__bar">
-        <div class="logo">
+        <!-- Left: Logo -->
+        <div class="logo nav__logo">
           <a href="index.html"><img src="logo.png" alt="Journey Village Church Logo"></a>
         </div>
-        
-        <div class="nav__menu__btn" id="menu-btn">
-          <i class="ri-menu-line"></i>
-        </div>
 
-        <div class="nav__container">
-          <ul class="nav__links" id="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html" class="active">About</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="giving.html">Giving</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-          
-          <div class="nav__action__btn">
-            <button class="btn" id="account-btn">
-              <span><i class="ri-user-line"></i></span> Login
-            </button>
+        <!-- Center: Links -->
+        <ul class="nav__links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About Us</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="giving.html">Giving</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Right: Account button -->
+        <div class="nav__actions">
+          <button id="account-btn" class="btn btn__outline">Login</button>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
           </div>
         </div>
       </div>
@@ -794,7 +793,7 @@
       <div class="leadership-grid">
         <div class="leader-card">
           <div class="leader-image">
-            <img src="https://images.unsplash.com/photo-1580309237429-661ea7cd1d53?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pastor John Mwangi">
+            <img src="images/pasto.jpg" alt="Pastor John Mwangi">
           </div>
           <div class="leader-info">
             <h3>Pastor Nahashon Waruguru</h3>
@@ -942,42 +941,29 @@
     const auth = getAuth(app);
 
     // Mobile menu functionality
-    const menuBtn = document.getElementById("menu-btn");
-    const navLinks = document.getElementById("nav-links");
-    const accountBtn = document.getElementById("account-btn");
-
-    menuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-      
-      // Toggle icon between hamburger and close
-      const icon = menuBtn.querySelector("i");
-      if (navLinks.classList.contains("active")) {
-        icon.classList.replace("ri-menu-line", "ri-close-line");
-      } else {
-        icon.classList.replace("ri-close-line", "ri-menu-line");
-      }
-    });
-
-    // Close menu when clicking outside on mobile
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768 && 
-          !e.target.closest('.nav__links') && 
-          !e.target.closest('#menu-btn') &&
-          navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-        menuBtn.querySelector("i").classList.replace("ri-close-line", "ri-menu-line");
-      }
-    });
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') 
+          ? '<i class="ri-close-line"></i>' 
+          : '<i class="ri-menu-line"></i>';
+      });
+    }
 
     // Check authentication state
     onAuthStateChanged(auth, (user) => {
+      const accountBtn = document.getElementById('account-btn');
+      
       if (user) {
         // User is signed in
-        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
+        accountBtn.textContent = 'Logout';
         accountBtn.onclick = handleLogout;
       } else {
         // User is signed out
-        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
+        accountBtn.textContent = 'Login';
         accountBtn.onclick = redirectToLogin;
       }
     });

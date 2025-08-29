@@ -125,7 +125,7 @@
       font-size: 2.5rem;
       margin-bottom: 1.5rem;
       color: var(--text-dark);
-      text-align: center; /* Added to ensure center alignment */
+      text-align: center;
     }
 
     /* ===== Header/Hero ===== */
@@ -144,11 +144,11 @@
     .hero__content {
       max-width: 800px;
       padding: 2rem;
-      margin: 0 auto; /* Added to ensure centering */
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      align-items: center; /* Added to center content */
-      justify-content: center; /* Added to center content */
+      align-items: center;
+      justify-content: center;
     }
 
     .hero__content h1 {
@@ -189,20 +189,10 @@
       transform: scale(1.05);
     }
 
-    .nav__container {
-      display: flex;
-      align-items: center;
-      justify-content: center; /* Changed from space-between */
-      width: 100%;
-      position: relative;
-    }
-
     .nav__links {
       display: flex;
       gap: 2rem;
       list-style: none;
-      align-items: center;
-      margin: 0; /* Removed auto margin */
     }
 
     .nav__links a {
@@ -228,12 +218,21 @@
       width: 100%;
     }
 
-    /* Account Button - Gold Style */
-    .nav__action__btn {
-      position: absolute;
-      right: 2rem;
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
+    .nav__menu__btn {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--white);
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    /* Account Button - Gold Style */
     .nav__action__btn .btn {
       background-color: var(--secondary-color);
       color: var(--text-dark);
@@ -247,7 +246,43 @@
       box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
     }
 
-    /* Giving Hero Section - FIXED */
+    /* Mobile Navigation Styles */
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--dark-blue);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      .nav__links.active {
+        left: 0;
+      }
+
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero__content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero__content {
+        margin-top: 60px; /* Adjusted for mobile */
+      }
+    }
+
+    /* Giving Hero Section */
     .giving-hero {
       background: linear-gradient(rgba(25, 149, 173, 0.85), rgba(25, 149, 173, 0.9)), 
                   url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
@@ -709,40 +744,9 @@
       .hero__content h1 {
         font-size: 2.8rem;
       }
-      
-      .nav__container {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .nav__links {
-        margin: 0;
-      }
     }
 
     @media (max-width: 768px) {
-      .nav__bar {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-      }
-      
-      .nav__container {
-        width: 100%;
-        flex-direction: column;
-      }
-      
-      .nav__links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-      }
-      
-      .nav__action__btn {
-        position: static;
-        margin-top: 1rem;
-      }
-      
       .hero__content h1 {
         font-size: 2.2rem;
       }
@@ -781,15 +785,6 @@
         font-size: 1rem;
       }
       
-      .nav__links {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
-      .nav__action__btn {
-        margin: 1rem 0 0 0;
-      }
-      
       .giving-hero h1 {
         font-size: 2rem;
       }
@@ -810,23 +805,25 @@
   <header class="giving-hero" id="home">
     <nav>
       <div class="nav__bar">
-        <div class="logo">
+        <!-- Left: Logo -->
+        <div class="logo nav__logo">
           <a href="index.html"><img src="logo.png" alt="Journey Village Church Logo"></a>
         </div>
-        
-        <div class="nav__container">
-          <ul class="nav__links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="giving.html" class="active">Giving</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-          
-          <div class="nav__action__btn">
-            <button class="btn" id="account-btn">
-              <span><i class="ri-user-line"></i></span> Login
-            </button>
+
+        <!-- Center: Links -->
+        <ul class="nav__links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="giving.html" class="active">Giving</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Right: Account button -->
+        <div class="nav__actions">
+          <button id="account-btn" class="btn btn__outline">Login</button>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
           </div>
         </div>
       </div>
@@ -1013,17 +1010,30 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    // Mobile menu functionality
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') 
+          ? '<i class="ri-close-line"></i>' 
+          : '<i class="ri-menu-line"></i>';
+      });
+    }
+
     // Check authentication state
     onAuthStateChanged(auth, (user) => {
       const accountBtn = document.getElementById('account-btn');
       
       if (user) {
         // User is signed in
-        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
+        accountBtn.textContent = 'Logout';
         accountBtn.onclick = handleLogout;
       } else {
         // User is signed out
-        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
+        accountBtn.textContent = 'Login';
         accountBtn.onclick = redirectToLogin;
       }
     });

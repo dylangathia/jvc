@@ -480,6 +480,49 @@
       left: -13px;
     }
 
+    /* Village Movements Section */
+    .movements-section {
+      background-color: var(--light-bg);
+      padding: 5rem 0;
+    }
+
+    .movements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .movement-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .movement-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .movement-number {
+      width: 40px;
+      height: 40px;
+      background: var(--secondary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      color: var(--text-dark);
+    }
+
+    .movement-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
     /* Call to Action */
     .cta-section {
       background: linear-gradient(rgba(25, 149, 173, 0.9), rgba(25, 149, 173, 0.9)), 
@@ -682,6 +725,7 @@
 </head>
 <body>
   <!-- Header with Navigation -->
+  <!-- Header with Navigation -->
   <header class="header" id="home">
     <nav>
       <div class="nav__bar">
@@ -722,109 +766,108 @@
       <div class="about-content">
         <div class="about-text">
           <h2>Welcome to Journey Village Church</h2>
-          <p>Journey Village Church was founded in 2020 with a vision to create a Christ-centered community where people can find belonging, grow in faith, and serve others with their God-given gifts.</p>
-          <p>Located in the heart of Kikuyu, we are a diverse community of believers committed to making a positive impact in our neighborhood and beyond. Our church family represents different ages, backgrounds, and walks of life, united by our love for Jesus Christ.</p>
-          <p>We believe that church is not just a building or a Sunday event, but a family on mission together. Whether you're new to faith or have been following Jesus for years, there's a place for you here at Journey Village.</p>
+          <p>Journey Village Church was born out of a burning vision to see people live the way of Christ in every sphere of life. From the outset, our calling has been well-defined—to invite people to live the way of Christ through encounter, formation, community, and mission.</p>
+          <p>In November 2019, the vision took its first step forward, when Pastors Nash and Muthoni were commissioned by International Christian Centre Nairobi (ICCN) to plant a church in Kikuyu as part of the Kenya Assemblies of God (KAG). Leaving behind the familiar rhythms of ministry at JourneyFamily Church in Garden Estate, they stepped into the adventure of planting a new community of faith in the chilly town of Kikuyu.</p>
+          <p>Early in 2020, a small core team began to gather, but soon the Covid-19 pandemic shutdown interrupted plans and scattered expectations. What could have ended the story became, instead, the soil for resilience and creativity.</p>
         </div>
         <div class="about-image">
           <img src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Journey Village Church Congregation">
         </div>
       </div>
-    </section>
-
-    <!-- Our Values Section -->
-    <section class="values-section">
-      <div class="section__container">
-        <h2 class="section__upperheader">Our Core Values</h2>
-        
-        <div class="values-grid">
-          <div class="value-card">
-            <div class="value-icon">
-              <i class="ri-heart-line"></i>
-            </div>
-            <h3>Authentic Community</h3>
-            <p>We prioritize genuine relationships where people can be real, find support, and grow together in faith.</p>
-          </div>
-          
-          <div class="value-card">
-            <div class="value-icon">
-              <i class="ri-book-open-line"></i>
-            </div>
-            <h3>Biblical Truth</h3>
-            <p>We are committed to the authority of Scripture and teaching that transforms lives.</p>
-          </div>
-          
-          <div class="value-card">
-            <div class="value-icon">
-              <i class="ri-team-line"></i>
-            </div>
-            <h3>Intentional Discipleship</h3>
-            <p>We help people become fully devoted followers of Christ through mentoring and spiritual growth opportunities.</p>
-          </div>
-          
-          <div class="value-card">
-            <div class="value-icon">
-              <i class="ri-hand-heart-line"></i>
-            </div>
-            <h3>Compassionate Service</h3>
-            <p>We demonstrate God's love by serving our community and meeting practical needs.</p>
-          </div>
+      
+      <div class="about-content" style="margin-top: 3rem;">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Journey Village Church Worship">
+        </div>
+        <div class="about-text">
+          <p>Determined not to lose momentum, the team launched a weekly Village Gathering on Zoom. Though physically apart, God knit together hearts and laid the foundation for a worshipping community that longed for more.</p>
+          <p>When in-person gatherings were finally allowed, God provided a meeting place at Wattle House in Bethsaida Park. For three years, Wattle House became a sacred home—where a new body of Christ was launched, worship was lifted, friendships were forged, and faith was nurtured.</p>
+          <p>Yet the story was still unfolding. In 2023, God led us into a new chapter as the church leased land along Kikuyu–Kamangu Road. With prayer and sacrifice, what was once a thick forest was gradually reimagined into a gathering place for worship. In January 2024, the Journey Village family walked into its new home—a sign that God delights in transforming wilderness into sanctuaries of His presence.</p>
+          <p>Today, we continue to live into that founding vision. Journey Village is a community of faith, a people learning to live the way of Christ, as we encounter the risen Christ, be formed in His way, becoming His body for the sake of the world around us. Our story is still being written, and we believe the best is yet to come.</p>
         </div>
       </div>
     </section>
 
-    <!-- Our Beliefs Section -->
-    <section class="section__container">
-      <h2 class="section__upperheader">What We Believe</h2>
-      
-      <div class="about-content">
-        <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bible Study at Journey Village Church">
-        </div>
-        <div class="about-text">
-          <h3>Our Statement of Faith</h3>
-          <p>We believe in one God who exists in three persons: Father, Son, and Holy Spirit. We believe Jesus Christ is the Son of God who died for our sins and rose again, offering salvation to all who believe.</p>
-          <p>We believe the Bible is the inspired Word of God and our ultimate authority for faith and practice. We believe in the power of the Holy Spirit to transform lives and empower believers for service.</p>
-          <p>We believe the Church is the body of Christ on earth, called to worship God, make disciples, and serve the world in love. We believe in the personal return of Jesus Christ and the resurrection of all people to eternal life or judgment.</p>
+    <!-- Village Movements Section -->
+    <section class="movements-section">
+      <div class="section__container">
+        <h2 class="section__upperheader">What Shapes and Guides Us</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">At Journey Village Church, we exist to invite people to live the way of Christ—through Christ-Encounter, Formation, Community, and Mission.</p>
+        <p style="text-align: center; margin-bottom: 3rem; font-style: italic;">Our anchor Scripture is John 10:10: "A thief is only there to steal and kill and destroy. I came so they can have real and eternal life, more and better life than they ever dreamed of" (The Message). We long to be vessels of this promise, embodying and sharing the abundant life that Christ Himself offers.</p>
+        
+        <div class="movements-grid">
+          <div class="movement-card">
+            <div class="movement-number">1</div>
+            <h3>Movement Upward (Worship)</h3>
+            <p>We are anchored in the truth that we were created for worship—to love the Lord with all our heart, soul, mind, and strength. Our greatest joy is found in glorifying Him and delighting in His presence. This is our call to worship, the very life we were made for.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">2</div>
+            <h3>Movement Inward (Wholeness)</h3>
+            <p>We believe that Christ invites us into a journey of salvation, healing, and restoration—a transformation that touches every part of our being. As His life takes root within us, we are shaped by the Spirit and begin to bear His fruit.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">3</div>
+            <h3>Movement Withward (Community)</h3>
+            <p>We embrace the truth that faith is lived in community, for none of us are the body of Christ alone. We grow as we give and receive grace, share burdens, and celebrate joys. In community, our gifts take shape, our love becomes visible, and together we become a living witness of Christ's presence.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">4</div>
+            <h3>Movement Downward (Service)</h3>
+            <p>At the end of His ministry, Jesus washed His disciples' feet and called us to the same way of love. For us at the Village, we believe that true greatness is found in humility, as we follow Christ who came not to be served but to serve.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">5</div>
+            <h3>Movement Outward (Missional)</h3>
+            <p>We believe that as followers of Jesus, we are a sent people—called to the poor, to make disciples, and to be salt and light in the world. Faith is never private; it overflows into our neighborhoods, workplaces, and even to the ends of the earth.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">6</div>
+            <h3>Movement Backward (Rooted)</h3>
+            <p>We stand in the truth that to know where we're going, we must first look back at where we've been. God's story of grace—from creation to Christ to the promised new heaven and new earth—now includes us, and we root ourselves in His Word to be shaped as His people.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">7</div>
+            <h3>Movement Forward (Journey)</h3>
+            <p>We affirm with conviction that God has ordained a purpose for each of us today, and as we live it out, we join His work of shaping the future He desires. We are not called merely to exist but to leave fingerprints of faith, hope, and love where we are planted.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Leadership Section -->
     <section class="section__container">
-      <h2 class="section__upperheader">Our Leadership Team</h2>
+      <h2 class="section__upperheader">Our Leadership</h2>
       
       <div class="leadership-grid">
         <div class="leader-card">
           <div class="leader-image">
-            <img src="images/pasto.jpg" alt="Pastor John Mwangi">
+            <img src="images/pasto.jpg" alt="Pastor Nash Waruguru">
           </div>
           <div class="leader-info">
-            <h3>Pastor Nahashon Waruguru</h3>
-            <p class="leader-role">Senior Pastor</p>
-            <p>Leading Journey Village since 2018 with a heart for discipleship and community transformation.</p>
+            <h3>Pastor Nash Waruguru</h3>
+            <p class="leader-role">Lead Pastor</p>
+            <p>After graduating from University of Nairobi with a degree in Economics and Political science, Nash joined The Journey, a campus ministry of ICC Nairobi. He served in full time ministry since 2008, investing in students across 4 universities.</p>
+            <p>In 2019, he transitioned from college ministry to planting The Journey Village Church alongside his wife Muthoni.</p>
+            <p>Nash and Muthoni are blessed with three wonderful children.</p>
           </div>
         </div>
         
         <div class="leader-card">
           <div class="leader-image">
-            <img src="https://images.unsplash.com/photo-1573496799652-408c2ac0fe98?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pastor Mary Wanjiru">
+            <img src="https://images.unsplash.com/photo-1573496799652-408c2ac0fe98?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pastor Muthoni Waruguru">
           </div>
           <div class="leader-info">
-            <h3>Pastor John Doe</h3>
-            <p class="leader-role">Associate Pastor</p>
-            <p>Oversees our community outreach and women's ministry programs with passion and dedication.</p>
-          </div>
-        </div>
-        
-        <div class="leader-card">
-          <div class="leader-image">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Deacon James Kariuki">
-          </div>
-          <div class="leader-info">
-            <h3>Deacon James Doe</h3>
-            <p class="leader-role">Church Board Chairman</p>
-            <p>Serving the church since its founding with wisdom and commitment to our mission.</p>
+            <h3>Pastor Muthoni Waruguru</h3>
+            <p class="leader-role">Co-Pastor</p>
+            <p>Muthoni has a passion for women's discipleship and community building. She partners with Pastor Nash in leading Journey Village Church and brings a heart for nurturing spiritual growth in individuals and families.</p>
+            <p>Together with Nash, she has been instrumental in the planting and growth of Journey Village Church since its inception.</p>
           </div>
         </div>
       </div>
@@ -837,34 +880,50 @@
         
         <div class="timeline">
           <div class="timeline-item">
+            <div class="timeline-date">Nov 2019</div>
+            <div class="timeline-content">
+              <h3>Commissioning</h3>
+              <p>Pastors Nash and Muthoni commissioned by ICCN to plant a church in Kikuyu as part of KAG.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-date">Early 2020</div>
+            <div class="timeline-content">
+              <h3>Core Team Formation</h3>
+              <p>A small core team began to gather before the Covid-19 pandemic interrupted plans.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
             <div class="timeline-date">2020</div>
             <div class="timeline-content">
-              <h3>Church Founding</h3>
-              <p>Journey Village Church was established with 25 founding members meeting in a community hall.</p>
+              <h3>Zoom Gatherings</h3>
+              <p>Launched weekly Village Gathering on Zoom during pandemic shutdown.</p>
             </div>
           </div>
           
           <div class="timeline-item">
-            <div class="timeline-date">2021</div>
+            <div class="timeline-date">2020</div>
             <div class="timeline-content">
-              <h3>First Building</h3>
-              <p>We purchased and renovated our current property, creating a permanent home for our growing congregation.</p>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-date">2022</div>
-            <div class="timeline-content">
-              <h3>Community Center</h3>
-              <p>We launched our community outreach center, offering programs for youth, seniors, and families.</p>
+              <h3>Wattle House</h3>
+              <p>Began meeting at Wattle House in Bethsaida Park when in-person gatherings resumed.</p>
             </div>
           </div>
           
           <div class="timeline-item">
             <div class="timeline-date">2023</div>
             <div class="timeline-content">
-              <h3>Digital Ministry</h3>
-              <p>We expanded our reach through online services and digital discipleship resources.</p>
+              <h3>New Land</h3>
+              <p>Leased land along Kikuyu–Kamangu Road and began transforming it into a worship space.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-date">Jan 2024</div>
+            <div class="timeline-content">
+              <h3>New Home</h3>
+              <p>The Journey Village family walked into its new home—a transformed wilderness into a sanctuary.</p>
             </div>
           </div>
         </div>

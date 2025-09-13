@@ -7,18 +7,24 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
-    /* ===== Base Styles ===== */
+    /* ===== Enhanced Base Styles ===== */
     :root {
-      --primary-color: #1995AD;
-      --secondary-color: #e9c675;
-      --accent-color: #BCB382;
-      --dark-blue: #0E4E64;
-      --light-bg: #F8F9FA;
-      --text-dark: #343A40;
-      --text-light: #F8F9FA;
+      --primary-color: #000000;          /* Black */
+      --secondary-color: #C0A86A;        /* Toned down gold */
+      --accent-color: #A8925D;           /* Darker, more subtle gold for accents */
+      --dark-bg: #1A1A1A;                /* Very dark gray (almost black) */
+      --medium-gray: #333333;            /* Dark gray */
+      --light-gray: #666666;             /* Medium gray */
+      --lighter-gray: #888888;           /* Light gray for transitions */
+      --light-bg: #F5F5F5;               /* Light gray background */
+      --text-dark: #222222;              /* Dark text */
+      --text-light: #FFFFFF;             /* Light text */
       --white: #FFFFFF;
       --black: #000000;
       --max-width: 1200px;
@@ -26,6 +32,9 @@
       --body-font: "Montserrat", sans-serif;
       --transition: all 0.3s ease;
       --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --gold-gradient: linear-gradient(135deg, #C0A86A 0%, #D6C390 50%, #A8925D 100%);
+      --section-gradient: linear-gradient(to bottom, var(--light-bg), #EAEAEA);
+      --border-radius: 12px;
     }
 
     * {
@@ -40,7 +49,7 @@
 
     body {
       font-family: var(--body-font);
-      line-height: 1.6;
+      line-height: 1.7;
       color: var(--text-dark);
       background-color: var(--white);
       overflow-x: hidden;
@@ -49,6 +58,7 @@
     h1, h2, h3, h4 {
       font-family: var(--header-font);
       line-height: 1.2;
+      font-weight: 600;
     }
 
     a {
@@ -67,24 +77,27 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
       border: none;
       font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .btn__primary {
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       color: var(--text-dark);
     }
 
     .btn__primary:hover {
-      background-color: var(--accent-color);
+      background: var(--accent-color);
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+      box-shadow: 0 10px 25px rgba(192, 168, 106, 0.4);
     }
 
     .btn__outline {
@@ -94,25 +107,31 @@
     }
 
     .btn__outline:hover {
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       color: var(--text-dark);
       transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(192, 168, 106, 0.3);
     }
 
     .section__container {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 5rem 1rem;
+      padding: 6rem 1.5rem;
+      position: relative;
     }
 
     .section__upperheader {
       text-align: center;
       font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: 2px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
       color: var(--secondary-color);
       margin-bottom: 3rem;
       position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .section__upperheader::after {
@@ -122,47 +141,97 @@
       height: 3px;
       background: var(--secondary-color);
       margin: 1rem auto;
+      border-radius: 2px;
     }
 
     .section__header {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 1.5rem;
       color: var(--text-dark);
+      text-align: center;
+      position: relative;
+    }
+
+    /* Decorative elements for better color blending */
+    .gold-accent {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--secondary-color);
+      opacity: 0.05;
+      border-radius: 50%;
+      filter: blur(40px);
+      z-index: 0;
+      animation: pulse 8s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.05; }
+      50% { transform: scale(1.2); opacity: 0.08; }
     }
 
     /* ===== Header/Hero ===== */
-    .header-contact {
+    .header {
       position: relative;
-      min-height: 60vh;
+      min-height: 70vh;
       background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                  url("images/events.jpg") no-repeat center center/cover;
+                  url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
       color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding-top: 150px;
+      padding-bottom: 150px;
+      overflow: hidden;
     }
 
-    .hero-contact-content {
+    .header::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      z-index: 1;
+    }
+
+    .hero__content {
       max-width: 800px;
       padding: 2rem;
-      margin-top: 200px;
-      margin-bottom: 100px;
+      position: relative;
+      z-index: 2;
     }
 
-    .hero-contact-content h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    .hero__content h1 {
+      font-size: 3.8rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
       line-height: 1.1;
+      color: var(--white);
+      animation: fadeInUp 1s ease-out;
     }
 
-    .hero-contact-content p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
+    .hero__content p {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+      opacity: 0.9;
+      animation: fadeInUp 1s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Navigation */
@@ -171,11 +240,21 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 2rem;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 10;
+      z-index: 1000;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+      transition: var(--transition);
+      backdrop-filter: blur(5px);
+    }
+
+    .nav__bar.scrolled {
+      background: rgba(0, 0, 0, 0.95);
+      padding: 1rem 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
     }
 
     .logo img {
@@ -190,15 +269,16 @@
 
     .nav__links {
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
       list-style: none;
     }
 
     .nav__links a {
-      font-weight: 600;
+      font-weight: 500;
       color: var(--white);
       position: relative;
       padding: 0.5rem 0;
+      font-size: 1.05rem;
     }
 
     .nav__links a::after {
@@ -208,7 +288,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       transition: var(--transition);
     }
 
@@ -231,6 +311,20 @@
       z-index: 11;
     }
 
+    /* Account Button - Gold Style */
+    .nav__action__btn .btn {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      border: none;
+      padding: 0.7rem 1.5rem;
+    }
+
+    .nav__action__btn .btn:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
+    }
+
     /* Mobile Navigation Styles */
     @media (max-width: 768px) {
       .nav__links {
@@ -239,11 +333,11 @@
         left: -100%;
         width: 80%;
         height: 100vh;
-        background: var(--dark-blue);
+        background: var(--dark-bg);
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 2rem;
+        gap: 2.5rem;
         transition: var(--transition);
         z-index: 10;
         padding-bottom: 10px;
@@ -258,11 +352,11 @@
         display: block;
       }
 
-      .hero-contact-content h1 {
-        font-size: 2.2rem;
+      .hero__content h1 {
+        font-size: 2.5rem;
       }
       
-      .hero-contact-content {
+      .hero__content {
         margin-top: 60px; /* Adjusted for mobile */
       }
     }
@@ -270,25 +364,38 @@
     /* Tabs */
     .tabs {
       display: flex;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       border-bottom: 2px solid #eee;
+      justify-content: center;
     }
 
     .tab {
-      padding: 0.8rem 1.5rem;
+      padding: 1rem 2rem;
       cursor: pointer;
       font-weight: 600;
-      color: #888;
+      color: var(--light-gray);
       border-bottom: 3px solid transparent;
+      transition: var(--transition);
+      position: relative;
     }
 
     .tab.active {
-      color: var(--primary-color);
-      border-bottom: 3px solid var(--primary-color);
+      color: var(--secondary-color);
+      border-bottom: 3px solid var(--secondary-color);
+    }
+
+    .tab:hover {
+      color: var(--secondary-color);
     }
 
     .tab-content {
       display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .tab-content.active {
@@ -298,93 +405,133 @@
     /* Cards Grid */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 4rem;
     }
 
     .event-card, .announcement-card {
       background: var(--white);
-      border-radius: 10px;
+      border-radius: var(--border-radius);
       overflow: hidden;
       box-shadow: var(--box-shadow);
       transition: var(--transition);
+      position: relative;
     }
 
     .event-card:hover, .announcement-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .event-image {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .event-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .event-card:hover .event-image img {
+      transform: scale(1.05);
+    }
+
+    .event-date-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      z-index: 2;
     }
 
     .card-header {
-      background: var(--secondary-color);
-      padding: 1.5rem;
+      padding: 1.8rem 1.8rem 0.5rem;
       color: var(--text-dark);
     }
 
     .card-header h3 {
       font-family: var(--header-font);
       margin: 0;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
+      line-height: 1.3;
     }
 
     .card-body {
-      padding: 1.5rem;
+      padding: 0 1.8rem 1.8rem;
     }
 
-    .card-date {
-      color: var(--primary-color);
-      font-weight: 600;
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-meta-item {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-bottom: 1rem;
+      color: var(--light-gray);
+      font-size: 0.95rem;
+    }
+
+    .card-meta-item i {
+      color: var(--secondary-color);
     }
 
     .card-description {
-      color: #555;
+      color: var(--light-gray);
       margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-
-    .card-location {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: #666;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
+      line-height: 1.7;
     }
 
     .card-actions {
-      padding: 0 1.5rem 1.5rem;
+      padding: 0 1.8rem 1.8rem;
     }
 
     /* Loading and Empty States */
     .loading, .empty-state {
       text-align: center;
-      padding: 3rem;
+      padding: 4rem 2rem;
       background: var(--white);
-      border-radius: 10px;
+      border-radius: var(--border-radius);
       box-shadow: var(--box-shadow);
       grid-column: 1 / -1;
     }
 
     .empty-state h3 {
-      color: var(--primary-color);
+      color: var(--secondary-color);
       margin-bottom: 1rem;
+      font-size: 1.5rem;
     }
 
     .empty-state p {
-      color: #666;
+      color: var(--light-gray);
+      margin-bottom: 2rem;
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
     }
 
     .spinner {
       border: 4px solid rgba(0, 0, 0, 0.1);
       border-radius: 50%;
-      border-top: 4px solid var(--primary-color);
-      width: 40px;
-      height: 40px;
+      border-top: 4px solid var(--secondary-color);
+      width: 50px;
+      height: 50px;
       animation: spin 1s linear infinite;
       margin: 0 auto 1.5rem;
     }
@@ -394,17 +541,115 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* Filter Section */
+    .filter-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.6rem 1.2rem;
+      background: var(--light-bg);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .filter-btn.active {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+    }
+
+    .filter-btn:hover:not(.active) {
+      background: #e8e8e8;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-input {
+      padding: 0.7rem 1rem 0.7rem 3rem;
+      border: 1px solid #ddd;
+      border-radius: 50px;
+      font-family: var(--body-font);
+      width: 250px;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 2px rgba(192, 168, 106, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--light-gray);
+    }
+
+    /* View Toggle */
+    .view-toggle {
+      display: flex;
+      gap: 0.5rem;
+      margin-left: auto;
+    }
+
+    .view-btn {
+      background: var(--light-bg);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .view-btn.active {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+    }
+
     /* Footer */
     .footer {
-      background-color: var(--dark-blue);
+      background-color: var(--dark-bg);
       color: var(--text-light);
-      padding-top: 5rem;
+      padding-top: 6rem;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--secondary-color);
     }
 
     .footer__container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 3rem;
+      gap: 3.5rem;
     }
 
     .footer__logo img {
@@ -415,6 +660,7 @@
     .footer__col p {
       margin-bottom: 1.5rem;
       opacity: 0.8;
+      line-height: 1.7;
     }
 
     .footer__socials {
@@ -428,18 +674,39 @@
       color: var(--white);
       opacity: 0.8;
       transition: var(--transition);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .footer__socials a:hover {
       opacity: 1;
-      color: var(--secondary-color);
+      background: var(--secondary-color);
+      color: var(--text-dark);
       transform: translateY(-3px);
     }
 
     .footer__col h3 {
-      font-size: 1.3rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      margin-bottom: 1.8rem;
       color: var(--secondary-color);
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .footer__col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--secondary-color);
+      border-radius: 2px;
     }
 
     .footer__col ul {
@@ -447,7 +714,16 @@
     }
 
     .footer__col ul li {
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer__col ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--secondary-color);
     }
 
     .footer__col ul li a {
@@ -463,61 +739,147 @@
 
     .footer__bottom {
       text-align: center;
-      padding: 2rem 0;
-      margin-top: 3rem;
+      padding: 2.5rem 0;
+      margin-top: 4rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    /* Decorative elements */
+    .gold-accent-1 {
+      top: 10%;
+      left: 5%;
+      width: 200px;
+      height: 200px;
+    }
+
+    .gold-accent-2 {
+      bottom: 10%;
+      right: 5%;
+      width: 150px;
+      height: 150px;
     }
 
     /* ===== Responsive Design ===== */
     @media (max-width: 992px) {
       .section__header {
-        font-size: 2rem;
+        font-size: 2.4rem;
       }
       
-      .hero-contact-content h1 {
-        font-size: 2.8rem;
+      .hero__content h1 {
+        font-size: 3rem;
+      }
+      
+      .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       }
     }
 
     @media (max-width: 768px) {
-      .hero-contact-content h1 {
-        font-size: 2.2rem;
+      .hero__content h1 {
+        font-size: 2.5rem;
       }
       
-      .hero-contact-content {
+      .hero__content {
         margin-top: 60px; /* Adjusted for mobile */
       }
+      
       .cards-grid {
         grid-template-columns: 1fr;
       }
       
       .tabs {
         flex-direction: column;
+        align-items: center;
+      }
+      
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .filter-group {
+        justify-content: center;
+      }
+      
+      .search-box {
+        width: 100%;
+      }
+      
+      .search-input {
+        width: 100%;
+      }
+      
+      .view-toggle {
+        margin: 0 auto;
       }
     }
 
     @media (max-width: 576px) {
       html {
-        font-size: 14px;
+        font-size: 15px;
       }
 
       .section__container {
-        padding: 3rem 1rem;
+        padding: 4rem 1.2rem;
       }
 
-      .hero-contact-content h1 {
+      .hero__content h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero__content p {
+        font-size: 1.1rem;
+      }
+      
+      .logo img {
+        height: 70px;
+      }
+      
+      .nav__bar {
+        padding: 1rem;
+      }
+      
+      .nav__menu__btn {
+        right: 1rem;
+        top: 1.25rem;
+      }
+      
+      .btn {
+        padding: 0.8rem 1.8rem;
+      }
+      
+      .card-header h3 {
+        font-size: 1.4rem;
+      }
+    }
+    
+    /* Extra small devices */
+    @media (max-width: 400px) {
+      .nav__links {
+        width: 85%;
+      }
+      
+      .hero__content h1 {
         font-size: 2rem;
       }
-
-      .hero-contact-content p {
-        font-size: 1rem;
+      
+      .section__upperheader {
+        font-size: 1.5rem;
+      }
+      
+      .section__header {
+        font-size: 2rem;
       }
     }
   </style>
 </head>
 <body>
   <!-- Header/Hero Section -->
-  <header class="header-contact" id="home">
+  <header class="header" id="home">
+    <div class="gold-accent gold-accent-1"></div>
+    <div class="gold-accent gold-accent-2"></div>
+    
     <nav>
       <div class="nav__bar">
         <!-- Left: Logo -->
@@ -536,7 +898,9 @@
 
         <!-- Right: Account button -->
         <div class="nav__actions">
-          <button id="account-btn" class="btn btn__outline">Login</button>
+          <div class="nav__action__btn">
+            <button id="account-btn" class="btn">Login</button>
+          </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
           </div>
@@ -544,35 +908,58 @@
       </div>
     </nav>
 
-    <div class="hero-contact-content">
+    <div class="hero__content">
       <h1>Events & Announcements</h1>
       <p>Stay connected with our church community through upcoming events and important announcements</p>
     </div>
   </header>
+
   <!-- Main Content -->
   <main class="section__container">
+    <div class="gold-accent" style="top: 10%; right: 5%;"></div>
+    
+    <h2 class="section__upperheader">What's Happening</h2>
+    
     <div class="tabs">
       <div class="tab active" data-tab="events">Events</div>
       <div class="tab" data-tab="announcements">Announcements</div>
     </div>
 
+    <div class="filter-section">
+      <div class="filter-group">
+        <button class="filter-btn active" data-filter="all">All Events</button>
+        <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+        <button class="filter-btn" data-filter="past">Past Events</button>
+      </div>
+      
+      <div class="search-box">
+        <i class="ri-search-line search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search events..." id="events-search">
+      </div>
+    </div>
+
     <div id="events" class="tab-content active">
-      <h2 class="section__header">Upcoming Events</h2>
-      <div id="events-list" class="cards-grid">
-        <div class="loading">
-          <div class="spinner"></div>
-          <p>Loading events...</p>
-        </div>
+      <div id="events-grid" class="cards-grid">
+        <!-- Events will be loaded here -->
       </div>
     </div>
 
     <div id="announcements" class="tab-content">
-      <h2 class="section__header">Church Announcements</h2>
-      <div id="announcements-list" class="cards-grid">
-        <div class="loading">
-          <div class="spinner"></div>
-          <p>Loading announcements...</p>
+      <div class="filter-section">
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">All Announcements</button>
+          <button class="filter-btn" data-filter="important">Important</button>
+          <button class="filter-btn" data-filter="general">General</button>
         </div>
+        
+        <div class="search-box">
+          <i class="ri-search-line search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search announcements..." id="announcements-search">
+        </div>
+      </div>
+      
+      <div id="announcements-list" class="cards-grid">
+        <!-- Announcements will be loaded here -->
       </div>
     </div>
   </main>
@@ -616,14 +1003,8 @@
     </div>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    // Import Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-    // Your Firebase config
+  <script>
+    // Firebase configuration and initialization
     const firebaseConfig = {
       apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
       authDomain: "journeyvill.firebaseapp.com",
@@ -634,15 +1015,22 @@
       measurementId: "G-E1RNC9M7CK"
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
+    // Initialize Firebase with compat version for easier use
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    // Global variables
+    let currentEvents = [];
+    let currentAnnouncements = [];
+    let currentFilter = 'all';
+    let currentAnnouncementFilter = 'all';
 
     // Mobile menu functionality
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
-    
+    const navBar = document.querySelector('.nav__bar');
+
     if (menuBtn && navLinks) {
       menuBtn.addEventListener('click', () => {
         navLinks.classList.toggle('active');
@@ -652,14 +1040,25 @@
       });
     }
 
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navBar.classList.add('scrolled');
+      } else {
+        navBar.classList.remove('scrolled');
+      }
+    });
+
     // Check authentication state
-    onAuthStateChanged(auth, (user) => {
+    auth.onAuthStateChanged((user) => {
       const accountBtn = document.getElementById('account-btn');
       
       if (user) {
         // User is signed in
         accountBtn.textContent = 'Logout';
         accountBtn.onclick = handleLogout;
+        // Show admin controls if needed
+        checkAdminStatus(user.uid);
       } else {
         // User is signed out
         accountBtn.textContent = 'Login';
@@ -669,7 +1068,7 @@
 
     // Handle logout
     function handleLogout() {
-      signOut(auth).then(() => {
+      auth.signOut().then(() => {
         // Sign-out successful
         alert('You have been logged out successfully.');
         window.location.reload();
@@ -682,7 +1081,35 @@
 
     // Redirect to login page
     function redirectToLogin() {
-      window.location.href = 'index.html'; // Redirect to your login page
+      window.location.href = 'index.html'; // Create a login page
+    }
+
+    // Check if user is admin
+    async function checkAdminStatus(uid) {
+      try {
+        const userDoc = await db.collection("users").doc(uid).get();
+        if (userDoc.exists && userDoc.data().isAdmin) {
+          // User is admin, show admin controls
+          showAdminControls();
+        }
+      } catch (error) {
+        console.error("Error checking admin status:", error);
+      }
+    }
+
+    // Show admin controls
+    function showAdminControls() {
+      // Add admin buttons to the page
+      const eventsTab = document.querySelector('.tab[data-tab="events"]');
+      if (eventsTab && !document.getElementById('add-event-btn')) {
+        const addEventBtn = document.createElement('button');
+        addEventBtn.id = 'add-event-btn';
+        addEventBtn.className = 'btn btn__primary';
+        addEventBtn.innerHTML = '<i class="ri-add-line"></i> Add Event';
+        addEventBtn.style.marginLeft = '20px';
+        addEventBtn.onclick = showEventForm;
+        eventsTab.parentNode.insertBefore(addEventBtn, eventsTab.nextSibling);
+      }
     }
 
     // Tab switching
@@ -706,98 +1133,255 @@
           document.getElementById(tabName).classList.add('active');
 
           // Load content if empty
-          if (tabName === 'events' && document.getElementById('events-list').children.length === 1) {
+          if (tabName === 'events' && currentEvents.length === 0) {
             loadEvents();
-          } else if (tabName === 'announcements' && document.getElementById('announcements-list').children.length === 1) {
+          } else if (tabName === 'announcements' && currentAnnouncements.length === 0) {
             loadAnnouncements();
           }
         });
       });
     }
 
+    // Filter functionality
+    function setupFilters() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-filter');
+          const parent = btn.closest('.filter-section');
+          
+          // Remove active class from all filter buttons in the same group
+          if (parent) {
+            parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          }
+          
+          // Add active class to clicked button
+          btn.classList.add('active');
+          
+          // Apply filter
+          if (parent.id === 'events-filter') {
+            currentFilter = filter;
+            filterEvents();
+          } else {
+            currentAnnouncementFilter = filter;
+            filterAnnouncements();
+          }
+        });
+      });
+
+      // Setup search functionality
+      const eventsSearch = document.getElementById('events-search');
+      const announcementsSearch = document.getElementById('announcements-search');
+      
+      if (eventsSearch) {
+        eventsSearch.addEventListener('input', () => {
+          searchEvents(eventsSearch.value);
+        });
+      }
+      
+      if (announcementsSearch) {
+        announcementsSearch.addEventListener('input', () => {
+          searchAnnouncements(announcementsSearch.value);
+        });
+      }
+    }
+
     // Load Events
     async function loadEvents() {
-      const eventsContainer = document.getElementById("events-list");
+      const eventsContainer = document.getElementById("events-grid");
+      eventsContainer.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading events...</p>
+        </div>
+      `;
       
       try {
-        const q = query(collection(db, "events"), orderBy("date", "asc"));
-        const querySnapshot = await getDocs(q);
+        const now = firebase.firestore.Timestamp.now();
+        let queryRef;
+        
+        if (currentFilter === 'upcoming') {
+          queryRef = db.collection("events")
+            .where("date", ">=", now)
+            .orderBy("date", "asc");
+        } else if (currentFilter === 'past') {
+          queryRef = db.collection("events")
+            .where("date", "<", now)
+            .orderBy("date", "desc");
+        } else {
+          queryRef = db.collection("events")
+            .orderBy("date", "asc");
+        }
+        
+        const querySnapshot = await queryRef.get();
+        currentEvents = [];
         
         if (querySnapshot.empty) {
           eventsContainer.innerHTML = `
             <div class="empty-state">
-              <h3>No Upcoming Events</h3>
-              <p>Check back later for our upcoming events and gatherings.</p>
+              <div class="empty-state-icon">
+                <i class="ri-calendar-event-line"></i>
+              </div>
+              <h3>No Events Found</h3>
+              <p>There are no events matching your criteria.</p>
             </div>
           `;
           return;
         }
 
-        eventsContainer.innerHTML = '';
-        
         querySnapshot.forEach((doc) => {
-          const event = doc.data();
-          const eventDate = event.date.toDate();
-          const formattedDate = eventDate.toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          });
-          const formattedTime = eventDate.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit'
-          });
-          
-          const card = document.createElement("div");
-          card.className = "event-card";
-          card.innerHTML = `
-            <div class="card-header">
-              <h3>${event.title}</h3>
-            </div>
-            <div class="card-body">
-              <div class="card-date">
-                <i class="ri-calendar-event-line"></i> ${formattedDate} at ${formattedTime}
-              </div>
-              ${event.location ? `
-                <div class="card-location">
-                  <i class="ri-map-pin-line"></i> ${event.location}
-                </div>
-              ` : ''}
-              <p class="card-description">${event.description}</p>
-            </div>
-            ${event.signupLink ? `
-              <div class="card-actions">
-                <a href="${event.signupLink}" target="_blank" class="btn btn__primary">
-                  <i class="ri-user-add-line"></i> Sign Up
-                </a>
-              </div>
-            ` : ""}
-          `;
-          eventsContainer.appendChild(card);
+          currentEvents.push({ id: doc.id, ...doc.data() });
         });
+        
+        displayEvents(currentEvents);
       } catch (err) {
         console.error("Error loading events:", err);
         eventsContainer.innerHTML = `
           <div class="empty-state">
+            <div class="empty-state-icon">
+              <i class="ri-error-warning-line"></i>
+            </div>
             <h3>Unable to Load Events</h3>
             <p>Please check your connection and try again later.</p>
+            <button class="btn btn__primary" onclick="loadEvents()">Try Again</button>
           </div>
         `;
       }
     }
 
+    // Display events
+    function displayEvents(events) {
+      const eventsContainer = document.getElementById("events-grid");
+      
+      if (events.length === 0) {
+        eventsContainer.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">
+              <i class="ri-calendar-event-line"></i>
+            </div>
+            <h3>No Events Found</h3>
+            <p>There are no events matching your criteria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      eventsContainer.innerHTML = '';
+      
+      events.forEach(event => {
+        const eventDate = event.date.toDate();
+        const formattedDate = eventDate.toLocaleDateString('en-US', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+        const formattedTime = eventDate.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        const card = document.createElement("div");
+        card.className = "event-card";
+        card.innerHTML = ` 
+          <div class="event-image">
+            <img src="${event.image}" alt="${event.title}">
+            <div class="event-date-badge">${formattedDate.split(' ')[0]}</div>
+          </div>
+          <div class="card-header">
+            <h3>${event.title}</h3>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+              <div class="card-meta-item">
+                <i class="ri-calendar-event-line"></i> ${formattedDate}
+              </div>
+              <div class="card-meta-item">
+                <i class="ri-time-line"></i> ${formattedTime}
+              </div>
+              ${event.location ? `
+                <div class="card-meta-item">
+                  <i class="ri-map-pin-line"></i> ${event.location}
+                </div>
+              ` : ''}
+              ${event.category ? `
+                <div class="card-meta-item">
+                  <i class="ri-price-tag-3-line"></i> ${event.category}
+                </div>
+              ` : ''}
+            </div>
+            <p class="card-description">${event.description}</p>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn__primary register-btn" ${event.signupLink ? '' : 'disabled'}>
+              <i class="ri-user-add-line"></i> Register Now
+            </button>
+          </div>
+        `;
+
+        eventsContainer.appendChild(card);
+
+      });
+    }
+
+    // Filter events
+    function filterEvents() {
+      loadEvents();
+    }
+
+    // Search events
+    function searchEvents(query) {
+      if (!query) {
+        displayEvents(currentEvents);
+        return;
+      }
+      
+      const filteredEvents = currentEvents.filter(event => 
+        event.title.toLowerCase().includes(query.toLowerCase()) ||
+        event.description.toLowerCase().includes(query.toLowerCase()) ||
+        (event.location && event.location.toLowerCase().includes(query.toLowerCase())) ||
+        (event.category && event.category.toLowerCase().includes(query.toLowerCase()))
+      );
+      
+      displayEvents(filteredEvents);
+    }
+
     // Load Announcements
     async function loadAnnouncements() {
       const announcementsContainer = document.getElementById("announcements-list");
+      announcementsContainer.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading announcements...</p>
+        </div>
+      `;
       
       try {
-        const q = query(collection(db, "announcements"), orderBy("date", "desc"));
-        const querySnapshot = await getDocs(q);
+        let queryRef;
+        
+        if (currentAnnouncementFilter === 'important') {
+          queryRef = db.collection("announcements")
+            .where("important", "==", true)
+            .orderBy("date", "desc");
+        } else if (currentAnnouncementFilter === 'general') {
+          queryRef = db.collection("announcements")
+            .where("important", "==", false)
+            .orderBy("date", "desc");
+        } else {
+          queryRef = db.collection("announcements")
+            .orderBy("date", "desc");
+        }
+        
+        const querySnapshot = await queryRef.get();
+        currentAnnouncements = [];
         
         if (querySnapshot.empty) {
           announcementsContainer.innerHTML = `
             <div class="empty-state">
+              <div class="empty-state-icon">
+                <i class="ri-megaphone-line"></i>
+              </div>
               <h3>No Announcements</h3>
               <p>There are no announcements at this time.</p>
             </div>
@@ -805,46 +1389,122 @@
           return;
         }
 
-        announcementsContainer.innerHTML = '';
-        
         querySnapshot.forEach((doc) => {
-          const ann = doc.data();
-          const annDate = ann.date.toDate();
-          const formattedDate = annDate.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          });
-          
-          const card = document.createElement("div");
-          card.className = "announcement-card";
-          card.innerHTML = `
-            <div class="card-header">
-              <h3>${ann.title}</h3>
-            </div>
-            <div class="card-body">
-              <div class="card-date">
-                <i class="ri-calendar-line"></i> Posted on ${formattedDate}
-              </div>
-              <p class="card-description">${ann.content || ann.description}</p>
-            </div>
-          `;
-          announcementsContainer.appendChild(card);
+          currentAnnouncements.push({ id: doc.id, ...doc.data() });
         });
+        
+        displayAnnouncements(currentAnnouncements);
       } catch (err) {
         console.error("Error loading announcements:", err);
         announcementsContainer.innerHTML = `
           <div class="empty-state">
+            <div class="empty-state-icon">
+              <i class="ri-error-warning-line"></i>
+            </div>
             <h3>Unable to Load Announcements</h3>
             <p>Please check your connection and try again later.</p>
+            <button class="btn btn__primary" onclick="loadAnnouncements()">Try Again</button>
           </div>
         `;
       }
     }
 
-    // Load events by default
+    // Display announcements
+    function displayAnnouncements(announcements) {
+      const announcementsContainer = document.getElementById("announcements-list");
+      
+      if (announcements.length === 0) {
+        announcementsContainer.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">
+              <i class="ri-megaphone-line"></i>
+            </div>
+            <h3>No Announcements Found</h3>
+            <p>There are no announcements matching your criteria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      announcementsContainer.innerHTML = '';
+      
+      announcements.forEach(ann => {
+        const annDate = ann.date.toDate();
+        const formattedDate = annDate.toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+        
+        const card = document.createElement("div");
+        card.className = "announcement-card";
+        card.innerHTML = `
+          <div class="card-header">
+            <h3>${ann.title}</h3>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+              <div class="card-meta-item">
+                <i class="ri-calendar-line"></i> Posted on ${formattedDate}
+              </div>
+              ${ann.category ? `
+                <div class="card-meta-item">
+                  <i class="ri-price-tag-3-line"></i> ${ann.category}
+                </div>
+              ` : ''}
+              ${ann.important ? `
+                <div class="card-meta-item">
+                  <i class="ri-error-warning-line"></i> Important
+                </div>
+              ` : ''}
+            </div>
+            <p class="card-description">${ann.content || ann.description}</p>
+          </div>
+          ${ann.link ? `
+            <div class="card-actions">
+              <a href="${ann.link}" class="btn btn__outline">
+                <i class="ri-information-line"></i> Learn More
+              </a>
+            </div>
+          ` : ""}
+        `;
+        announcementsContainer.appendChild(card);
+      });
+    }
+
+    // Filter announcements
+    function filterAnnouncements() {
+      loadAnnouncements();
+    }
+
+    // Search announcements
+    function searchAnnouncements(query) {
+      if (!query) {
+        displayAnnouncements(currentAnnouncements);
+        return;
+      }
+      
+      const filteredAnnouncements = currentAnnouncements.filter(ann => 
+        ann.title.toLowerCase().includes(query.toLowerCase()) ||
+        (ann.content && ann.content.toLowerCase().includes(query.toLowerCase())) ||
+        (ann.description && ann.description.toLowerCase().includes(query.toLowerCase()))
+      );
+      
+      displayAnnouncements(filteredAnnouncements);
+    }
+
+    // Show event form (for admin)
+    function showEventForm() {
+      // Implementation for showing an event form
+      alert('Event form would appear here for adding new events');
+    }
+
+    // Initialize the page
     window.addEventListener('DOMContentLoaded', () => {
       setupTabs();
+      setupFilters();
+      
+      // Load initial data
       loadEvents();
     });
   </script>

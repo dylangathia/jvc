@@ -13,13 +13,16 @@
   <style>
     /* ===== Base Styles ===== */
     :root {
-      --primary-color: #1995AD;
-      --secondary-color: #e9c675;
-      --accent-color: #BCB382;
-      --dark-blue: #0E4E64;
-      --light-bg: #F8F9FA;
-      --text-dark: #343A40;
-      --text-light: #F8F9FA;
+      --primary-color: #000000;          /* Black */
+      --secondary-color: #C0A86A;        /* Toned down gold */
+      --accent-color: #A8925D;           /* Darker, more subtle gold for accents */
+      --dark-bg: #1A1A1A;                /* Very dark gray (almost black) */
+      --medium-gray: #333333;            /* Dark gray */
+      --light-gray: #666666;             /* Medium gray */
+      --lighter-gray: #888888;           /* Light gray for transitions */
+      --light-bg: #F5F5F5;               /* Light gray background */
+      --text-dark: #222222;              /* Dark text */
+      --text-light: #FFFFFF;             /* Light text */
       --white: #FFFFFF;
       --black: #000000;
       --max-width: 1200px;
@@ -27,6 +30,11 @@
       --body-font: "Montserrat", sans-serif;
       --transition: all 0.3s ease;
       --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --gold-gradient: linear-gradient(135deg, #C0A86A 0%, #D6C390 50%, #A8925D 100%);
+      --section-gradient: linear-gradient(to bottom, var(--light-bg), #EAEAEA);
+      --gold-opacity-10: rgba(192, 168, 106, 0.1);
+      --gold-opacity-20: rgba(192, 168, 106, 0.2);
+      --gold-opacity-30: rgba(192, 168, 106, 0.3);
     }
 
     * {
@@ -78,32 +86,40 @@
     }
 
     .btn__primary {
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       color: var(--text-dark);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .btn__primary:hover {
-      background-color: var(--accent-color);
+      background: var(--accent-color);
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+      box-shadow: 0 8px 20px var(--gold-opacity-30);
     }
 
     .btn__outline {
       border: 2px solid var(--secondary-color);
       color: var(--secondary-color);
       background: transparent;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .btn__outline:hover {
-      background-color: var(--secondary-color);
+      background: var(--gold-opacity-10);
       color: var(--text-dark);
       transform: translateY(-3px);
+      box-shadow: 0 5px 15px var(--gold-opacity-20);
     }
 
     .section__container {
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 5rem 1rem;
+      position: relative;
     }
 
     .section__upperheader {
@@ -120,7 +136,7 @@
       content: '';
       display: block;
       width: 80px;
-      height: 3px;
+      height: 2px;
       background: var(--secondary-color);
       margin: 1rem auto;
     }
@@ -131,11 +147,23 @@
       color: var(--text-dark);
     }
 
+    /* Decorative elements for better color blending */
+    .gold-accent {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--secondary-color);
+      opacity: 0.05;
+      border-radius: 50%;
+      filter: blur(40px);
+      z-index: 0;
+    }
+
     /* ===== Header/Hero ===== */
     .header {
       position: relative;
       min-height: 60vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                   url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
       color: var(--white);
       display: flex;
@@ -144,11 +172,25 @@
       text-align: center;
       padding-top: 150px;
       padding-bottom: 150px;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(to top, var(--light-bg), transparent);
+      z-index: 1;
     }
 
     .hero__content {
       max-width: 800px;
       padding: 2rem;
+      position: relative;
+      z-index: 2;
     }
 
     .hero__content h1 {
@@ -156,6 +198,7 @@
       margin-bottom: 1rem;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       line-height: 1.1;
+      color: var(--white);
     }
 
     .hero__content p {
@@ -177,6 +220,14 @@
       left: 0;
       right: 0;
       z-index: 10;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+      transition: var(--transition);
+    }
+
+    .nav__bar.scrolled {
+      background: rgba(0, 0, 0, 0.95);
+      padding: 1rem 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     .logo img {
@@ -209,7 +260,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       transition: var(--transition);
     }
 
@@ -234,16 +285,15 @@
 
     /* Account Button - Gold Style */
     .nav__action__btn .btn {
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       color: var(--text-dark);
-      border: 2px solid var(--secondary-color);
+      border: none;
     }
 
     .nav__action__btn .btn:hover {
-      background-color: var(--accent-color);
-      border-color: var(--accent-color);
+      background: var(--accent-color);
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+      box-shadow: 0 5px 15px var(--gold-opacity-30);
     }
 
     /* Mobile Navigation Styles */
@@ -254,7 +304,7 @@
         left: -100%;
         width: 80%;
         height: 100vh;
-        background: var(--dark-blue);
+        background: var(--dark-bg);
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -282,18 +332,30 @@
       }
     }
 
-    /* About Content Styles */
+    /* About Content Styles - IMPROVED */
     .about-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4rem;
       align-items: center;
       margin-bottom: 5rem;
+      position: relative;
     }
 
     .about-text h2 {
-      color: var(--primary-color);
+      color: var(--black);
       margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .about-text h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: var(--secondary-color);
     }
 
     .about-text p {
@@ -305,6 +367,27 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: var(--box-shadow);
+      position: relative;
+      transition: var(--transition);
+      border: 1px solid rgba(192, 168, 106, 0.2);
+    }
+
+    .about-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold-gradient);
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 1;
+      mix-blend-mode: overlay;
+    }
+
+    .about-image:hover::before {
+      opacity: 0.1;
     }
 
     .about-image img {
@@ -312,16 +395,18 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      min-height: 400px;
     }
 
     .about-image:hover img {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
 
     /* Values Section */
     .values-section {
-      background-color: var(--light-bg);
+      background: var(--section-gradient);
       padding: 5rem 0;
+      position: relative;
     }
 
     .values-grid {
@@ -338,31 +423,55 @@
       text-align: center;
       box-shadow: var(--box-shadow);
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border-top: 4px solid var(--secondary-color);
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: var(--gold-opacity-10);
+      transition: var(--transition);
+    }
+
+    .value-card:hover::before {
+      height: 100%;
     }
 
     .value-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
     .value-icon {
       width: 80px;
       height: 80px;
-      background: var(--secondary-color);
+      background: var(--gold-opacity-10);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 1.5rem;
       font-size: 2rem;
-      color: var(--text-dark);
+      color: var(--secondary-color);
+      position: relative;
+      z-index: 1;
+      border: 2px solid var(--gold-opacity-20);
     }
 
     .value-card h3 {
-      color: var(--primary-color);
+      color: var(--black);
       margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Leadership Section */
+    /* Leadership Section - IMPROVED */
     .leadership-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -376,15 +485,46 @@
       overflow: hidden;
       box-shadow: var(--box-shadow);
       transition: var(--transition);
+      position: relative;
+      border-top: 4px solid var(--secondary-color);
+    }
+
+    .leader-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: var(--gold-opacity-10);
+      transition: var(--transition);
+      z-index: 1;
+    }
+
+    .leader-card:hover::before {
+      height: 100%;
     }
 
     .leader-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
     .leader-image {
       height: 300px;
       overflow: hidden;
+      position: relative;
+    }
+
+    .leader-image::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      z-index: 1;
     }
 
     .leader-image img {
@@ -395,16 +535,18 @@
     }
 
     .leader-card:hover .leader-image img {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
     .leader-info {
       padding: 1.5rem;
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
 
     .leader-info h3 {
-      color: var(--primary-color);
+      color: var(--black);
       margin-bottom: 0.5rem;
     }
 
@@ -424,12 +566,12 @@
     .timeline::after {
       content: '';
       position: absolute;
-      width: 6px;
-      background-color: var(--secondary-color);
+      width: 4px;
+      background: var(--secondary-color);
       top: 0;
       bottom: 0;
       left: 50%;
-      margin-left: -3px;
+      margin-left: -2px;
     }
 
     .timeline-item {
@@ -452,6 +594,30 @@
       background-color: var(--white);
       border-radius: 10px;
       box-shadow: var(--box-shadow);
+      position: relative;
+      border-left: 3px solid var(--secondary-color);
+    }
+
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      background: var(--white);
+      transform: rotate(45deg);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before {
+      right: -10px;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+      left: -10px;
+      border-left: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
     }
 
     .timeline-date {
@@ -463,27 +629,28 @@
     .timeline-item::after {
       content: '';
       position: absolute;
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       background-color: var(--white);
-      border: 4px solid var(--secondary-color);
+      border: 3px solid var(--secondary-color);
       border-radius: 50%;
       top: 15px;
       z-index: 1;
     }
 
     .timeline-item:nth-child(odd)::after {
-      right: -13px;
+      right: -12px;
     }
 
     .timeline-item:nth-child(even)::after {
-      left: -13px;
+      left: -12px;
     }
 
-    /* Village Movements Section */
+    /* Village Movements Section - IMPROVED */
     .movements-section {
-      background-color: var(--light-bg);
+      background: var(--section-gradient);
       padding: 5rem 0;
+      position: relative;
     }
 
     .movements-grid {
@@ -499,10 +666,29 @@
       border-radius: 10px;
       box-shadow: var(--box-shadow);
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border-top: 4px solid var(--secondary-color);
+    }
+
+    .movement-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: var(--gold-opacity-10);
+      transition: var(--transition);
+    }
+
+    .movement-card:hover::before {
+      height: 100%;
     }
 
     .movement-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
     .movement-number {
@@ -516,25 +702,45 @@
       margin-bottom: 1.5rem;
       font-weight: bold;
       color: var(--text-dark);
+      position: relative;
+      z-index: 1;
     }
 
     .movement-card h3 {
-      color: var(--primary-color);
+      color: var(--black);
       margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     /* Call to Action */
     .cta-section {
-      background: linear-gradient(rgba(25, 149, 173, 0.9), rgba(25, 149, 173, 0.9)), 
+      background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
                   url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
       color: var(--white);
       text-align: center;
       padding: 6rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold-gradient);
+      opacity: 0.05;
+      z-index: 0;
     }
 
     .cta-content {
       max-width: 600px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .cta-content h2 {
@@ -551,9 +757,20 @@
 
     /* Footer */
     .footer {
-      background-color: var(--dark-blue);
+      background-color: var(--dark-bg);
       color: var(--text-light);
       padding-top: 5rem;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--secondary-color);
     }
 
     .footer__container {
@@ -583,11 +800,19 @@
       color: var(--white);
       opacity: 0.8;
       transition: var(--transition);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .footer__socials a:hover {
       opacity: 1;
-      color: var(--secondary-color);
+      background: var(--secondary-color);
+      color: var(--text-dark);
       transform: translateY(-3px);
     }
 
@@ -595,6 +820,18 @@
       font-size: 1.3rem;
       margin-bottom: 1.5rem;
       color: var(--secondary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer__col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--secondary-color);
     }
 
     .footer__col ul {
@@ -603,6 +840,15 @@
 
     .footer__col ul li {
       margin-bottom: 1rem;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer__col ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--secondary-color);
     }
 
     .footer__col ul li a {
@@ -621,6 +867,22 @@
       padding: 2rem 0;
       margin-top: 3rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    /* Decorative elements */
+    .gold-accent-1 {
+      top: 10%;
+      left: 5%;
+      width: 200px;
+      height: 200px;
+    }
+
+    .gold-accent-2 {
+      bottom: 10%;
+      right: 5%;
+      width: 150px;
+      height: 150px;
     }
 
     /* ===== Responsive Design ===== */
@@ -636,6 +898,10 @@
       .about-content {
         grid-template-columns: 1fr;
         gap: 3rem;
+      }
+      
+      .about-image img {
+        min-height: 350px;
       }
     }
 
@@ -664,6 +930,14 @@
       
       .timeline-item:nth-child(odd)::after {
         right: auto;
+      }
+
+      .timeline-content::before {
+        display: none;
+      }
+      
+      .about-image img {
+        min-height: 300px;
       }
     }
 
@@ -701,6 +975,10 @@
         right: 0.75rem;
         top: 1.25rem;
       }
+      
+      .about-image img {
+        min-height: 250px;
+      }
     }
     
     /* Extra small devices */
@@ -725,8 +1003,10 @@
 </head>
 <body>
   <!-- Header with Navigation -->
-  <!-- Header with Navigation -->
   <header class="header" id="home">
+    <div class="gold-accent gold-accent-1"></div>
+    <div class="gold-accent gold-accent-2"></div>
+    
     <nav>
       <div class="nav__bar">
         <!-- Left: Logo -->
@@ -745,7 +1025,9 @@
 
         <!-- Right: Account button -->
         <div class="nav__actions">
-          <button id="account-btn" class="btn btn__outline">Login</button>
+          <div class="nav__action__btn">
+            <button id="account-btn" class="btn">Login</button>
+          </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
           </div>
@@ -763,6 +1045,8 @@
   <main>
     <!-- About Intro Section -->
     <section class="section__container">
+      <div class="gold-accent" style="top: 20%; right: 5%;"></div>
+      
       <div class="about-content">
         <div class="about-text">
           <h2>Welcome to Journey Village Church</h2>
@@ -771,13 +1055,13 @@
           <p>Early in 2020, a small core team began to gather, but soon the Covid-19 pandemic shutdown interrupted plans and scattered expectations. What could have ended the story became, instead, the soil for resilience and creativity.</p>
         </div>
         <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Journey Village Church Congregation">
+          <img src="images/building.jpeg" alt="Journey Village Church Congregation">
         </div>
       </div>
       
       <div class="about-content" style="margin-top: 3rem;">
         <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Journey Village Church Worship">
+          <img src="images/abou0timage.jpg" alt="Journey Village Church Worship">
         </div>
         <div class="about-text">
           <p>Determined not to lose momentum, the team launched a weekly Village Gathering on Zoom. Though physically apart, God knit together hearts and laid the foundation for a worshipping community that longed for more.</p>
@@ -791,6 +1075,9 @@
     <!-- Village Movements Section -->
     <section class="movements-section">
       <div class="section__container">
+        <div class="gold-accent" style="top: 10%; left: 10%;"></div>
+        <div class="gold-accent" style="bottom: 10%; right: 10%;"></div>
+        
         <h2 class="section__upperheader">What Shapes and Guides Us</h2>
         <p style="text-align: center; margin-bottom: 2rem;">At Journey Village Church, we exist to invite people to live the way of Christ—through Christ-Encounter, Formation, Community, and Mission.</p>
         <p style="text-align: center; margin-bottom: 3rem; font-style: italic;">Our anchor Scripture is John 10:10: "A thief is only there to steal and kill and destroy. I came so they can have real and eternal life, more and better life than they ever dreamed of" (The Message). We long to be vessels of this promise, embodying and sharing the abundant life that Christ Himself offers.</p>
@@ -843,12 +1130,14 @@
 
     <!-- Leadership Section -->
     <section class="section__container">
+      <div class="gold-accent" style="top: 10%; right: 5%; width: 100px; height: 100px;"></div>
+      
       <h2 class="section__upperheader">Our Leadership</h2>
       
       <div class="leadership-grid">
         <div class="leader-card">
           <div class="leader-image">
-            <img src="images/pasto.jpg" alt="Pastor Nash Waruguru">
+            <img src="https://images.unsplash.com/photo-1580301762386-a2c5c5dd1fd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pastor Nash Waruguru">
           </div>
           <div class="leader-info">
             <h3>Pastor Nash Waruguru</h3>
@@ -858,24 +1147,14 @@
             <p>Nash and Muthoni are blessed with three wonderful children.</p>
           </div>
         </div>
-        
-        <div class="leader-card">
-          <div class="leader-image">
-            <img src="https://images.unsplash.com/photo-1573496799652-408c2ac0fe98?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pastor Muthoni Waruguru">
-          </div>
-          <div class="leader-info">
-            <h3>Pastor Muthoni Waruguru</h3>
-            <p class="leader-role">Co-Pastor</p>
-            <p>Muthoni has a passion for women's discipleship and community building. She partners with Pastor Nash in leading Journey Village Church and brings a heart for nurturing spiritual growth in individuals and families.</p>
-            <p>Together with Nash, she has been instrumental in the planting and growth of Journey Village Church since its inception.</p>
-          </div>
-        </div>
       </div>
     </section>
 
     <!-- History Timeline -->
     <section class="values-section">
       <div class="section__container">
+        <div class="gold-accent" style="top: 20%; left: 5%;"></div>
+        
         <h2 class="section__upperheader">Our Journey</h2>
         
         <div class="timeline">
@@ -1006,6 +1285,7 @@
     // Mobile menu functionality
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
+    const navBar = document.querySelector('.nav__bar');
     
     if (menuBtn && navLinks) {
       menuBtn.addEventListener('click', () => {
@@ -1015,6 +1295,15 @@
           : '<i class="ri-menu-line"></i>';
       });
     }
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navBar.classList.add('scrolled');
+      } else {
+        navBar.classList.remove('scrolled');
+      }
+    });
 
     // Check authentication state
     onAuthStateChanged(auth, (user) => {

@@ -1,8 +1,8 @@
 /* ===== Base Styles ===== */
 :root {
-  --primary-color: #1995AD;
-  --secondary-color: #e9c675;
-  --accent-color: #BCB382;
+  --primary-color: #000000;          /* Black */
+  --secondary-color: #C0A86A;        /* Toned down gold */
+  --accent-color: #A8925D; 
   --dark-blue: #0E4E64;
   --light-bg: #F8F9FA;
   --text-dark: #343A40;

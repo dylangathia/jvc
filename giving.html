@@ -13,13 +13,16 @@
   <style>
     /* ===== Base Styles ===== */
     :root {
-      --primary-color: #1995AD;
-      --secondary-color: #e9c675;
-      --accent-color: #BCB382;
-      --dark-blue: #0E4E64;
-      --light-bg: #F8F9FA;
-      --text-dark: #343A40;
-      --text-light: #F8F9FA;
+      --primary-color: #000000;          /* Black */
+      --secondary-color: #C0A86A;        /* Toned down gold */
+      --accent-color: #A8925D;           /* Darker, more subtle gold for accents */
+      --dark-bg: #1A1A1A;                /* Very dark gray (almost black) */
+      --medium-gray: #333333;            /* Dark gray */
+      --light-gray: #666666;             /* Medium gray */
+      --lighter-gray: #888888;           /* Light gray for transitions */
+      --light-bg: #F5F5F5;               /* Light gray background */
+      --text-dark: #222222;              /* Dark text */
+      --text-light: #FFFFFF;             /* Light text */
       --white: #FFFFFF;
       --black: #000000;
       --max-width: 1200px;
@@ -27,6 +30,8 @@
       --body-font: "Montserrat", sans-serif;
       --transition: all 0.3s ease;
       --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --gold-gradient: linear-gradient(135deg, #C0A86A 0%, #D6C390 50%, #A8925D 100%);
+      --section-gradient: linear-gradient(to bottom, var(--light-bg), #EAEAEA);
     }
 
     * {
@@ -78,32 +83,40 @@
     }
 
     .btn__primary {
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       color: var(--text-dark);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .btn__primary:hover {
-      background-color: var(--accent-color);
+      background: var(--accent-color);
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+      box-shadow: 0 8px 20px rgba(192, 168, 106, 0.3);
     }
 
     .btn__outline {
       border: 2px solid var(--secondary-color);
       color: var(--secondary-color);
       background: transparent;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .btn__outline:hover {
-      background-color: var(--secondary-color);
+      background: rgba(192, 168, 106, 0.1);
       color: var(--text-dark);
       transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(192, 168, 106, 0.2);
     }
 
     .section__container {
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 5rem 1rem;
+      position: relative;
     }
 
     .section__upperheader {
@@ -120,7 +133,7 @@
       content: '';
       display: block;
       width: 80px;
-      height: 3px;
+      height: 2px;
       background: var(--secondary-color);
       margin: 1rem auto;
     }
@@ -129,30 +142,51 @@
       font-size: 2.5rem;
       margin-bottom: 1.5rem;
       color: var(--text-dark);
-      text-align: center;
+    }
+
+    /* Decorative elements for better color blending */
+    .gold-accent {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--secondary-color);
+      opacity: 0.05;
+      border-radius: 50%;
+      filter: blur(40px);
+      z-index: 0;
     }
 
     /* ===== Header/Hero ===== */
     .header {
       position: relative;
       min-height: 60vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                   url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
       color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding-top: 150px;
+      padding-bottom: 150px;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      z-index: 1;
     }
 
     .hero__content {
       max-width: 800px;
       padding: 2rem;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      position: relative;
+      z-index: 2;
     }
 
     .hero__content h1 {
@@ -160,17 +194,18 @@
       margin-bottom: 1rem;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       line-height: 1.1;
-      text-align: center;
+      color: var(--white);
     }
 
     .hero__content p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       max-width: 600px;
-      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* Navigation - FIXED */
+    /* Navigation */
     .nav__bar {
       display: flex;
       justify-content: space-between;
@@ -181,6 +216,14 @@
       left: 0;
       right: 0;
       z-index: 10;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+      transition: var(--transition);
+    }
+
+    .nav__bar.scrolled {
+      background: rgba(0, 0, 0, 0.95);
+      padding: 1rem 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     .logo img {
@@ -213,7 +256,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       transition: var(--transition);
     }
 
@@ -238,16 +281,15 @@
 
     /* Account Button - Gold Style */
     .nav__action__btn .btn {
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       color: var(--text-dark);
-      border: 2px solid var(--secondary-color);
+      border: none;
     }
 
     .nav__action__btn .btn:hover {
-      background-color: var(--accent-color);
-      border-color: var(--accent-color);
+      background: var(--accent-color);
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(233, 198, 117, 0.4);
+      box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
     }
 
     /* Mobile Navigation Styles */
@@ -258,7 +300,7 @@
         left: -100%;
         width: 80%;
         height: 100vh;
-        background: var(--dark-blue);
+        background: var(--dark-bg);
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -286,39 +328,14 @@
       }
     }
 
-    /* Giving Hero Section */
-    .giving-hero {
-      background: linear-gradient(rgba(25, 149, 173, 0.85), rgba(25, 149, 173, 0.9)), 
-                  url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
-      color: white;
-      padding: 6rem 1rem;
-      text-align: center;
-      display: flex;
-      padding-top: 170px;
-      flex-direction: column;
+    /* Giving Content Styles */
+    .giving-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
       align-items: center;
-      justify-content: center;
-      min-height: 60vh;
-    }
-
-    .giving-hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-      text-align: center;
-    }
-
-    .scripture {
-      font-style: italic;
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .scripture span {
-      font-weight: 600;
-      color: var(--secondary-color);
+      margin-bottom: 5rem;
+      position: relative;
     }
 
     /* Donation Cards */
@@ -333,18 +350,37 @@
       background: white;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      box-shadow: var(--box-shadow);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #eee;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .donation-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .donation-card:hover::before {
+      height: 100%;
+      opacity: 0.03;
     }
 
     .donation-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
     .card-header {
       padding: 1.5rem;
-      background: var(--primary-color);
+      background: var(--black);
       color: white;
       position: relative;
       display: flex;
@@ -354,6 +390,7 @@
 
     .card-header i {
       font-size: 1.8rem;
+      color: var(--secondary-color);
     }
 
     .card-header h3 {
@@ -387,7 +424,7 @@
       display: block;
       margin-bottom: 0.5rem;
       font-weight: 600;
-      color: var(--dark-blue);
+      color: var(--black);
     }
 
     .input-with-icon {
@@ -460,7 +497,7 @@
 
     .amount-option.active {
       background: var(--secondary-color);
-      color: var(--text-dark);
+      color: var(--black);
       border-color: var(--secondary-color);
       font-weight: 600;
     }
@@ -510,7 +547,7 @@
     .detail-label {
       font-weight: 600;
       width: 120px;
-      color: var(--dark-blue);
+      color: var(--black);
     }
 
     .detail-value {
@@ -520,19 +557,6 @@
     .copy-btn {
       width: 100%;
       margin-top: 1rem;
-    }
-
-    /* Popular Badge */
-    .popular-badge {
-      position: absolute;
-      top: -12px;
-      right: 20px;
-      background: var(--secondary-color);
-      color: var(--text-dark);
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
     }
 
     /* FAQ Styles */
@@ -546,6 +570,11 @@
       border: 1px solid #eee;
       border-radius: 8px;
       overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item:hover {
+      box-shadow: var(--box-shadow);
     }
 
     .faq-question {
@@ -558,12 +587,13 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 600;
-      color: var(--dark-blue);
+      color: var(--black);
       cursor: pointer;
     }
 
     .faq-question i {
       transition: transform 0.3s ease;
+      color: var(--secondary-color);
     }
 
     .faq-question.active i {
@@ -630,7 +660,7 @@
     .loader-circle {
       width: 12px;
       height: 12px;
-      background: var(--primary-color);
+      background: var(--secondary-color);
       border-radius: 50%;
       animation: bounce 1s infinite ease-in-out;
     }
@@ -665,11 +695,64 @@
       border-bottom: none;
     }
 
+    /* Call to Action */
+    .cta-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                  url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+      color: var(--white);
+      text-align: center;
+      padding: 6rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--secondary-color);
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .cta-content {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-content h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
     /* Footer */
     .footer {
-      background-color: var(--dark-blue);
+      background-color: var(--dark-bg);
       color: var(--text-light);
       padding-top: 5rem;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--secondary-color);
     }
 
     .footer__container {
@@ -699,11 +782,19 @@
       color: var(--white);
       opacity: 0.8;
       transition: var(--transition);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .footer__socials a:hover {
       opacity: 1;
-      color: var(--secondary-color);
+      background: var(--secondary-color);
+      color: var(--text-dark);
       transform: translateY(-3px);
     }
 
@@ -711,6 +802,18 @@
       font-size: 1.3rem;
       margin-bottom: 1.5rem;
       color: var(--secondary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer__col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--secondary-color);
     }
 
     .footer__col ul {
@@ -719,6 +822,15 @@
 
     .footer__col ul li {
       margin-bottom: 1rem;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer__col ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--secondary-color);
     }
 
     .footer__col ul li a {
@@ -737,6 +849,22 @@
       padding: 2rem 0;
       margin-top: 3rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    /* Decorative elements */
+    .gold-accent-1 {
+      top: 10%;
+      left: 5%;
+      width: 200px;
+      height: 200px;
+    }
+
+    .gold-accent-2 {
+      bottom: 10%;
+      right: 5%;
+      width: 150px;
+      height: 150px;
     }
 
     /* ===== Responsive Design ===== */
@@ -752,10 +880,6 @@
 
     @media (max-width: 768px) {
       .hero__content h1 {
-        font-size: 2.2rem;
-      }
-      
-      .giving-hero h1 {
         font-size: 2.2rem;
       }
       
@@ -789,10 +913,6 @@
         font-size: 1rem;
       }
       
-      .giving-hero h1 {
-        font-size: 2rem;
-      }
-      
       .detail-row {
         flex-direction: column;
         gap: 0.5rem;
@@ -801,12 +921,52 @@
       .detail-label {
         min-width: auto;
       }
+      
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 80px;
+      }
+      
+      .nav__bar {
+        padding: 0.75rem;
+      }
+      
+      .nav__menu__btn {
+        right: 0.75rem;
+        top: 1.25rem;
+      }
+    }
+    
+    /* Extra small devices */
+    @media (max-width: 400px) {
+      .nav__links {
+        width: 85%;
+      }
+      
+      .hero__content h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section__upperheader {
+        font-size: 1.5rem;
+      }
+      
+      .section__header {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
 <body>
   <!-- Header with Navigation -->
-  <header class="giving-hero" id="home">
+  <header class="header" id="home">
+    <div class="gold-accent gold-accent-1"></div>
+    <div class="gold-accent gold-accent-2"></div>
+    
     <nav>
       <div class="nav__bar">
         <!-- Left: Logo -->
@@ -825,7 +985,9 @@
 
         <!-- Right: Account button -->
         <div class="nav__actions">
-          <button id="account-btn" class="btn btn__outline">Login</button>
+          <div class="nav__action__btn">
+            <button id="account-btn" class="btn">Login</button>
+          </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
           </div>
@@ -843,6 +1005,9 @@
   <main class="giving-page">
     <section class="giving-options">
       <div class="section__container">
+        <div class="gold-accent" style="top: 10%; left: 5%;"></div>
+        <div class="gold-accent" style="bottom: 10%; right: 5%;"></div>
+        
         <h2 class="section__upperheader">Ways to Give</h2>
         
         <div class="donation-cards">
@@ -903,8 +1068,10 @@
     </section>
 
     <!-- Giving FAQ -->
-    <section class="giving-faq">
+    <section class="giving-faq values-section">
       <div class="section__container">
+        <div class="gold-accent" style="top: 20%; left: 5%;"></div>
+        
         <h2 class="section__upperheader">Giving FAQs</h2>
         
         <div class="faq-container">
@@ -940,6 +1107,18 @@
         </div>
       </div>
     </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>Your Giving Makes a Difference</h2>
+        <p>Your generous support enables us to continue our mission and serve our community.</p>
+        <div class="cta-buttons">
+          <a href="contact.html" class="btn btn__primary">Have Questions?</a>
+          <a href="about.html" class="btn btn__outline">Learn More About Us</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -960,9 +1139,11 @@
       <div class="footer__col">
         <h3>Quick Links</h3>
         <ul>
+          <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
           <li><a href="events.html">Events</a></li>
+          <li><a href="giving.html">Giving</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       
@@ -1005,6 +1186,7 @@
     // Mobile menu functionality
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
+    const navBar = document.querySelector('.nav__bar');
     
     if (menuBtn && navLinks) {
       menuBtn.addEventListener('click', () => {
@@ -1014,6 +1196,15 @@
           : '<i class="ri-menu-line"></i>';
       });
     }
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navBar.classList.add('scrolled');
+      } else {
+        navBar.classList.remove('scrolled');
+      }
+    });
 
     // Check authentication state
     onAuthStateChanged(auth, (user) => {
@@ -1056,37 +1247,15 @@
       });
     });
 
-    // Amount options selection
-    document.querySelectorAll('.amount-option').forEach(button => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.amount-option').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        document.getElementById('custom-amount').value = button.getAttribute('data-amount');
-      });
-    });
-
     // Copy bank details
-    document.querySelector('.copy-btn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const text = this.getAttribute('data-clipboard-text');
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Details copied to clipboard!');
+    document.querySelectorAll('.copy-btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const text = this.getAttribute('data-clipboard-text');
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Details copied to clipboard!');
+        });
       });
-    });
-
-    // Form submissions (simulated)
-    document.getElementById('mpesa-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const amount = document.getElementById('amount').value;
-      const phone = document.getElementById('phone').value;
-      
-      document.getElementById('mpesa-status').className = 'payment-status success';
-      document.getElementById('mpesa-status').innerHTML = '<i class="ri-check-line"></i> Payment request sent to +254' + phone;
-    });
-
-    document.getElementById('recurring-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Recurring giving setup would be processed here');
     });
   </script>
 </body>

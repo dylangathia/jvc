@@ -11,17 +11,19 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-
   <style>
     /* ===== Base Styles ===== */
     :root {
       --primary-color: #000000;          /* Black */
       --secondary-color: #C0A86A;        /* Toned down gold */
-      --accent-color: #A8925D; 
-      --dark-blue: #0E4E64;
-      --light-bg: #F8F9FA;
-      --text-dark: #343A40;
-      --text-light: #F8F9FA;
+      --accent-color: #A8925D;           /* Darker, more subtle gold for accents */
+      --dark-bg: #1A1A1A;                /* Very dark gray (almost black) */
+      --medium-gray: #333333;            /* Dark gray */
+      --light-gray: #666666;             /* Medium gray */
+      --lighter-gray: #888888;           /* Light gray for transitions */
+      --light-bg: #F5F5F5;               /* Light gray background */
+      --text-dark: #222222;              /* Dark text */
+      --text-light: #FFFFFF;             /* Light text */
       --white: #FFFFFF;
       --black: #000000;
       --max-width: 1200px;
@@ -29,6 +31,11 @@
       --body-font: "Montserrat", sans-serif;
       --transition: all 0.3s ease;
       --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --gold-gradient: linear-gradient(135deg, #C0A86A 0%, #D6C390 50%, #A8925D 100%);
+      --section-gradient: linear-gradient(to bottom, var(--light-bg), #EAEAEA);
+      --gold-opacity-10: rgba(192, 168, 106, 0.1);
+      --gold-opacity-20: rgba(192, 168, 106, 0.2);
+      --gold-opacity-30: rgba(192, 168, 106, 0.3);
     }
 
     * {
@@ -79,28 +86,41 @@
       font-size: 1rem;
     }
 
-
     .btn__primary {
       background: var(--secondary-color);
       color: var(--text-dark);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .btn__primary:hover {
       background: var(--accent-color);
       transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(192, 168, 106, 0.4);
+      box-shadow: 0 8px 20px var(--gold-opacity-30);
     }
 
     .btn__outline {
       border: 2px solid var(--secondary-color);
       color: var(--secondary-color);
       background: transparent;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn__outline:hover {
+      background: var(--gold-opacity-10);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px var(--gold-opacity-20);
     }
 
     .section__container {
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 5rem 1rem;
+      position: relative;
     }
 
     .section__upperheader {
@@ -117,7 +137,7 @@
       content: '';
       display: block;
       width: 80px;
-      height: 3px;
+      height: 2px;
       background: var(--secondary-color);
       margin: 1rem auto;
     }
@@ -128,30 +148,86 @@
       color: var(--text-dark);
     }
 
+    /* Decorative elements for better color blending */
+    .gold-accent {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--secondary-color);
+      opacity: 0.05;
+      border-radius: 50%;
+      filter: blur(40px);
+      z-index: 0;
+    }
+
     /* ===== Header/Hero ===== */
     .header {
       position: relative;
       min-height: 80vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                   url('images/building.jpeg') no-repeat center center/cover;
       color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 150px;
+      padding-bottom: 150px;
+      overflow: hidden;
     }
 
-    .header-events{
+    .header::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      z-index: 1;
+    }
+
+    .hero__content {
+      max-width: 800px;
+      padding: 2rem;
       position: relative;
-      min-height: 80vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                  url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') center/cover;
+      z-index: 2;
+    }
+
+    .hero__content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      line-height: 1.1;
       color: var(--white);
     }
 
+    .hero__content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Navigation */
     .nav__bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 2rem;
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 10;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+      transition: var(--transition);
+    }
+
+    .nav__bar.scrolled {
+      background: rgba(0, 0, 0, 0.95);
+      padding: 1rem 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     .logo img {
@@ -184,13 +260,19 @@
       left: 0;
       width: 0;
       height: 2px;
-      background-color: var(--secondary-color);
+      background: var(--secondary-color);
       transition: var(--transition);
     }
 
     .nav__links a:hover::after,
     .nav__links a.active::after {
       width: 100%;
+    }
+
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .nav__menu__btn {
@@ -201,41 +283,51 @@
       z-index: 11;
     }
 
-    .hero__content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      height: calc(100vh - 100px);
-      padding: 0 1rem;
+    /* Account Button - Gold Style */
+    .nav__action__btn .btn {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      border: none;
     }
 
-    .hero__text h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      line-height: 1.1;
+    .nav__action__btn .btn:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px var(--gold-opacity-30);
     }
 
-    .hero__text h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--secondary-color);
-    }
+    /* Mobile Navigation Styles */
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--dark-bg);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+      }
 
-    .hero__text p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+      .nav__links.active {
+        left: 0;
+      }
 
-    .hero__cta {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 2rem;
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero__content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero__content {
+        margin-top: 60px;
+      }
     }
 
     /* Social Icons */
@@ -295,9 +387,7 @@
     .about {
       background-color: var(--light-bg);
       position: relative;
-      padding-left: 5rem 0;
-      padding-right: 5rem 0;
-      padding-bottom: 5rem 0;
+      padding: 5rem 0;
     }
 
     .about__grid {
@@ -320,6 +410,7 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: var(--box-shadow);
+      position: relative;
     }
 
     .about__image img {
@@ -341,7 +432,7 @@
     .about__text h3 {
       font-size: 2rem;
       margin-bottom: 1rem;
-      color: var(--dark-blue);
+      color: var(--text-dark);
     }
 
     .about__text p {
@@ -352,8 +443,7 @@
     /* ===== Ministries Section ===== */
     .ministries {
       background-color: var(--white);
-      padding-left: 5rem 0;
-      padding-right: 5rem 0;
+      padding: 5rem 0;
     }
 
     .ministries__grid {
@@ -365,34 +455,42 @@
 
     .ministry__card {
       background: var(--light-bg);
-      border-radius: 10px;
       padding: 2rem;
+      border-radius: 10px;
       text-align: center;
+      box-shadow: var(--box-shadow);
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border-top: 4px solid var(--secondary-color);
     }
 
     .ministry__card:hover {
       transform: translateY(-10px);
-      box-shadow: var(--box-shadow);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
     .ministry__icon {
       width: 80px;
       height: 80px;
-      margin: 0 auto 1.5rem;
-      background: var(--secondary-color);
+      background: var(--gold-opacity-10);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 0 auto 1.5rem;
       font-size: 2rem;
-      color: var(--text-dark);
+      color: var(--secondary-color);
+      position: relative;
+      z-index: 1;
+      border: 2px solid var(--gold-opacity-20);
     }
 
     .ministry__card h3 {
-      font-size: 1.5rem;
+      color: var(--text-dark);
       margin-bottom: 1rem;
-      color: var(--dark-blue);
+      position: relative;
+      z-index: 1;
     }
 
     /* ===== Giving Section ===== */
@@ -433,6 +531,14 @@
       color: var(--secondary-color);
     }
 
+    .giving__list a {
+      color: var(--white);
+    }
+
+    .giving__list a:hover {
+      color: var(--secondary-color);
+    }
+
     .giving__image {
       border-radius: 10px;
       overflow: hidden;
@@ -441,6 +547,9 @@
 
     .giving__image img {
       transition: var(--transition);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .giving__image:hover img {
@@ -449,11 +558,20 @@
 
     /* ===== Footer ===== */
     .footer {
-      background-color: var(--dark-blue);
+      background-color: var(--dark-bg);
       color: var(--text-light);
-      padding-top: 5rem 0 0;
-      padding-left: 5rem 0 0;
-      padding-right: 5rem 0 0;
+      padding-top: 5rem;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--secondary-color);
     }
 
     .footer__container {
@@ -483,11 +601,19 @@
       color: var(--white);
       opacity: 0.8;
       transition: var(--transition);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .footer__socials a:hover {
       opacity: 1;
-      color: var(--secondary-color);
+      background: var(--secondary-color);
+      color: var(--text-dark);
       transform: translateY(-3px);
     }
 
@@ -495,6 +621,18 @@
       font-size: 1.3rem;
       margin-bottom: 1.5rem;
       color: var(--secondary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer__col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--secondary-color);
     }
 
     .footer__col ul {
@@ -503,6 +641,15 @@
 
     .footer__col ul li {
       margin-bottom: 1rem;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer__col ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--secondary-color);
     }
 
     .footer__col ul li a {
@@ -521,103 +668,10 @@
       padding: 2rem 0;
       margin-top: 3rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
     }
 
-    /* ===== Responsive Design ===== */
-    @media (max-width: 992px) {
-      .section__header {
-        font-size: 2rem;
-      }
-      
-      .hero__text h1 {
-        font-size: 2.8rem;
-      }
-      
-      .about__card {
-        grid-template-columns: 1fr;
-      }
-      
-      .about__card.reverse {
-        direction: ltr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav__links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        height: 100vh;
-        background: var(--dark-blue);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        transition: var(--transition);
-        z-index: 10;
-      }
-
-      .nav__links.active {
-        left: 0;
-      }
-
-      .nav__menu__btn {
-        display: block;
-      }
-
-      .hero__text h1 {
-        font-size: 2.2rem;
-      }
-      
-      .hero__cta {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .giving .section__container {
-        grid-template-columns: 1fr;
-      }
-      
-      .giving__content {
-        padding-right: 0;
-      }
-      
-      .giving__image {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 576px) {
-      html {
-        font-size: 14px;
-      }
-
-      .section__container {
-        padding: 3rem 1rem;
-      }
-
-      .hero__text h1 {
-        font-size: 2rem;
-      }
-
-      .hero__text p {
-        font-size: 1rem;
-      }
-      
-      .header__socials {
-        gap: 1rem;
-      }
-      
-      .social__icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-      }
-    }
-
-    /*Sign In/ Sign Up Modal*/
-    /* Account Modal Styles */
+    /* ===== Modal Styles ===== */
     .account-modal {
       display: none;
       position: fixed;
@@ -631,9 +685,8 @@
       justify-content: center;
     }
 
-    /* Overlay background */
     #username-modal {
-      display: none; /* hidden by default */
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
@@ -641,16 +694,13 @@
       height: 100%;
       background: rgba(0,0,0,0.6);
       z-index: 9999;
-
-      /* flexbox to center the content */
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    /* Centered modal box */
     #username-modal .modal-content {
-      background: #fff;
+      background: var(--white);
       padding: 2rem;
       border-radius: 12px;
       width: 90%;
@@ -660,9 +710,8 @@
       box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     }
 
-
     .modal-content {
-      background: white;
+      background: var(--white);
       padding: 2rem;
       border-radius: 10px;
       width: 100%;
@@ -683,7 +732,7 @@
       right: 20px;
       font-size: 1.5rem;
       cursor: pointer;
-      color: #666;
+      color: var(--text-dark);
     }
 
     .auth-tabs {
@@ -730,6 +779,25 @@
       gap: 1.5rem;
     }
 
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .form-group label {
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .form-group input {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: var(--body-font);
+    }
+
     .text-link {
       display: inline-block;
       margin-top: 1rem;
@@ -738,8 +806,103 @@
       text-align: center;
     }
 
-  </style>
+    /* ===== Responsive Design ===== */
+    @media (max-width: 992px) {
+      .section__header {
+        font-size: 2rem;
+      }
+      
+      .hero__content h1 {
+        font-size: 2.8rem;
+      }
+      
+      .about__card {
+        grid-template-columns: 1fr;
+      }
+      
+      .about__card.reverse {
+        direction: ltr;
+      }
+    }
 
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--dark-bg);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+      }
+
+      .nav__links.active {
+        left: 0;
+      }
+
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero__content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero__cta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .giving .section__container {
+        grid-template-columns: 1fr;
+      }
+      
+      .giving__content {
+        padding-right: 0;
+      }
+      
+      .giving__image {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 576px) {
+      html {
+        font-size: 14px;
+      }
+
+      .section__container {
+        padding: 3rem 1rem;
+      }
+
+      .hero__content h1 {
+        font-size: 2rem;
+      }
+
+      .hero__content p {
+        font-size: 1rem;
+      }
+      
+      .header__socials {
+        gap: 1rem;
+      }
+      
+      .social__icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      
+      .nav__bar {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Header/Hero Section -->
@@ -774,11 +937,11 @@
             <div class="auth-content active" id="login">
               <form class="auth-form" id="login-form">
                 <div class="form-group">
-                  <label for="login-email" style="color: black;">Email</label>
+                  <label for="login-email">Email</label>
                   <input type="email" id="login-email" required>
                 </div>
                 <div class="form-group">
-                  <label for="login-password" style="color: black;">Password</label>
+                  <label for="login-password">Password</label>
                   <input type="password" id="login-password" required>
                 </div>
                 <button type="submit" class="btn btn__primary">Sign In</button>
@@ -790,11 +953,11 @@
             <div class="auth-content" id="register">
               <form class="auth-form" id="register-form">
                 <div class="form-group">
-                  <label for="reg-email" style="color: black;">Email</label>
+                  <label for="reg-email">Email</label>
                   <input type="email" id="reg-email" required>
                 </div>
                 <div class="form-group">
-                  <label for="reg-password" style="color: black;">Password</label>
+                  <label for="reg-password">Password</label>
                   <input type="password" id="reg-password" minlength="8" required>
                 </div>
                 <button type="submit" class="btn btn__primary">Create Account</button>
@@ -867,7 +1030,7 @@
             </div>
             <div class="about__text">
               <h3>Our Worship Gathering</h3>
-              <p>Every Sunday we gather to worship Christ—seeking a fresh encounter with Him, being shaped into His likeness, and growing together as a community of faith. From this place of worship, we are sent out into the world to join God’s mission with love and courage.</p>
+              <p>Every Sunday we gather to worship Christ—seeking a fresh encounter with Him, being shaped into His likeness, and growing together as a community of faith. From this place of worship, we are sent out into the world to join God's mission with love and courage.</p>
             </div>
           </div>
 
@@ -877,7 +1040,7 @@
             </div>
             <div class="about__text">
               <h3>Next Gen. Ministry</h3>
-              <p>We are deeply committed to raising up the next generation in the way of Jesus. Our Next Gen Ministry serves children of all ages, not merely through programs, but through relationships that nurture faith and point them to Christ. We believe that discipleship is a generational calling—passing on the story of God’s love so that every child may encounter Christ personally, grow in His likeness, and live for His purposes in the world.</p>
+              <p>We are deeply committed to raising up the next generation in the way of Jesus. Our Next Gen Ministry serves children of all ages, not merely through programs, but through relationships that nurture faith and point them to Christ. We believe that discipleship is a generational calling—passing on the story of God's love so that every child may encounter Christ personally, grow in His likeness, and live for His purposes in the world.</p>
             </div>
           </div>
 
@@ -907,14 +1070,14 @@
               <i class="ri-team-line"></i>
             </div>
             <h3>Birthday Sunday</h3>
-            <p>Every month we joyfully celebrate and bless those with birthdays, thanking God for the gift of their lives. It is more than just a moment of cake and fellowship—it is an opportunity to honor Christ’s work in each person, to speak words of blessing, and to rejoice together as one family in Him.</p>
+            <p>Every month we joyfully celebrate and bless those with birthdays, thanking God for the gift of their lives. It is more than just a moment of cake and fellowship—it is an opportunity to honor Christ's work in each person, to speak words of blessing, and to rejoice together as one family in Him.</p>
           </div>
           
           <div class="ministry__card">
             <div class="ministry__icon">
               <i class="ri-music-2-line"></i>
             </div>
-            <h3>Ladies’ and Men’s Hangouts</h3>
+            <h3>Ladies' and Men's Hangouts</h3>
             <p>We believe following Christ shapes every part of life, including our callings as women and men. Our hangouts provide space for honest conversations, shared wisdom, and encouragement as we grow in Christ, strengthen one another in faith, and live out our God-given identity for His kingdom.</p>
           </div>
           
@@ -934,7 +1097,7 @@
       <div class="section__container">
         <div class="giving__content">
           <h2 class="section__header">We Could Be Your Village</h2>
-          <p>Everyone goes through seasons of struggle or uncertainty. At Journey Village Church, we’re here with open doors—to listen, encourage, pray, and support you.
+          <p>Everyone goes through seasons of struggle or uncertainty. At Journey Village Church, we're here with open doors—to listen, encourage, pray, and support you.
 Reach out to us through these platforms.</p>
           <ul class="giving__list">
             <a href=""><li><i class="ri-check-line"></i> Send Us An Email</li></a>
@@ -989,218 +1152,217 @@ Reach out to us through these platforms.</p>
     </div>
   </footer>
 
-  <script src="auth.js"></script>
   <script type="module">
-import { 
-  initializeApp 
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { 
+      initializeApp 
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  onAuthStateChanged, 
-  signOut 
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      onAuthStateChanged, 
+      signOut 
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-import { 
-  getFirestore, 
-  doc, 
-  setDoc, 
-  getDoc,
-  getDocs,
-  query,
-  collection,
-  where
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { 
+      getFirestore, 
+      doc, 
+      setDoc, 
+      getDoc,
+      getDocs,
+      query,
+      collection,
+      where
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// ✅ Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
-  authDomain: "journeyvill.firebaseapp.com",
-  projectId: "journeyvill",
-  storageBucket: "journeyvill.firebasestorage.app",
-  messagingSenderId: "494172807963",
-  appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
-  measurementId: "G-E1RNC9M7CK"
-};
+    // ✅ Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
+      authDomain: "journeyvill.firebaseapp.com",
+      projectId: "journeyvill",
+      storageBucket: "journeyvill.firebasestorage.app",
+      messagingSenderId: "494172807963",
+      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
+      measurementId: "G-E1RNC9M7CK"
+    };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-// 🔑 Pastor UID (replace with actual UID from Firebase Auth console)
-const PASTOR_UID = "DV79sAoDttTb5MR3uEDyBCGvlbm1";
+    // 🔑 Pastor UID (replace with actual UID from Firebase Auth console)
+    const PASTOR_UID = "DV79sAoDttTb5MR3uEDyBCGvlbm1";
 
-  const menuBtn = document.getElementById("menu-btn");
-  const navLinks = document.getElementById("nav-links");
+    const menuBtn = document.getElementById("menu-btn");
+    const navLinks = document.getElementById("nav-links");
 
-  menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-  });
-
-// 🔹 Register
-document.getElementById("register-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = document.getElementById("reg-email").value;
-  const password = document.getElementById("reg-password").value;
-
-  try {
-    const userCred = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCred.user;
-
-    // Create Firestore profile without username yet
-    await setDoc(doc(db, "users", user.uid), {
-      email: email,
-      username: null,
-      role: user.uid === PASTOR_UID ? "admin" : "member"
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
     });
 
-    alert("✅ Account created. Please choose a username.");
-    closeModal();
-    showUsernameModal();
+    // 🔹 Register
+    document.getElementById("register-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("reg-email").value;
+      const password = document.getElementById("reg-password").value;
 
-  } catch (err) {
-    alert("❌ " + err.message);
-  }
-});
+      try {
+        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCred.user;
 
-// 🔹 Login
-document.getElementById("login-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = document.getElementById("login-email").value;
-  const password = document.getElementById("login-password").value;
+        // Create Firestore profile without username yet
+        await setDoc(doc(db, "users", user.uid), {
+          email: email,
+          username: null,
+          role: user.uid === PASTOR_UID ? "admin" : "member"
+        });
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    closeModal();
-    // redirection happens in onAuthStateChanged
-  } catch (err) {
-    alert("❌ " + err.message);
-  }
-});
-
-// 🔹 Session Management
-onAuthStateChanged(auth, async (user) => {
-  const accountBtn = document.getElementById("account-btn");
-  if (user) {
-    accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
-
-    // Fetch profile
-    const docRef = doc(db, "users", user.uid);
-    const snap = await getDoc(docRef);
-
-    if (snap.exists()) {
-      const data = snap.data();
-
-      // If no username → force user to pick one
-      if (!data.username) {
+        alert("✅ Account created. Please choose a username.");
+        closeModal();
         showUsernameModal();
-        return;
-      }
 
-      // Always redirect admin
-      if (data.role === "admin") {
-        const hasWelcomed = sessionStorage.getItem("welcomed");
-        if (!hasWelcomed) {
-          alert("Welcome Admin 🚀");
-          sessionStorage.setItem("welcomed", "true");
+      } catch (err) {
+        alert("❌ " + err.message);
+      }
+    });
+
+    // 🔹 Login
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        closeModal();
+        // redirection happens in onAuthStateChanged
+      } catch (err) {
+        alert("❌ " + err.message);
+      }
+    });
+
+    // 🔹 Session Management
+    onAuthStateChanged(auth, async (user) => {
+      const accountBtn = document.getElementById("account-btn");
+      if (user) {
+        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
+
+        // Fetch profile
+        const docRef = doc(db, "users", user.uid);
+        const snap = await getDoc(docRef);
+
+        if (snap.exists()) {
+          const data = snap.data();
+
+          // If no username → force user to pick one
+          if (!data.username) {
+            showUsernameModal();
+            return;
+          }
+
+          // Always redirect admin
+          if (data.role === "admin") {
+            const hasWelcomed = sessionStorage.getItem("welcomed");
+            if (!hasWelcomed) {
+              alert("Welcome Admin 🚀");
+              sessionStorage.setItem("welcomed", "true");
+            }
+            window.location.href = "admin-dashboard.html"; // ✅ always redirect
+            return;
+          }
+
+          // For normal users → only show welcome once
+          const hasWelcomed = sessionStorage.getItem("welcomed");
+          if (!hasWelcomed) {
+            alert("Welcome back, " + data.username + "!");
+            sessionStorage.setItem("welcomed", "true");
+          }
         }
-        window.location.href = "admin-dashboard.html"; // ✅ always redirect
+      } else {
+        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
+      }
+    });
+
+
+
+    // 🔹 Logout / Open Modal
+    document.getElementById("account-btn").addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (user) {
+        await signOut(auth);
+        alert("✅ Signed out");
+      } else {
+        document.getElementById("account-modal").style.display = "block";
+      }
+    });
+
+    // 🔹 Save Username
+    document.getElementById("username-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username-input").value.trim();
+      const user = auth.currentUser;
+
+      if (!user) return;
+      if (username.length < 3) {
+        alert("❌ Username must be at least 3 characters long.");
         return;
       }
 
-      // For normal users → only show welcome once
-      const hasWelcomed = sessionStorage.getItem("welcomed");
-      if (!hasWelcomed) {
-        alert("Welcome back, " + data.username + "!");
-        sessionStorage.setItem("welcomed", "true");
-      }
-    }
-  } else {
-    accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
-  }
-});
-
-
-
-  // 🔹 Logout / Open Modal
-  document.getElementById("account-btn").addEventListener("click", async () => {
-    const user = auth.currentUser;
-    if (user) {
-      await signOut(auth);
-      alert("✅ Signed out");
-    } else {
-      document.getElementById("account-modal").style.display = "block";
-    }
-  });
-
-  // 🔹 Save Username
-  document.getElementById("username-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const username = document.getElementById("username-input").value.trim();
-    const user = auth.currentUser;
-
-    if (!user) return;
-    if (username.length < 3) {
-      alert("❌ Username must be at least 3 characters long.");
-      return;
-    }
-
-    // Check for username uniqueness
-    const usernameQuery = await getDocs(query(collection(db, "users"), where("username", "==", username)));
-    if (!usernameQuery.empty) {
-      alert("❌ Username already taken.");
-      return;
-    }
-
-    try {
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        username: username,
-        role: user.uid === PASTOR_UID ? "admin" : "member"
-      });
-
-      alert("✅ Username set successfully!");
-      closeUsernameModal();
-
-      // Redirect after username set
-      if (user.uid === PASTOR_UID) {
-        window.location.href = "/admin";
-      } else {
-        window.location.href = "index.html";
+      // Check for username uniqueness
+      const usernameQuery = await getDocs(query(collection(db, "users"), where("username", "==", username)));
+      if (!usernameQuery.empty) {
+        alert("❌ Username already taken.");
+        return;
       }
 
-    } catch (err) {
-      alert("❌ " + err.message);
-    }
-  });
+      try {
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          username: username,
+          role: user.uid === PASTOR_UID ? "admin" : "member"
+        });
 
-  // 🔹 Modal Helpers
-  function closeModal() {
-    document.getElementById("account-modal").style.display = "none";
-  }
-  function showUsernameModal() {
-    document.getElementById("username-modal").style.display = "flex";
-  }
-  function closeUsernameModal() {
-    document.getElementById("username-modal").style.display = "none";
-  }
-  document.getElementById("account-modal-close").addEventListener("click", closeModal);
-  document.getElementById("username-modal-close").addEventListener("click", closeUsernameModal);
+        alert("✅ Username set successfully!");
+        closeUsernameModal();
 
-  document.addEventListener("DOMContentLoaded", () => {
-      const params = new URLSearchParams(window.location.search);
+        // Redirect after username set
+        if (user.uid === PASTOR_UID) {
+          window.location.href = "/admin";
+        } else {
+          window.location.href = "index.html";
+        }
 
-      if (params.get("login") === "true") {
-        // Example if using Bootstrap modal
-        const modal = new bootstrap.Modal(document.getElementById('loginModal'));
-        modal.show();
-
-        // If using custom modal:
-        // document.getElementById("loginModal").style.display = "block";
+      } catch (err) {
+        alert("❌ " + err.message);
       }
-  });
-</script>
+    });
+
+    // 🔹 Modal Helpers
+    function closeModal() {
+      document.getElementById("account-modal").style.display = "none";
+    }
+    function showUsernameModal() {
+      document.getElementById("username-modal").style.display = "flex";
+    }
+    function closeUsernameModal() {
+      document.getElementById("username-modal").style.display = "none";
+    }
+    document.getElementById("account-modal-close").addEventListener("click", closeModal);
+    document.getElementById("username-modal-close").addEventListener("click", closeUsernameModal);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.get("login") === "true") {
+          // Example if using Bootstrap modal
+          const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+          modal.show();
+
+          // If using custom modal:
+          // document.getElementById("loginModal").style.display = "block";
+        }
+    });
+  </script>
 </body>
 </html>

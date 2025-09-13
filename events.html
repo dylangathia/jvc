@@ -13,18 +13,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
-    /* ===== Enhanced Base Styles ===== */
+    /* ===== Base Styles ===== */
     :root {
       --primary-color: #000000;          /* Black */
       --secondary-color: #C0A86A;        /* Toned down gold */
-      --accent-color: #A8925D;           /* Darker, more subtle gold for accents */
-      --dark-bg: #1A1A1A;                /* Very dark gray (almost black) */
-      --medium-gray: #333333;            /* Dark gray */
-      --light-gray: #666666;             /* Medium gray */
-      --lighter-gray: #888888;           /* Light gray for transitions */
-      --light-bg: #F5F5F5;               /* Light gray background */
-      --text-dark: #222222;              /* Dark text */
-      --text-light: #FFFFFF;             /* Light text */
+      --accent-color: #A8925D;           /* Darker gold for accents */
+      --dark-blue: #0E4E64;              /* Dark blue */
+      --light-bg: #F8F9FA;               /* Light background */
+      --text-dark: #343A40;              /* Dark text */
+      --text-light: #F8F9FA;             /* Light text */
       --white: #FFFFFF;
       --black: #000000;
       --max-width: 1200px;
@@ -32,9 +29,6 @@
       --body-font: "Montserrat", sans-serif;
       --transition: all 0.3s ease;
       --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      --gold-gradient: linear-gradient(135deg, #C0A86A 0%, #D6C390 50%, #A8925D 100%);
-      --section-gradient: linear-gradient(to bottom, var(--light-bg), #EAEAEA);
-      --border-radius: 12px;
     }
 
     * {
@@ -49,7 +43,7 @@
 
     body {
       font-family: var(--body-font);
-      line-height: 1.7;
+      line-height: 1.6;
       color: var(--text-dark);
       background-color: var(--white);
       overflow-x: hidden;
@@ -58,7 +52,6 @@
     h1, h2, h3, h4 {
       font-family: var(--header-font);
       line-height: 1.2;
-      font-weight: 600;
     }
 
     a {
@@ -77,26 +70,24 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.9rem 2rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
       border: none;
       font-size: 1rem;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
     }
 
     .btn__primary {
-      background: var(--secondary-color);
+      background-color: var(--secondary-color);
       color: var(--text-dark);
     }
 
     .btn__primary:hover {
-      background: var(--accent-color);
+      background-color: var(--accent-color);
       transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(192, 168, 106, 0.4);
+      box-shadow: 0 5px 15px rgba(192, 168, 106, 0.4);
     }
 
     .btn__outline {
@@ -106,31 +97,25 @@
     }
 
     .btn__outline:hover {
-      background: var(--secondary-color);
+      background-color: var(--secondary-color);
       color: var(--text-dark);
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(192, 168, 106, 0.3);
     }
 
     .section__container {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 6rem 1.5rem;
-      position: relative;
+      padding: 5rem 1rem;
     }
 
     .section__upperheader {
       text-align: center;
       font-size: 1.8rem;
-      font-weight: 500;
-      letter-spacing: 3px;
-      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 2px;
       color: var(--secondary-color);
       margin-bottom: 3rem;
       position: relative;
-      display: inline-block;
-      left: 50%;
-      transform: translateX(-50%);
     }
 
     .section__upperheader::after {
@@ -140,120 +125,38 @@
       height: 3px;
       background: var(--secondary-color);
       margin: 1rem auto;
-      border-radius: 2px;
     }
 
     .section__header {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       margin-bottom: 1.5rem;
       color: var(--text-dark);
-      text-align: center;
-      position: relative;
-    }
-
-    /* Decorative elements for better color blending */
-    .gold-accent {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      background: var(--secondary-color);
-      opacity: 0.05;
-      border-radius: 50%;
-      filter: blur(40px);
-      z-index: 0;
-      animation: pulse 8s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.05; }
-      50% { transform: scale(1.2); opacity: 0.08; }
     }
 
     /* ===== Header/Hero ===== */
     .header {
       position: relative;
-      min-height: 70vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                  url('images/events.jpg') no-repeat center center/cover;
+      min-height: 80vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                  url('images/building.jpeg') no-repeat center center/cover;
       color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding-top: 150px;
-      padding-bottom: 150px;
-      overflow: hidden;
     }
 
-    .header::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100px;
-      z-index: 1;
-    }
-
-    .hero__content {
-      max-width: 800px;
-      padding: 2rem;
+    .header-events{
       position: relative;
-      z-index: 2;
-    }
-
-    .hero__content h1 {
-      font-size: 3.8rem;
-      margin-bottom: 1.5rem;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-      line-height: 1.1;
+      min-height: 80vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                  url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') center/cover;
       color: var(--white);
-      animation: fadeInUp 1s ease-out;
     }
 
-    .hero__content p {
-      font-size: 1.3rem;
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      opacity: 0.9;
-      animation: fadeInUp 1s ease-out 0.2s forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Navigation */
     .nav__bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 2rem;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
-      transition: var(--transition);
-      backdrop-filter: blur(5px);
-    }
-
-    .nav__bar.scrolled {
-      background: rgba(0, 0, 0, 0.95);
-      padding: 1rem 2rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 10;
     }
 
     .logo img {
@@ -268,16 +171,15 @@
 
     .nav__links {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       list-style: none;
     }
 
     .nav__links a {
-      font-weight: 500;
+      font-weight: 600;
       color: var(--white);
       position: relative;
       padding: 0.5rem 0;
-      font-size: 1.05rem;
     }
 
     .nav__links a::after {
@@ -287,19 +189,13 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: var(--secondary-color);
+      background-color: var(--secondary-color);
       transition: var(--transition);
     }
 
     .nav__links a:hover::after,
     .nav__links a.active::after {
       width: 100%;
-    }
-
-    .nav__actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
     }
 
     .nav__menu__btn {
@@ -310,345 +206,271 @@
       z-index: 11;
     }
 
-    /* Account Button - Gold Style */
-    .nav__action__btn .btn {
+    .hero__content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: calc(100vh - 100px);
+      padding: 0 1rem;
+    }
+
+    .hero__text h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      line-height: 1.1;
+    }
+
+    .hero__text h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+
+    .hero__text p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero__cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    /* Social Icons */
+    .header__socials {
+      position: absolute;
+      bottom: 2rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .social__icon {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      font-size: 1.5rem;
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    .social__icon:hover {
       background: var(--secondary-color);
       color: var(--text-dark);
-      border: none;
-      padding: 0.7rem 1.5rem;
+      transform: translateY(-5px) scale(1.1);
     }
 
-    .nav__action__btn .btn:hover {
-      background: var(--accent-color);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
-    }
-
-    /* Mobile Navigation Styles */
-    @media (max-width: 768px) {
-      .nav__links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        height: 100vh;
-        background: var(--dark-bg);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2.5rem;
-        transition: var(--transition);
-        z-index: 10;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-      }
-
-      .nav__links.active {
-        left: 0;
-      }
-
-      .nav__menu__btn {
-        display: block;
-      }
-
-      .hero__content h1 {
-        font-size: 2.5rem;
-      }
-      
-      .hero__content {
-        margin-top: 60px; /* Adjusted for mobile */
-      }
-    }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      margin-bottom: 3rem;
-      border-bottom: 2px solid #eee;
-      justify-content: center;
-    }
-
-    .tab {
-      padding: 1rem 2rem;
-      cursor: pointer;
+    .social__icon .tooltip {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
       font-weight: 600;
-      color: var(--light-gray);
-      border-bottom: 3px solid transparent;
+      opacity: 0;
+      visibility: hidden;
       transition: var(--transition);
+    }
+
+    .social__icon:hover .tooltip {
+      opacity: 1;
+      visibility: visible;
+      top: -35px;
+    }
+
+    /* ===== About Section ===== */
+    .about {
+      background-color: var(--light-bg);
       position: relative;
+      padding: 5rem 0;
     }
 
-    .tab.active {
-      color: var(--secondary-color);
-      border-bottom: 3px solid var(--secondary-color);
-    }
-
-    .tab:hover {
-      color: var(--secondary-color);
-    }
-
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    /* Cards Grid */
-    .cards-grid {
+    .about__grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 2.5rem;
-      margin-bottom: 4rem;
+      gap: 3rem;
     }
 
-    .event-card, .announcement-card {
-      background: var(--white);
-      border-radius: var(--border-radius);
+    .about__card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about__card.reverse {
+      direction: rtl;
+    }
+
+    .about__image {
+      border-radius: 10px;
       overflow: hidden;
       box-shadow: var(--box-shadow);
+    }
+
+    .about__image img {
       transition: var(--transition);
-      position: relative;
-    }
-
-    .event-card:hover, .announcement-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-    }
-
-    .event-image {
-      height: 200px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .event-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: var(--transition);
     }
 
-    .event-card:hover .event-image img {
+    .about__image:hover img {
       transform: scale(1.05);
     }
 
-    .event-date-badge {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: var(--secondary-color);
-      color: var(--text-dark);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      z-index: 2;
+    .about__text {
+      direction: ltr;
+      padding: 2rem;
     }
 
-    .card-header {
-      padding: 1.8rem 1.8rem 0.5rem;
-      color: var(--text-dark);
-    }
-
-    .card-header h3 {
-      font-family: var(--header-font);
-      margin: 0;
-      font-size: 1.6rem;
-      line-height: 1.3;
-    }
-
-    .card-body {
-      padding: 0 1.8rem 1.8rem;
-    }
-
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .card-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--light-gray);
-      font-size: 0.95rem;
-    }
-
-    .card-meta-item i {
-      color: var(--secondary-color);
-    }
-
-    .card-description {
-      color: var(--light-gray);
-      margin-bottom: 1.5rem;
-      line-height: 1.7;
-    }
-
-    .card-actions {
-      padding: 0 1.8rem 1.8rem;
-    }
-
-    /* Loading and Empty States */
-    .loading, .empty-state {
-      text-align: center;
-      padding: 4rem 2rem;
-      background: var(--white);
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      grid-column: 1 / -1;
-    }
-
-    .empty-state h3 {
-      color: var(--secondary-color);
+    .about__text h3 {
+      font-size: 2rem;
       margin-bottom: 1rem;
-      font-size: 1.5rem;
+      color: var(--dark-blue);
     }
 
-    .empty-state p {
-      color: var(--light-gray);
-      margin-bottom: 2rem;
-    }
-
-    .empty-state-icon {
-      font-size: 3rem;
-      color: var(--secondary-color);
+    .about__text p {
       margin-bottom: 1.5rem;
-    }
-
-    .spinner {
-      border: 4px solid rgba(0, 0, 0, 0.1);
-      border-radius: 50%;
-      border-top: 4px solid var(--secondary-color);
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 1.5rem;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Filter Section */
-    .filter-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .filter-group {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      padding: 0.6rem 1.2rem;
-      background: var(--light-bg);
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: var(--transition);
-      font-weight: 500;
-    }
-
-    .filter-btn.active {
-      background: var(--secondary-color);
       color: var(--text-dark);
     }
 
-    .filter-btn:hover:not(.active) {
-      background: #e8e8e8;
+    /* ===== Ministries Section ===== */
+    .ministries {
+      background-color: var(--white);
+      padding: 5rem 0;
     }
 
-    .search-box {
-      position: relative;
+    .ministries__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
     }
 
-    .search-input {
-      padding: 0.7rem 1rem 0.7rem 3rem;
-      border: 1px solid #ddd;
-      border-radius: 50px;
-      font-family: var(--body-font);
-      width: 250px;
+    .ministry__card {
+      background: var(--light-bg);
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
       transition: var(--transition);
     }
 
-    .search-input:focus {
-      outline: none;
-      border-color: var(--secondary-color);
-      box-shadow: 0 0 0 2px rgba(192, 168, 106, 0.2);
+    .ministry__card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--box-shadow);
     }
 
-    .search-icon {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--light-gray);
-    }
-
-    /* View Toggle */
-    .view-toggle {
-      display: flex;
-      gap: 0.5rem;
-      margin-left: auto;
-    }
-
-    .view-btn {
-      background: var(--light-bg);
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+    .ministry__icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: var(--secondary-color);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .view-btn.active {
-      background: var(--secondary-color);
+      font-size: 2rem;
       color: var(--text-dark);
     }
 
-    /* Footer */
-    .footer {
-      background-color: var(--dark-bg);
-      color: var(--text-light);
-      padding-top: 6rem;
-      position: relative;
+    .ministry__card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark-blue);
     }
 
-    .footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
+    /* ===== Giving Section ===== */
+    .giving {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 5rem 0;
+    }
+
+    .giving .section__container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .giving__content {
+      padding-right: 2rem;
+    }
+
+    .giving__content .section__header {
+      color: var(--white);
+    }
+
+    .giving__list {
+      list-style: none;
+      margin: 2rem 0;
+    }
+
+    .giving__list li {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .giving__list i {
+      color: var(--secondary-color);
+    }
+
+    .giving__list a {
+      color: var(--white);
+    }
+
+    .giving__list a:hover {
+      color: var(--secondary-color);
+    }
+
+    .giving__image {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+    }
+
+    .giving__image img {
+      transition: var(--transition);
       width: 100%;
-      height: 4px;
-      background: var(--secondary-color);
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .giving__image:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background-color: var(--dark-blue);
+      color: var(--text-light);
+      padding-top: 5rem;
     }
 
     .footer__container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 3.5rem;
+      gap: 3rem;
     }
 
     .footer__logo img {
@@ -659,7 +481,6 @@
     .footer__col p {
       margin-bottom: 1.5rem;
       opacity: 0.8;
-      line-height: 1.7;
     }
 
     .footer__socials {
@@ -673,39 +494,18 @@
       color: var(--white);
       opacity: 0.8;
       transition: var(--transition);
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.1);
     }
 
     .footer__socials a:hover {
       opacity: 1;
-      background: var(--secondary-color);
-      color: var(--text-dark);
+      color: var(--secondary-color);
       transform: translateY(-3px);
     }
 
     .footer__col h3 {
-      font-size: 1.4rem;
-      margin-bottom: 1.8rem;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
       color: var(--secondary-color);
-      position: relative;
-      padding-bottom: 12px;
-    }
-
-    .footer__col h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 40px;
-      height: 3px;
-      background: var(--secondary-color);
-      border-radius: 2px;
     }
 
     .footer__col ul {
@@ -713,16 +513,7 @@
     }
 
     .footer__col ul li {
-      margin-bottom: 1.2rem;
-      position: relative;
-      padding-left: 15px;
-    }
-
-    .footer__col ul li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--secondary-color);
+      margin-bottom: 1rem;
     }
 
     .footer__col ul li a {
@@ -738,229 +529,452 @@
 
     .footer__bottom {
       text-align: center;
-      padding: 2.5rem 0;
-      margin-top: 4rem;
+      padding: 2rem 0;
+      margin-top: 3rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== Modal Styles ===== */
+    .account-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #username-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #username-modal .modal-content {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
       position: relative;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     }
 
-    /* Decorative elements */
-    .gold-accent-1 {
-      top: 10%;
-      left: 5%;
-      width: 200px;
-      height: 200px;
+    .modal-content {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+      animation: modalFadeIn 0.3s ease;
     }
 
-    .gold-accent-2 {
-      bottom: 10%;
-      right: 5%;
-      width: 150px;
-      height: 150px;
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    .auth-tabs {
+      display: flex;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-tab {
+      padding: 0.8rem 1.5rem;
+      background: none;
+      border: none;
+      font-weight: 600;
+      color: #666;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .auth-tab.active {
+      color: var(--primary-color);
+    }
+
+    .auth-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-color);
+    }
+
+    .auth-content {
+      display: none;
+    }
+
+    .auth-content.active {
+      display: block;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .form-group label {
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .form-group input {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: var(--body-font);
+    }
+
+    .text-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--primary-color);
+      font-size: 0.9rem;
+      text-align: center;
     }
 
     /* ===== Responsive Design ===== */
     @media (max-width: 992px) {
       .section__header {
-        font-size: 2.4rem;
+        font-size: 2rem;
       }
       
-      .hero__content h1 {
-        font-size: 3rem;
+      .hero__text h1 {
+        font-size: 2.8rem;
       }
       
-      .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      .about__card {
+        grid-template-columns: 1fr;
+      }
+      
+      .about__card.reverse {
+        direction: ltr;
       }
     }
 
     @media (max-width: 768px) {
-      .hero__content h1 {
-        font-size: 2.5rem;
+      .nav__links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--dark-blue);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+      }
+
+      .nav__links.active {
+        left: 0;
+      }
+
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero__text h1 {
+        font-size: 2.2rem;
       }
       
-      .hero__content {
-        margin-top: 60px; /* Adjusted for mobile */
+      .hero__cta {
+        flex-direction: column;
+        gap: 1rem;
       }
       
-      .cards-grid {
+      .giving .section__container {
         grid-template-columns: 1fr;
       }
       
-      .tabs {
-        flex-direction: column;
-        align-items: center;
+      .giving__content {
+        padding-right: 0;
       }
       
-      .filter-section {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .filter-group {
-        justify-content: center;
-      }
-      
-      .search-box {
-        width: 100%;
-      }
-      
-      .search-input {
-        width: 100%;
-      }
-      
-      .view-toggle {
-        margin: 0 auto;
+      .giving__image {
+        order: -1;
       }
     }
 
     @media (max-width: 576px) {
       html {
-        font-size: 15px;
+        font-size: 14px;
       }
 
       .section__container {
-        padding: 4rem 1.2rem;
+        padding: 3rem 1rem;
       }
 
-      .hero__content h1 {
-        font-size: 2.2rem;
+      .hero__text h1 {
+        font-size: 2rem;
       }
 
-      .hero__content p {
-        font-size: 1.1rem;
+      .hero__text p {
+        font-size: 1rem;
       }
       
-      .logo img {
-        height: 70px;
+      .header__socials {
+        gap: 1rem;
+      }
+      
+      .social__icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
       }
       
       .nav__bar {
         padding: 1rem;
       }
-      
-      .nav__menu__btn {
-        right: 1rem;
-        top: 1.25rem;
-      }
-      
-      .btn {
-        padding: 0.8rem 1.8rem;
-      }
-      
-      .card-header h3 {
-        font-size: 1.4rem;
-      }
-    }
-    
-    /* Extra small devices */
-    @media (max-width: 400px) {
-      .nav__links {
-        width: 85%;
-      }
-      
-      .hero__content h1 {
-        font-size: 2rem;
-      }
-      
-      .section__upperheader {
-        font-size: 1.5rem;
-      }
-      
-      .section__header {
-        font-size: 2rem;
-      }
     }
   </style>
+
 </head>
 <body>
   <!-- Header/Hero Section -->
   <header class="header" id="home">
-    <div class="gold-accent gold-accent-1"></div>
-    <div class="gold-accent gold-accent-2"></div>
-    
     <nav>
       <div class="nav__bar">
-        <!-- Left: Logo -->
         <div class="logo nav__logo">
-          <a href="index.html"><img src="logo.png" alt="Journey Village Church Logo"></a>
+          <a href="index.html"><img src="logo.png" alt="Journey Village Church Logo" loading="lazy"></a>
         </div>
-
-        <!-- Center: Links -->
         <ul class="nav__links" id="nav-links">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html" class="active">Home</a></li>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="events.html" class="active">Events</a></li>
+          <li><a href="events.html">Events</a></li>
           <li><a href="giving.html">Giving</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+        
+        <!-- Account Authentication Modal -->
+        <div class="account-modal" id="account-modal">
+          <div class="modal-content">
+            <span class="close-modal" id="account-modal-close">&times;</span>
+            
+            <div class="auth-tabs">
+              <button class="auth-tab active" data-tab="login">Sign In</button>
+              <button class="auth-tab" data-tab="register">Create Account</button>
+            </div>
+            
+            <!-- Login -->
+            <div class="auth-content active" id="login">
+              <form class="auth-form" id="login-form">
+                <div class="form-group">
+                  <label for="login-email">Email</label>
+                  <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                  <label for="login-password">Password</label>
+                  <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn__primary">Sign In</button>
+                <a href="#forgot-password" class="text-link">Forgot password?</a>
+              </form>
+            </div>
+            
+            <!-- Register -->
+            <div class="auth-content" id="register">
+              <form class="auth-form" id="register-form">
+                <div class="form-group">
+                  <label for="reg-email">Email</label>
+                  <input type="email" id="reg-email" required>
+                </div>
+                <div class="form-group">
+                  <label for="reg-password">Password</label>
+                  <input type="password" id="reg-password" minlength="8" required>
+                </div>
+                <button type="submit" class="btn btn__primary">Create Account</button>
+              </form>
+            </div>
+          </div>
+        </div>
 
-        <!-- Right: Account button -->
-        <div class="nav__actions">
-          <div class="nav__action__btn">
-            <button id="account-btn" class="btn">Login</button>
+        <div class="account-modal" id="username-modal" style="display:none;">
+          <div class="modal-content">
+            <span class="close-modal" id="username-modal-close">&times;</span>
+            <h3>Choose a Username</h3>
+            <form id="username-form">
+              <div class="form-group">
+                <label for="username-input">Username</label>
+                <input type="text" id="username-input" required>
+              </div>
+              <button type="submit" class="btn btn__primary">Save Username</button>
+            </form>
           </div>
-          <div class="nav__menu__btn" id="menu-btn">
-            <i class="ri-menu-line"></i>
-          </div>
+        </div>
+
+        <div class="nav__action__btn">
+          <button class="btn" id="account-btn">
+            <span><i class="ri-user-line"></i></span> Account
+          </button>
         </div>
       </div>
     </nav>
 
     <div class="hero__content">
-      <h1>Events & Announcements</h1>
-      <p>Stay connected with our church community through upcoming events and important announcements</p>
+      <div class="hero__text">
+        <h3>Welcome to</h3>
+        <h1>Journey Village Church in Kikuyu</h1>
+        <p>Inviting people to live that way of Christ</p>
+        <div class="hero__cta">
+          <a href="contact.html" class="btn btn__primary">Visit Us</a>
+          <a href="https://www.youtube.com/@journeyvillage3430" class="btn btn__outline">Our Youtube Channel</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header__socials">
+      <a href="https://www.facebook.com/p/The-Journey-Village-Kikuyu-100064713729585/" target="_blank" aria-label="Facebook" class="social__icon">
+        <i class="ri-facebook-fill"></i>
+        <span class="tooltip">Facebook</span>
+      </a>
+      <a href="https://wa.me/254113713742" target="_blank" aria-label="WhatsApp" class="social__icon">
+        <i class="ri-whatsapp-fill"></i>
+        <span class="tooltip">WhatsApp</span>
+      </a>
+      <a href="https://www.instagram.com/journeyvillage.ke/" target="_blank" aria-label="Instagram" class="social__icon">
+        <i class="ri-instagram-fill"></i>
+        <span class="tooltip">Instagram</span>
+      </a>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="section__container">
-    <div class="gold-accent" style="top: 10%; right: 5%;"></div>
-    
-    <h2 class="section__upperheader">What's Happening</h2>
-    
-    <div class="tabs">
-      <div class="tab active" data-tab="events">Events</div>
-      <div class="tab" data-tab="announcements">Announcements</div>
-    </div>
-
-    <div class="filter-section">
-      <div class="filter-group">
-        <button class="filter-btn active" data-filter="all">All Events</button>
-        <button class="filter-btn" data-filter="upcoming">Upcoming</button>
-        <button class="filter-btn" data-filter="past">Past Events</button>
-      </div>
-      
-      <div class="search-box">
-        <i class="ri-search-line search-icon"></i>
-        <input type="text" class="search-input" placeholder="Search events..." id="events-search">
-      </div>
-    </div>
-
-    <div id="events" class="tab-content active">
-      <div id="events-grid" class="cards-grid">
-        <!-- Events will be loaded here -->
-      </div>
-    </div>
-
-    <div id="announcements" class="tab-content">
-      <div class="filter-section">
-        <div class="filter-group">
-          <button class="filter-btn active" data-filter="all">All Announcements</button>
-          <button class="filter-btn" data-filter="important">Important</button>
-          <button class="filter-btn" data-filter="general">General</button>
-        </div>
+  <!-- Main Content Sections -->
+  <main>
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="section__container">
+        <h2 class="section__upperheader">Life At The Village</h2>
         
-        <div class="search-box">
-          <i class="ri-search-line search-icon"></i>
-          <input type="text" class="search-input" placeholder="Search announcements..." id="announcements-search">
+        <div class="about__grid">
+          <div class="about__card">
+            <div class="about__image">
+              <img src="images/worship.jpg" alt="Worship service" loading="lazy">
+            </div>
+            <div class="about__text">
+              <h3>Our Worship Gathering</h3>
+              <p>Every Sunday we gather to worship Christ—seeking a fresh encounter with Him, being shaped into His likeness, and growing together as a community of faith. From this place of worship, we are sent out into the world to join God's mission with love and courage.</p>
+            </div>
+          </div>
+
+          <div class="about__card reverse">
+            <div class="about__image">
+              <img src="images/pastor.jpg" alt="Worship service" loading="lazy">
+            </div>
+            <div class="about__text">
+              <h3>Next Gen. Ministry</h3>
+              <p>We are deeply committed to raising up the next generation in the way of Jesus. Our Next Gen Ministry serves children of all ages, not merely through programs, but through relationships that nurture faith and point them to Christ. We believe that discipleship is a generational calling—passing on the story of God's love so that every child may encounter Christ personally, grow in His likeness, and live for His purposes in the world.</p>
+            </div>
+          </div>
+
+          <div class="about__card">
+            <div class="about__image">
+              <img src="images/comm.jpg" alt="Small group gathering" loading="lazy">
+            </div>
+            <div class="about__text">
+              <h3>Village Bomas</h3>
+              <p>We treasure life together in fellowship. In our Bomas we check in on one another, celebrate together, and carry each other in prayer. Each month, neighbours gather to remember that life is best lived in circles, not isolation, with Christ at the centre, holding us in His love and shaping us to reflect Him to the world.</p>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <div id="announcements-list" class="cards-grid">
-        <!-- Announcements will be loaded here -->
+    </section>
+
+    <hr>
+
+    <!-- Ministries Section -->
+    <section class="ministries">
+      <div class="section__container">
+        <h2 class="section__upperheader">Ministry At The Village</h2>
+        
+        <div class="ministries__grid">
+          <div class="ministry__card">
+            <div class="ministry__icon">
+              <i class="ri-team-line"></i>
+            </div>
+            <h3>Birthday Sunday</h3>
+            <p>Every month we joyfully celebrate and bless those with birthdays, thanking God for the gift of their lives. It is more than just a moment of cake and fellowship—it is an opportunity to honor Christ's work in each person, to speak words of blessing, and to rejoice together as one family in Him.</p>
+          </div>
+          
+          <div class="ministry__card">
+            <div class="ministry__icon">
+              <i class="ri-music-2-line"></i>
+            </div>
+            <h3>Ladies' and Men's Hangouts</h3>
+            <p>We believe following Christ shapes every part of life, including our callings as women and men. Our hangouts provide space for honest conversations, shared wisdom, and encouragement as we grow in Christ, strengthen one another in faith, and live out our God-given identity for His kingdom.</p>
+          </div>
+          
+          <div class="ministry__card">
+            <div class="ministry__icon">
+              <i class="ri-community-line"></i>
+            </div>
+            <h3>Parenting Ministry</h3>
+            <p>Parenting today is both a challenge and a sacred calling. In the midst of busy lives, we long to raise children who know and follow Jesus. Our Parenting Ministry walks alongside all parents—biological or spiritual—equipping and encouraging them to pass on faith, wisdom, and love that form the next generation in Christ.</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Giving Section -->
+    <section class="giving">
+      <div class="section__container">
+        <div class="giving__content">
+          <h2 class="section__header">We Could Be Your Village</h2>
+          <p>Everyone goes through seasons of struggle or uncertainty. At Journey Village Church, we're here with open doors—to listen, encourage, pray, and support you.
+Reach out to us through these platforms.</p>
+          <ul class="giving__list">
+            <a href=""><li><i class="ri-check-line"></i> Send Us An Email</li></a>
+            <a href="https://www.instagram.com/journeyvillage.ke/"><li><i class="ri-check-line"></i> DM Us on Instagram</li></a>
+            <a href="https://wa.me/254113713742"><li><i class="ri-check-line"></i> Text Us on WhatsApp</li></a>
+          </ul>
+          <a href="contact.html" class="btn btn__primary">Contact Us Here</a>
+        </div>
+        <div class="giving__image">
+          <img src="images/outreach.jpg" alt="Community outreach" loading="lazy">
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -968,7 +982,7 @@
     <div class="section__container footer__container">
       <div class="footer__col">
         <div class="footer__logo">
-          <img src="logo.png" alt="Journey Village Church Logo">
+          <img src="logo.png" alt="Journey Village Church Logo" loading="lazy">
         </div>
         <p>QM54+ J2H, Rungiri<br>Kiambu, Kenya</p>
         <div class="footer__socials">

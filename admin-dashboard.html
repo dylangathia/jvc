@@ -8,26 +8,27 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
     <style>
         :root {
-            --primary-color: #1995AD;
-            --secondary-color: #e9c675;
-            --accent-color: #BCB382;
-            --dark-blue: #0E4E64;
-            --light-bg: #F8F9FA;
-            --text-dark: #343A40;
-            --text-light: #F8F9FA;
+            --primary-color: #000000;
+            --secondary-color: #C0A86A;
+            --accent-color: #A8925D;
+            --dark-bg: #1A1A1A;
+            --light-bg: #F5F5F5;
+            --text-dark: #222222;
+            --text-light: #FFFFFF;
             --white: #FFFFFF;
             --black: #000000;
             --header-font: "Playfair Display", serif;
             --body-font: "Montserrat", sans-serif;
             --transition: all 0.3s ease;
             --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
         }
 
         * {
@@ -38,7 +39,7 @@
 
         body {
             font-family: var(--body-font);
-            line-height: 1.6;
+            line-height: 1.7;
             color: var(--text-dark);
             background-color: var(--light-bg);
             overflow-x: hidden;
@@ -53,7 +54,7 @@
         /* Header Styles */
         header {
             background-color: var(--primary-color);
-            color: white;
+            color: var(--white);
             padding: 1rem 0;
             box-shadow: var(--box-shadow);
         }
@@ -87,7 +88,7 @@
         }
 
         .nav-links a {
-            color: white;
+            color: var(--white);
             text-decoration: none;
             font-weight: 500;
             transition: var(--transition);
@@ -110,8 +111,8 @@
 
         /* Admin Header */
         .admin-header {
-            background: var(--dark-blue);
-            color: white;
+            background: var(--dark-bg);
+            color: var(--white);
             padding: 1.5rem 0;
             margin-bottom: 2rem;
         }
@@ -148,8 +149,8 @@
 
         /* Sidebar */
         .admin-sidebar {
-            background: white;
-            border-radius: 10px;
+            background: var(--white);
+            border-radius: var(--border-radius);
             padding: 1.5rem;
             box-shadow: var(--box-shadow);
             height: fit-content;
@@ -186,15 +187,15 @@
         }
 
         .admin-nav a:hover, .admin-nav a.active {
-            background: var(--primary-color);
-            color: white;
+            background: var(--secondary-color);
+            color: var(--text-dark);
         }
 
         /* Admin Panel */
         .admin-panel {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
             box-shadow: var(--box-shadow);
             margin-bottom: 2rem;
         }
@@ -205,6 +206,7 @@
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--secondary-color);
             font-size: 1.5rem;
+            font-family: var(--header-font);
         }
 
         .form-group {
@@ -215,7 +217,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: var(--dark-blue);
+            color: var(--dark-bg);
         }
 
         .form-group input,
@@ -226,8 +228,17 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-family: inherit;
-            font-size: 16px; /* Prevents zoom on iOS */
+            font-size: 16px;
             min-height: 44px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(192, 168, 106, 0.2);
         }
 
         .form-group textarea {
@@ -247,7 +258,7 @@
             justify-content: center;
             gap: 0.5rem;
             padding: 0.75rem 1.5rem;
-            border-radius: 5px;
+            border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -265,24 +276,27 @@
         .btn-primary:hover {
             background-color: var(--accent-color);
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
         }
 
         .btn-danger {
             background-color: #dc3545;
-            color: white;
+            color: var(--white);
         }
 
         .btn-danger:hover {
             background-color: #bd2130;
+            transform: translateY(-3px);
         }
 
         .btn-secondary {
-            background-color: var(--dark-blue);
-            color: white;
+            background-color: var(--dark-bg);
+            color: var(--white);
         }
 
         .btn-secondary:hover {
             background-color: var(--primary-color);
+            transform: translateY(-3px);
         }
 
         .btn-sm {
@@ -293,11 +307,80 @@
 
         .btn-info {
             background-color: #17a2b8;
-            color: white;
+            color: var(--white);
         }
 
         .btn-info:hover {
             background-color: #138496;
+            transform: translateY(-3px);
+        }
+
+        /* Image Upload Styles */
+        .image-upload-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            border: 2px dashed #ddd;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview-placeholder {
+            color: #888;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--secondary-color);
+            color: var(--text-dark);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .upload-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .upload-btn input {
+            display: none;
+        }
+
+        .upload-progress {
+            margin-top: 0.5rem;
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--secondary-color);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         /* Tabs - Stacked on mobile */
@@ -326,13 +409,19 @@
         }
 
         .tab.active {
-            color: var(--primary-color);
-            background-color: rgba(25, 149, 173, 0.1);
-            border-left: 4px solid var(--primary-color);
+            color: var(--secondary-color);
+            background-color: rgba(192, 168, 106, 0.1);
+            border-left: 4px solid var(--secondary-color);
         }
 
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .tab-content.active {
@@ -376,10 +465,10 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--primary-color);
-            color: white;
+            background: var(--secondary-color);
+            color: var(--text-dark);
             padding: 1rem 1.5rem;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             z-index: 1000;
             display: flex;
@@ -395,17 +484,18 @@
         }
 
         .toast.success {
-            background: #28a745;
+            background: var(--secondary-color);
         }
 
         .toast.error {
             background: #dc3545;
+            color: var(--white);
         }
 
         /* Footer */
         footer {
-            background: var(--dark-blue);
-            color: white;
+            background: var(--dark-bg);
+            color: var(--white);
             padding: 3rem 0 1.5rem;
             margin-top: 3rem;
         }
@@ -530,7 +620,7 @@
 
         .detail-label {
             font-weight: 600;
-            color: var(--dark-blue);
+            color: var(--dark-bg);
         }
 
         .detail-actions {
@@ -641,13 +731,14 @@
         }
         
         .modal-content {
-            background-color: white;
+            background-color: var(--white);
             padding: 1.5rem;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             width: 100%;
             max-width: 500px;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: var(--box-shadow);
         }
         
         .modal-header {
@@ -692,7 +783,7 @@
             height: 40px;
             margin: 0 auto 1rem;
             border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: var(--primary-color);
+            border-left-color: var(--secondary-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -706,7 +797,7 @@
             display: none;
             background: none;
             border: none;
-            color: white;
+            color: var(--white);
             font-size: 1.5rem;
             cursor: pointer;
             min-width: 44px;
@@ -802,8 +893,8 @@
             }
             
             .tab.active {
-                color: var(--primary-color);
-                border-bottom: 3px solid var(--primary-color);
+                color: var(--secondary-color);
+                border-bottom: 3px solid var(--secondary-color);
                 background-color: transparent;
                 border-left: none;
             }
@@ -971,6 +1062,26 @@
                         <label for="eventSignupLink">Registration Link (optional)</label>
                         <input type="url" id="eventSignupLink" placeholder="https://forms.gle/...">
                     </div>
+                    
+                    <!-- Image Upload Section -->
+                    <div class="form-group">
+                        <label for="eventImage">Event Image (optional)</label>
+                        <div class="image-upload-container">
+                            <label class="upload-btn">
+                                <i class="ri-upload-cloud-line"></i> Select Image
+                                <input type="file" id="eventImage" accept="image/*" style="display: none;">
+                            </label>
+                            <div class="image-preview" id="eventImagePreview">
+                                <div class="image-preview-placeholder">
+                                    <i class="ri-image-line" style="font-size: 2rem;"></i>
+                                    <p>No image selected</p>
+                                </div>
+                            </div>
+                            <div class="upload-progress" id="eventImageProgress" style="display: none;">
+                                <div class="progress-bar" id="eventImageProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">
                         <i class="ri-calendar-event-line"></i> Add Event
@@ -996,6 +1107,26 @@
                         <label for="announcementDate">Date *</label>
                         <input type="datetime-local" id="announcementDate" required>
                     </div>
+                    
+                    <!-- Image Upload Section -->
+                    <div class="form-group">
+                        <label for="announcementImage">Announcement Image (optional)</label>
+                        <div class="image-upload-container">
+                            <label class="upload-btn">
+                                <i class="ri-upload-cloud-line"></i> Select Image
+                                <input type="file" id="announcementImage" accept="image/*" style="display: none;">
+                            </label>
+                            <div class="image-preview" id="announcementImagePreview">
+                                <div class="image-preview-placeholder">
+                                    <i class="ri-image-line" style="font-size: 2rem;"></i>
+                                    <p>No image selected</p>
+                                </div>
+                            </div>
+                            <div class="upload-progress" id="announcementImageProgress" style="display: none;">
+                                <div class="progress-bar" id="announcementImageProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">
                         <i class="ri-megaphone-line"></i> Add Announcement
@@ -1020,13 +1151,14 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Date</th>
+                                    <th>Image</th>
                                     <th>Description</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="events-table-body">
                                 <tr>
-                                    <td colspan="4" style="text-align: center; padding: 2rem;">
+                                    <td colspan="5" style="text-align: center; padding: 2rem;">
                                         <div class="spinner"></div>
                                         <p>Loading events...</p>
                                     </td>
@@ -1044,13 +1176,14 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Date</th>
+                                    <th>Image</th>
                                     <th>Content</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="announcements-table-body">
                                 <tr>
-                                    <td colspan="4" style="text-align: center; padding: 2rem;">
+                                    <td colspan="5" style="text-align: center; padding: 2rem;">
                                         <div class="spinner"></div>
                                         <p>Loading announcements...</p>
                                     </td>
@@ -1313,6 +1446,26 @@
                         <label for="editEventSignupLink">Registration Link (optional)</label>
                         <input type="url" id="editEventSignupLink">
                     </div>
+                    
+                    <!-- Image Upload Section for Edit -->
+                    <div class="form-group">
+                        <label for="editEventImage">Event Image (optional)</label>
+                        <div class="image-upload-container">
+                            <label class="upload-btn">
+                                <i class="ri-upload-cloud-line"></i> Change Image
+                                <input type="file" id="editEventImage" accept="image/*" style="display: none;">
+                            </label>
+                            <div class="image-preview" id="editEventImagePreview">
+                                <div class="image-preview-placeholder">
+                                    <i class="ri-image-line" style="font-size: 2rem;"></i>
+                                    <p>No image selected</p>
+                                </div>
+                            </div>
+                            <div class="upload-progress" id="editEventImageProgress" style="display: none;">
+                                <div class="progress-bar" id="editEventImageProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -1346,6 +1499,26 @@
                         <label for="editAnnouncementDate">Date *</label>
                         <input type="datetime-local" id="editAnnouncementDate" required>
                     </div>
+                    
+                    <!-- Image Upload Section for Edit -->
+                    <div class="form-group">
+                        <label for="editAnnouncementImage">Announcement Image (optional)</label>
+                        <div class="image-upload-container">
+                            <label class="upload-btn">
+                                <i class="ri-upload-cloud-line"></i> Change Image
+                                <input type="file" id="editAnnouncementImage" accept="image/*" style="display: none;">
+                            </label>
+                            <div class="image-preview" id="editAnnouncementImagePreview">
+                                <div class="image-preview-placeholder">
+                                    <i class="ri-image-line" style="font-size: 2rem;"></i>
+                                    <p>No image selected</p>
+                                </div>
+                            </div>
+                            <div class="upload-progress" id="editAnnouncementImageProgress" style="display: none;">
+                                <div class="progress-bar" id="editAnnouncementImageProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -1370,6 +1543,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
+        const storage = firebase.storage();
 
         // Current selected inquiry
         let currentInquiryId = null;
@@ -1381,6 +1555,12 @@
         // Current selected event/announcement for editing
         let currentEditEventId = null;
         let currentEditAnnouncementId = null;
+
+        // Image file references
+        let eventImageFile = null;
+        let announcementImageFile = null;
+        let editEventImageFile = null;
+        let editAnnouncementImageFile = null;
 
         // 🔒 Auth + Role Check
         auth.onAuthStateChanged(async (user) => {
@@ -1585,6 +1765,108 @@
             });
         }
 
+        // Image Upload Handlers
+        function setupImageUploads() {
+            // Event image upload
+            document.getElementById('eventImage').addEventListener('change', function(e) {
+                handleImageUpload(e, 'eventImagePreview', 'eventImageProgress', 'eventImageProgressBar', (file) => {
+                    eventImageFile = file;
+                });
+            });
+            
+            // Announcement image upload
+            document.getElementById('announcementImage').addEventListener('change', function(e) {
+                handleImageUpload(e, 'announcementImagePreview', 'announcementImageProgress', 'announcementImageProgressBar', (file) => {
+                    announcementImageFile = file;
+                });
+            });
+            
+            // Edit event image upload
+            document.getElementById('editEventImage').addEventListener('change', function(e) {
+                handleImageUpload(e, 'editEventImagePreview', 'editEventImageProgress', 'editEventImageProgressBar', (file) => {
+                    editEventImageFile = file;
+                });
+            });
+            
+            // Edit announcement image upload
+            document.getElementById('editAnnouncementImage').addEventListener('change', function(e) {
+                handleImageUpload(e, 'editAnnouncementImagePreview', 'editAnnouncementImageProgress', 'editAnnouncementImageProgressBar', (file) => {
+                    editAnnouncementImageFile = file;
+                });
+            });
+        }
+
+        // Handle image upload and preview
+        function handleImageUpload(event, previewId, progressId, progressBarId, callback) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Check if file is an image
+            if (!file.type.match('image.*')) {
+                showToast('Please select an image file', 'error');
+                return;
+            }
+            
+            // Check file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('Image must be less than 5MB', 'error');
+                return;
+            }
+            
+            callback(file);
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById(previewId);
+                preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Upload image to Firebase Storage
+        async function uploadImage(file, path) {
+            return new Promise((resolve, reject) => {
+                const storageRef = storage.ref();
+                const imageRef = storageRef.child(`${path}/${Date.now()}_${file.name}`);
+                const uploadTask = imageRef.put(file);
+                
+                // Show progress
+                const progressBar = document.getElementById('eventImageProgressBar');
+                const progressContainer = document.getElementById('eventImageProgress');
+                
+                if (progressContainer) {
+                    progressContainer.style.display = 'block';
+                }
+                
+                uploadTask.on('state_changed', 
+                    (snapshot) => {
+                        // Progress monitoring
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        if (progressBar) {
+                            progressBar.style.width = progress + '%';
+                        }
+                    }, 
+                    (error) => {
+                        // Handle errors
+                        if (progressContainer) {
+                            progressContainer.style.display = 'none';
+                        }
+                        reject(error);
+                    }, 
+                    () => {
+                        // Handle successful upload
+                        if (progressContainer) {
+                            progressContainer.style.display = 'none';
+                        }
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            resolve(downloadURL);
+                        });
+                    }
+                );
+            });
+        }
+
         // Handle Event submission
         document.getElementById("eventForm").addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -1595,16 +1877,31 @@
             const signupLink = document.getElementById("eventSignupLink").value;
 
             try {
+                let imageUrl = '';
+                
+                // Upload image if selected
+                if (eventImageFile) {
+                    imageUrl = await uploadImage(eventImageFile, 'events');
+                }
+                
                 await db.collection("events").add({
                     title,
                     date,
                     description,
                     signupLink: signupLink || "",
+                    imageUrl: imageUrl || "",
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
                 
                 showToast("Event added successfully!");
                 e.target.reset();
+                document.getElementById("eventImagePreview").innerHTML = `
+                    <div class="image-preview-placeholder">
+                        <i class="ri-image-line" style="font-size: 2rem;"></i>
+                        <p>No image selected</p>
+                    </div>
+                `;
+                eventImageFile = null;
                 loadEvents(); // Refresh the events list
             } catch (error) {
                 console.error("Error adding event: ", error);
@@ -1621,15 +1918,30 @@
             const date = new Date(document.getElementById("announcementDate").value);
 
             try {
+                let imageUrl = '';
+                
+                // Upload image if selected
+                if (announcementImageFile) {
+                    imageUrl = await uploadImage(announcementImageFile, 'announcements');
+                }
+                
                 await db.collection("announcements").add({
                     title,
                     content,
                     date,
+                    imageUrl: imageUrl || "",
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
                 
                 showToast("Announcement added successfully!");
                 e.target.reset();
+                document.getElementById("announcementImagePreview").innerHTML = `
+                    <div class="image-preview-placeholder">
+                        <i class="ri-image-line" style="font-size: 2rem;"></i>
+                        <p>No image selected</p>
+                    </div>
+                `;
+                announcementImageFile = null;
                 loadAnnouncements(); // Refresh the announcements list
             } catch (error) {
                 console.error("Error adding announcement: ", error);
@@ -1645,7 +1957,7 @@
                 const querySnapshot = await db.collection("events").orderBy("date", "desc").get();
                 
                 if (querySnapshot.empty) {
-                    eventsBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No events found</td></tr>`;
+                    eventsBody.innerHTML = `<tr><td colspan="5" style="text-align: center;">No events found</td></tr>`;
                     return;
                 }
                 
@@ -1669,10 +1981,16 @@
                         ? event.description.substring(0, 50) + '...' 
                         : event.description;
                     
+                    // Image thumbnail or placeholder
+                    const imageThumbnail = event.imageUrl 
+                        ? `<img src="${event.imageUrl}" alt="${event.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;">` 
+                        : `<i class="ri-image-line" style="font-size: 1.5rem; color: #ccc;"></i>`;
+                    
                     const row = document.createElement("tr");
                     row.innerHTML = `
                         <td>${event.title}</td>
                         <td>${formattedDate}</td>
+                        <td style="text-align: center;">${imageThumbnail}</td>
                         <td>${shortDescription}</td>
                         <td class="event-actions">
                             <button class="btn btn-sm btn-primary edit-event-btn" data-id="${doc.id}">
@@ -1699,7 +2017,7 @@
                 
             } catch (error) {
                 console.error("Error loading events: ", error);
-                eventsBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Error loading events</td></tr>`;
+                eventsBody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Error loading events</td></tr>`;
             }
         }
 
@@ -1730,6 +2048,19 @@
                 document.getElementById("editEventDescription").value = event.description;
                 document.getElementById("editEventSignupLink").value = event.signupLink || "";
                 
+                // Set image preview
+                const preview = document.getElementById("editEventImagePreview");
+                if (event.imageUrl) {
+                    preview.innerHTML = `<img src="${event.imageUrl}" alt="Preview">`;
+                } else {
+                    preview.innerHTML = `
+                        <div class="image-preview-placeholder">
+                            <i class="ri-image-line" style="font-size: 2rem;"></i>
+                            <p>No image selected</p>
+                        </div>
+                    `;
+                }
+                
                 // Show modal
                 document.getElementById("editEventModal").style.display = "flex";
                 
@@ -1749,16 +2080,25 @@
             const signupLink = document.getElementById("editEventSignupLink").value;
             
             try {
-                await db.collection("events").doc(currentEditEventId).update({
+                const updateData = {
                     title,
                     date,
                     description,
                     signupLink: signupLink || "",
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
+                };
+                
+                // Upload new image if selected
+                if (editEventImageFile) {
+                    const imageUrl = await uploadImage(editEventImageFile, 'events');
+                    updateData.imageUrl = imageUrl;
+                }
+                
+                await db.collection("events").doc(currentEditEventId).update(updateData);
                 
                 showToast("Event updated successfully!");
                 document.getElementById("editEventModal").style.display = "none";
+                editEventImageFile = null;
                 loadEvents();
             } catch (error) {
                 console.error("Error updating event: ", error);
@@ -1774,7 +2114,7 @@
                 const querySnapshot = await db.collection("announcements").orderBy("date", "desc").get();
                 
                 if (querySnapshot.empty) {
-                    announcementsBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No announcements found</td></tr>`;
+                    announcementsBody.innerHTML = `<tr><td colspan="5" style="text-align: center;">No announcements found</td></tr>`;
                     return;
                 }
                 
@@ -1798,10 +2138,16 @@
                         ? announcement.content.substring(0, 50) + '...' 
                         : announcement.content;
                     
+                    // Image thumbnail or placeholder
+                    const imageThumbnail = announcement.imageUrl 
+                        ? `<img src="${announcement.imageUrl}" alt="${announcement.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;">` 
+                        : `<i class="ri-image-line" style="font-size: 1.5rem; color: #ccc;"></i>`;
+                    
                     const row = document.createElement("tr");
                     row.innerHTML = `
                         <td>${announcement.title}</td>
                         <td>${formattedDate}</td>
+                        <td style="text-align: center;">${imageThumbnail}</td>
                         <td>${shortContent}</td>
                         <td class="event-actions">
                             <button class="btn btn-sm btn-primary edit-announcement-btn" data-id="${doc.id}">
@@ -1828,7 +2174,7 @@
                 
             } catch (error) {
                 console.error("Error loading announcements: ", error);
-                announcementsBody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Error loading announcements</td></tr>`;
+                announcementsBody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Error loading announcements</td></tr>`;
             }
         }
 
@@ -1857,6 +2203,19 @@
                 const formattedDate = announcementDate.toISOString().slice(0, 16);
                 document.getElementById("editAnnouncementDate").value = formattedDate;
                 
+                // Set image preview
+                const preview = document.getElementById("editAnnouncementImagePreview");
+                if (announcement.imageUrl) {
+                    preview.innerHTML = `<img src="${announcement.imageUrl}" alt="Preview">`;
+                } else {
+                    preview.innerHTML = `
+                        <div class="image-preview-placeholder">
+                            <i class="ri-image-line" style="font-size: 2rem;"></i>
+                            <p>No image selected</p>
+                        </div>
+                    `;
+                }
+                
                 // Show modal
                 document.getElementById("editAnnouncementModal").style.display = "flex";
                 
@@ -1875,15 +2234,24 @@
             const date = new Date(document.getElementById("editAnnouncementDate").value);
             
             try {
-                await db.collection("announcements").doc(currentEditAnnouncementId).update({
+                const updateData = {
                     title,
                     content,
                     date,
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
+                };
+                
+                // Upload new image if selected
+                if (editAnnouncementImageFile) {
+                    const imageUrl = await uploadImage(editAnnouncementImageFile, 'announcements');
+                    updateData.imageUrl = imageUrl;
+                }
+                
+                await db.collection("announcements").doc(currentEditAnnouncementId).update(updateData);
                 
                 showToast("Announcement updated successfully!");
                 document.getElementById("editAnnouncementModal").style.display = "none";
+                editAnnouncementImageFile = null;
                 loadAnnouncements();
             } catch (error) {
                 console.error("Error updating announcement: ", error);
@@ -2310,6 +2678,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             setupTabs();
             setupModals();
+            setupImageUploads();
             loadEvents();
             loadAnnouncements();
         });

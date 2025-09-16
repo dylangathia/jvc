@@ -1314,7 +1314,9 @@
             <p class="card-description">${event.description}</p>
           </div>
           <div class="card-actions">
-            <button class="btn btn__primary register-btn" ${event.signupLink ? '' : 'disabled'}>
+            <button class="btn btn__primary register-btn" 
+                    ${event.signupLink ? '' : 'disabled'}
+                    onclick="window.open('${event.signupLink}', '_blank')">
               <i class="ri-user-add-line"></i> Register Now
             </button>
           </div>

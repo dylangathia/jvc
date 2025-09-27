@@ -205,17 +205,17 @@
       margin-right: auto;
     }
 
-    /* Navigation */
+    /* Navigation - Made Sticky */
     .nav__bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 2rem;
-      position: absolute;
+      position: fixed; /* Changed from absolute to fixed */
       top: 0;
       left: 0;
       right: 0;
-      z-index: 10;
+      z-index: 1000; /* Increased z-index to ensure it stays on top */
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
       transition: var(--transition);
     }
@@ -279,14 +279,14 @@
       z-index: 11;
     }
 
-    /* Account Button - Gold Style */
-    .nav__action__btn .btn {
+    /* Pray With Us Button - Gold Style */
+    .pray-btn .btn {
       background: var(--secondary-color);
       color: var(--text-dark);
       border: none;
     }
 
-    .nav__action__btn .btn:hover {
+    .pray-btn .btn:hover {
       background: var(--accent-color);
       transform: translateY(-3px);
       box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
@@ -415,123 +415,6 @@
       color: var(--secondary-color);
     }
 
-    /* Form Styles */
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: var(--black);
-    }
-
-    .input-with-icon {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .input-with-icon .currency,
-    .input-with-icon .prefix {
-      padding: 0 12px;
-      background: #f5f5f5;
-      border: 1px solid #ddd;
-      border-right: none;
-      border-radius: 5px 0 0 5px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      font-weight: 500;
-    }
-
-    .input-with-icon input {
-      flex: 1;
-      border-radius: 0 5px 5px 0;
-      height: 48px;
-      padding: 0 12px;
-      border: 1px solid #ddd;
-      border-left: none;
-    }
-
-    input[type="number"],
-    input[type="tel"],
-    select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-family: inherit;
-      font-size: 1rem;
-    }
-
-    .hint {
-      display: block;
-      margin-top: 0.3rem;
-      font-size: 0.8rem;
-      color: 666;
-    }
-
-    /* Amount Options */
-    .amount-options {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .amount-option {
-      padding: 10px;
-      background: #f5f5f5;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .amount-option:hover {
-      background: #eee;
-    }
-
-    .amount-option.active {
-      background: var(--secondary-color);
-      color: var(--black);
-      border-color: var(--secondary-color);
-      font-weight: 600;
-    }
-
-    #custom-amount {
-      grid-column: span 3;
-    }
-
-    /* Payment Status */
-    .payment-status {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border-radius: 5px;
-      display: none;
-    }
-
-    .payment-status.success {
-      display: block;
-      background: rgba(40, 167, 69, 0.1);
-      border: 1px solid rgba(40, 167, 69, 0.3);
-      color: #28a745;
-    }
-
-    .payment-status.error {
-      display: block;
-      background: rgba(220, 53, 69, 0.1);
-      border: 1px solid rgba(220, 53, 69, 0.3);
-      color: #dc3545;
-    }
-
-    .payment-status i {
-      margin-right: 8px;
-    }
-
     /* Bank Details */
     .bank-details {
       margin: 1.5rem 0;
@@ -615,84 +498,6 @@
 
     .faq-item.active .faq-answer {
       max-height: 300px;
-    }
-
-    /* Payment Modal */
-    .payment-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background: white;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      overflow: hidden;
-      animation: modalFadeIn 0.3s ease;
-    }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-body {
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .loader {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 1.5rem;
-    }
-
-    .loader-circle {
-      width: 12px;
-      height: 12px;
-      background: var(--secondary-color);
-      border-radius: 50%;
-      animation: bounce 1s infinite ease-in-out;
-    }
-
-    .loader-circle:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .loader-circle:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    #payment-message {
-      margin-bottom: 0.5rem;
-    }
-
-    #payment-details {
-      color: 666;
-      font-size: 0.9rem;
-    }
-
-    #close-payment-modal {
-      width: 100%;
-      border-radius: 0;
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
     }
 
     /* Call to Action */
@@ -887,12 +692,13 @@
         grid-template-columns: 1fr;
       }
       
-      .amount-options {
-        grid-template-columns: repeat(2, 1fr);
+      .detail-row {
+        flex-direction: column;
+        gap: 0.5rem;
       }
       
-      #custom-amount {
-        grid-column: span 2;
+      .detail-label {
+        min-width: auto;
       }
     }
 
@@ -911,15 +717,6 @@
 
       .hero__content p {
         font-size: 1rem;
-      }
-      
-      .detail-row {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
-      .detail-label {
-        min-width: auto;
       }
       
       .cta-buttons {
@@ -983,10 +780,12 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
 
-        <!-- Right: Account button -->
+        <!-- Right: Pray With Us button -->
         <div class="nav__actions">
-          <div class="nav__action__btn">
-            <button id="account-btn" class="btn">Login</button>
+          <div class="pray-btn">
+            <a href="https://wa.me/254712345678?text=Hello%2C%20I'd%20like%20to%20pray%20with%20you" target="_blank" class="btn">
+              Pray With Us
+            </a>
           </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
@@ -1028,7 +827,7 @@
                   <span class="detail-value">Tithe or Offering</span>
                 </div>
               </div>
-              <button class="btn btn__outline copy-btn" data-clipboard-text="Paybill Acc No: 4051185, Account Name: Tithe or Offering" id="copy-bank-details">
+              <button class="btn btn__outline copy-btn" data-clipboard-text="Paybill Acc No: 4051185, Account Name: Tithe or Offering" id="copy-mpesa-details">
                 <i class="ri-file-copy-line"></i> Copy Details
               </button>
             </div>
@@ -1077,11 +876,20 @@
         <div class="faq-container">
           <div class="faq-item">
             <button class="faq-question">
-              <span>How do I complete the M-Pesa payment?</span>
+              <span>How do I give using M-Pesa?</span>
               <i class="ri-arrow-down-s-line"></i>
             </button>
             <div class="faq-answer">
-              <p>After submitting your donation, you'll receive an M-Pesa push notification on your phone. Simply enter your M-Pesa PIN when prompted to complete the transaction. The amount will be deducted from your M-Pesa account.</p>
+              <p>To give via M-Pesa, follow these steps:</p>
+              <ol>
+                <li>Go to M-Pesa on your phone</li>
+                <li>Select "Lipa na M-Pesa"</li>
+                <li>Select "Pay Bill"</li>
+                <li>Enter Business Number: <strong>4051185</strong></li>
+                <li>Enter Account Number: <strong>Tithe</strong> or <strong>Offering</strong></li>
+                <li>Enter the amount you wish to give</li>
+                <li>Enter your M-Pesa PIN and send</li>
+              </ol>
             </div>
           </div>
           
@@ -1091,17 +899,37 @@
               <i class="ri-arrow-down-s-line"></i>
             </button>
             <div class="faq-answer">
-              <p>Yes! You'll receive two receipts: 1) An automatic SMS receipt from M-Pesa immediately after payment, and 2) An official donation receipt from Journey Village Church emailed to you within 24 hours (if you provide your email).</p>
+              <p>Yes! You'll receive an automatic SMS receipt from M-Pesa immediately after payment. For bank transfers, you can request an official donation receipt from our finance team by emailing finance@journeyvillage.org</p>
             </div>
           </div>
           
           <div class="faq-item">
             <button class="faq-question">
-              <span>Is online giving secure?</span>
+              <span>Can I give in person on Sundays?</span>
               <i class="ri-arrow-down-s-line"></i>
             </button>
             <div class="faq-answer">
-              <p>Absolutely. We use Safaricom's secure M-Pesa API for all transactions. We never see or store your M-Pesa PIN. All transactions are encrypted and processed directly with Safaricom's systems.</p>
+              <p>Absolutely! We have offering baskets available during our Sunday services. You can give cash or cheque during the offering time in our worship service.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How is my donation used?</span>
+              <i class="ri-arrow-down-s-line"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Your generous giving supports our church's ministries, community outreach programs, facility maintenance, and staff support. We are committed to financial transparency and stewardship. Detailed financial reports are available upon request.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Is my giving information kept confidential?</span>
+              <i class="ri-arrow-down-s-line"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, all giving information is kept strictly confidential. Only our finance team has access to giving records, and they are used solely for receipting and record-keeping purposes.</p>
             </div>
           </div>
         </div>
@@ -1162,27 +990,8 @@
     </div>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    // Import Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-    // Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
-      authDomain: "journeyvill.firebaseapp.com",
-      projectId: "journeyvill",
-      storageBucket: "journeyvill.firebasestorage.app",
-      messagingSenderId: "494172807963",
-      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
-      measurementId: "G-E1RNC9M7CK"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
+  <!-- Simplified JavaScript -->
+  <script>
     // Mobile menu functionality
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
@@ -1206,39 +1015,6 @@
       }
     });
 
-    // Check authentication state
-    onAuthStateChanged(auth, (user) => {
-      const accountBtn = document.getElementById('account-btn');
-      
-      if (user) {
-        // User is signed in
-        accountBtn.textContent = 'Logout';
-        accountBtn.onclick = handleLogout;
-      } else {
-        // User is signed out
-        accountBtn.textContent = 'Login';
-        accountBtn.onclick = redirectToLogin;
-      }
-    });
-
-    // Handle logout
-    function handleLogout() {
-      signOut(auth).then(() => {
-        // Sign-out successful
-        alert('You have been logged out successfully.');
-        window.location.reload();
-      }).catch((error) => {
-        // An error happened
-        console.error('Logout error:', error);
-        alert('Error logging out. Please try again.');
-      });
-    }
-
-    // Redirect to login page
-    function redirectToLogin() {
-      window.location.href = 'index.html'; // Redirect to your login page
-    }
-
     // FAQ functionality
     document.querySelectorAll('.faq-question').forEach(button => {
       button.addEventListener('click', () => {
@@ -1253,7 +1029,15 @@
         e.preventDefault();
         const text = this.getAttribute('data-clipboard-text');
         navigator.clipboard.writeText(text).then(() => {
-          alert('Details copied to clipboard!');
+          // Show temporary feedback
+          const originalText = this.innerHTML;
+          this.innerHTML = '<i class="ri-check-line"></i> Copied!';
+          setTimeout(() => {
+            this.innerHTML = originalText;
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+          alert('Failed to copy details. Please try again.');
         });
       });
     });

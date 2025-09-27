@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
@@ -311,7 +310,7 @@
       z-index: 11;
     }
 
-    /* Account Button - Gold Style */
+    /* Pray With Us Button - Gold Style */
     .nav__action__btn .btn {
       background: var(--secondary-color);
       color: var(--text-dark);
@@ -896,10 +895,12 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
 
-        <!-- Right: Account button -->
+        <!-- Right: Pray With Us button -->
         <div class="nav__actions">
           <div class="nav__action__btn">
-            <button id="account-btn" class="btn">Login</button>
+            <a href="https://wa.me/254113713742?text=Hello%2C%20I%20would%20like%20to%20pray%20with%20you" target="_blank" class="btn">
+              Pray With Us
+            </a>
           </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
@@ -1018,7 +1019,6 @@
     // Initialize Firebase with compat version for easier use
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-    const auth = firebase.auth();
 
     // Global variables
     let currentEvents = [];
@@ -1049,68 +1049,23 @@
       }
     });
 
-    // Check authentication state
-    auth.onAuthStateChanged((user) => {
-      const accountBtn = document.getElementById('account-btn');
+    // Handle prayer submission via WhatsApp
+    function handlePrayerSubmission() {
+      // WhatsApp number for prayer requests (replace with actual number)
+      const whatsappNumber = "+254712345678"; // Example Kenyan number
       
-      if (user) {
-        // User is signed in
-        accountBtn.textContent = 'Logout';
-        accountBtn.onclick = handleLogout;
-        // Show admin controls if needed
-        checkAdminStatus(user.uid);
-      } else {
-        // User is signed out
-        accountBtn.textContent = 'Login';
-        accountBtn.onclick = redirectToLogin;
-      }
-    });
-
-    // Handle logout
-    function handleLogout() {
-      auth.signOut().then(() => {
-        // Sign-out successful
-        alert('You have been logged out successfully.');
-        window.location.reload();
-      }).catch((error) => {
-        // An error happened
-        console.error('Logout error:', error);
-        alert('Error logging out. Please try again.');
-      });
+      // Pre-filled message
+      const message = "Hello Journey Village Church, I would like to submit a prayer request: ";
+      
+      // Create WhatsApp URL
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      
+      // Open WhatsApp in a new tab
+      window.open(whatsappUrl, '_blank');
     }
 
-    // Redirect to login page
-    function redirectToLogin() {
-      window.location.href = 'index.html'; // Create a login page
-    }
-
-    // Check if user is admin
-    async function checkAdminStatus(uid) {
-      try {
-        const userDoc = await db.collection("users").doc(uid).get();
-        if (userDoc.exists && userDoc.data().isAdmin) {
-          // User is admin, show admin controls
-          showAdminControls();
-        }
-      } catch (error) {
-        console.error("Error checking admin status:", error);
-      }
-    }
-
-    // Show admin controls
-    function showAdminControls() {
-      // Add admin buttons to the page
-      const eventsTab = document.querySelector('.tab[data-tab="events"]');
-      if (eventsTab && !document.getElementById('add-event-btn')) {
-        const addEventBtn = document.createElement('button');
-        addEventBtn.id = 'add-event-btn';
-        addEventBtn.className = 'btn btn__primary';
-        addEventBtn.innerHTML = '<i class="ri-add-line"></i> Add Event';
-        addEventBtn.style.marginLeft = '20px';
-        addEventBtn.onclick = showEventForm;
-        eventsTab.parentNode.insertBefore(addEventBtn, eventsTab.nextSibling);
-      }
-    }
+    // Set up prayer button
+    document.getElementById('prayer-btn').addEventListener('click', handlePrayerSubmission);
 
     // Tab switching
     function setupTabs() {
@@ -1493,12 +1448,6 @@
       );
       
       displayAnnouncements(filteredAnnouncements);
-    }
-
-    // Show event form (for admin)
-    function showEventForm() {
-      // Implementation for showing an event form
-      alert('Event form would appear here for adding new events');
     }
 
     // Initialize the page

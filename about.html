@@ -182,7 +182,6 @@
       left: 0;
       width: 100%;
       height: 100px;
-      background: linear-gradient(to top, var(--light-bg), transparent);
       z-index: 1;
     }
 
@@ -209,17 +208,17 @@
       margin-right: auto;
     }
 
-    /* Navigation */
+    /* Navigation - Made Sticky */
     .nav__bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 2rem;
-      position: absolute;
+      position: fixed; /* Changed from absolute to fixed */
       top: 0;
       left: 0;
       right: 0;
-      z-index: 10;
+      z-index: 1000; /* Increased z-index to ensure it stays on top */
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
       transition: var(--transition);
     }
@@ -283,14 +282,14 @@
       z-index: 11;
     }
 
-    /* Account Button - Gold Style */
-    .nav__action__btn .btn {
+    /* Pray With Us Button - Gold Style */
+    .pray-btn .btn {
       background: var(--secondary-color);
       color: var(--text-dark);
       border: none;
     }
 
-    .nav__action__btn .btn:hover {
+    .pray-btn .btn:hover {
       background: var(--accent-color);
       transform: translateY(-3px);
       box-shadow: 0 5px 15px var(--gold-opacity-30);
@@ -1023,10 +1022,12 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
 
-        <!-- Right: Account button -->
+        <!-- Right: Pray With Us button -->
         <div class="nav__actions">
-          <div class="nav__action__btn">
-            <button id="account-btn" class="btn">Login</button>
+          <div class="pray-btn">
+            <a href="https://wa.me/254712345678?text=Hello%2C%20I'd%20like%20to%20pray%20with%20you" target="_blank" class="btn">
+              Pray With Us
+            </a>
           </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
@@ -1050,15 +1051,15 @@
       <div class="about-content">
         <div class="about-text">
           <h2>Welcome to Journey Village Church</h2>
-          <p>Journey Village Church was born out of a burning vision to see people live the way of Christ in every sphere of life. From the outset, our calling has been well-defined—to invite people to live the way of Christ through encounter, formation, community, and mission.</p>
-          <p>In November 2019, the vision took its first step forward, when Pastors Nash and Muthoni were commissioned by International Christian Centre Nairobi (ICCN) to plant a church in Kikuyu as part of the Kenya Assemblies of God (KAG). Leaving behind the familiar rhythms of ministry at JourneyFamily Church in Garden Estate, they stepped into the adventure of planting a new community of faith in the chilly town of Kikuyu.</p>
+          <p>Journey Village Church was born out of a burning vision to see people encounter Christ and step into the life He gives—real and eternal life that restores what is broken, heals what is wounded, and overflows with more and better life than we ever dreamed. Our calling is to invite people to live the way of Christ through encounter, formation, community, and mission.</p>
+          <p>In November 2019, the vision took its first step forward, when Pastors Nash and Muthoni were commissioned by International Christian Centre Nairobi (ICCN) to plant a church in Kikuyu as part of the Kenya Assemblies of God (KAG). Leaving behind the familiar rhythms of ministry at JourneyFamily Church in Garden Estate, they stepped into the adventure of planting a new community of faith in the beautiful town of Kikuyu.</p>
           <p>Early in 2020, a small core team began to gather, but soon the Covid-19 pandemic shutdown interrupted plans and scattered expectations. What could have ended the story became, instead, the soil for resilience and creativity.</p>
         </div>
         <div class="about-image">
           <img src="images/building.jpeg" alt="Journey Village Church Congregation">
         </div>
       </div>
-      
+
       <div class="about-content" style="margin-top: 3rem;">
         <div class="about-image">
           <img src="images/abou0timage.jpg" alt="Journey Village Church Worship">
@@ -1070,6 +1071,7 @@
           <p>Today, we continue to live into that founding vision. Journey Village is a community of faith, a people learning to live the way of Christ, as we encounter the risen Christ, be formed in His way, becoming His body for the sake of the world around us. Our story is still being written, and we believe the best is yet to come.</p>
         </div>
       </div>
+
     </section>
 
     <!-- Village Movements Section -->
@@ -1079,8 +1081,8 @@
         <div class="gold-accent" style="bottom: 10%; right: 10%;"></div>
         
         <h2 class="section__upperheader">What Shapes and Guides Us</h2>
-        <p style="text-align: center; margin-bottom: 2rem;">At Journey Village Church, we exist to invite people to live the way of Christ—through Christ-Encounter, Formation, Community, and Mission.</p>
-        <p style="text-align: center; margin-bottom: 3rem; font-style: italic;">Our anchor Scripture is John 10:10: "A thief is only there to steal and kill and destroy. I came so they can have real and eternal life, more and better life than they ever dreamed of" (The Message). We long to be vessels of this promise, embodying and sharing the abundant life that Christ Himself offers.</p>
+        <p style="text-align: center; margin-bottom: 2rem; font-weight: bold;">At Journey Village Church, we exist to invite people to live the way of Christ—through Christ-Encounter, Formation, Community, and Mission.</p>
+        <p style="text-align: center; margin-bottom: 3rem; font-style: italic; font-weight: bolder;">Our anchor Scripture is John 10:10: "A thief is only there to steal and kill and destroy. I came so they can have real and eternal life, more and better life than they ever dreamed of" (The Message). We long to be vessels of this promise, embodying and sharing the abundant life that Christ Himself offers.</p>
         
         <div class="movements-grid">
           <div class="movement-card">
@@ -1135,6 +1137,18 @@
       <h2 class="section__upperheader">Our Leadership</h2>
       
       <div class="leadership-grid">
+        <div class="leader-card">
+          <div class="leader-image">
+            <img src="images/pastorpic (2).jpg" alt="Pastor Nash Waruguru">
+          </div>
+          <div class="leader-info">
+            <h3>Pastor Nash Waruguru</h3>
+            <p class="leader-role">Lead Pastor</p>
+            <p>After graduating from University of Nairobi with a degree in Economics and Political science, Nash joined The Journey, a campus ministry of ICC Nairobi. He served in full time ministry since 2008, investing in students across 4 universities.</p>
+            <p>In 2019, he transitioned from college ministry to planting The Journey Village Church alongside his wife Muthoni.</p>
+            <p>Nash and Muthoni are blessed with three wonderful children.</p>
+          </div>
+        </div>
         <div class="leader-card">
           <div class="leader-image">
             <img src="images/pastorpic (2).jpg" alt="Pastor Nash Waruguru">
@@ -1215,7 +1229,7 @@
         <h2>Join Us on the Journey</h2>
         <p>Whether you're exploring faith or looking for a church home, we'd love to welcome you to our community.</p>
         <div class="cta-buttons">
-          <a href="contact.html" class="btn btn__primary">Visit This Sunday</a>
+          <a href="https://www.google.com/maps/dir//QM54%2BJ2H,+Rungiri/@-1.2409474,36.5727137,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x182f1f003322a533:0x9be881fed4c6ca29!2m2!1d36.6551157!2d-1.2409487?entry=ttu&g_ep=EgoyMDI1MDkyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn__primary">Visit This Sunday</a>
           <a href="contact.html" class="btn btn__outline">Get in Touch</a>
         </div>
       </div>
@@ -1261,27 +1275,8 @@
     </div>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    // Import Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-    // Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
-      authDomain: "journeyvill.firebaseapp.com",
-      projectId: "journeyvill",
-      storageBucket: "journeyvill.firebasestorage.app",
-      messagingSenderId: "494172807963",
-      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
-      measurementId: "G-E1RNC9M7CK"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
+  <!-- Simplified JavaScript -->
+  <script>
     // Mobile menu functionality
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
@@ -1304,39 +1299,6 @@
         navBar.classList.remove('scrolled');
       }
     });
-
-    // Check authentication state
-    onAuthStateChanged(auth, (user) => {
-      const accountBtn = document.getElementById('account-btn');
-      
-      if (user) {
-        // User is signed in
-        accountBtn.textContent = 'Logout';
-        accountBtn.onclick = handleLogout;
-      } else {
-        // User is signed out
-        accountBtn.textContent = 'Login';
-        accountBtn.onclick = redirectToLogin;
-      }
-    });
-
-    // Handle logout
-    function handleLogout() {
-      signOut(auth).then(() => {
-        // Sign-out successful
-        alert('You have been logged out successfully.');
-        window.location.reload();
-      }).catch((error) => {
-        // An error happened
-        console.error('Logout error:', error);
-        alert('Error logging out. Please try again.');
-      });
-    }
-
-    // Redirect to login page
-    function redirectToLogin() {
-      window.location.href = 'index.html'; // Redirect to your login page
-    }
   </script>
 </body>
 </html>

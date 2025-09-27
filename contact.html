@@ -212,11 +212,11 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 2rem;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 10;
+      z-index: 1000;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
       transition: var(--transition);
     }
@@ -239,15 +239,16 @@
 
     .nav__links {
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
       list-style: none;
     }
 
     .nav__links a {
-      font-weight: 600;
+      font-weight: 500;
       color: var(--white);
       position: relative;
       padding: 0.5rem 0;
+      font-size: 1.05rem;
     }
 
     .nav__links a::after {
@@ -280,7 +281,7 @@
       z-index: 11;
     }
 
-    /* Account Button - Gold Style */
+    /* Pray With Us Button - Gold Style */
     .nav__action__btn .btn {
       background: var(--secondary-color);
       color: var(--text-dark);
@@ -878,10 +879,12 @@
           <li><a href="contact.html" class="active">Contact</a></li>
         </ul>
 
-        <!-- Right: Account button -->
+        <!-- Right: Pray with us button -->
         <div class="nav__actions">
           <div class="nav__action__btn">
-            <button id="account-btn" class="btn">Login</button>
+            <a href="https://wa.me/254113713742?text=Hello%2C%20I%20would%20like%20to%20pray%20with%20you" target="_blank" class="btn">
+              Pray With Us
+            </a>
           </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
@@ -943,7 +946,7 @@
               <a href="https://www.facebook.com/p/The-Journey-Village-Kikuyu-100064713729585/" target="_blank" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
               <a href="https://www.instagram.com/journeyvillage.ke/" target="_blank" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
               <a href="#" aria-label="YouTube" target="_blank"><i class="ri-youtube-fill"></i></a>
-              <a href="https://wa.me/message/" target="_blank" aria-label="WhatsApp"><i class="ri-whatsapp-fill"></i></a>
+              <a href="https://wa.me/254113713742" target="_blank" aria-label="WhatsApp"><i class="ri-whatsapp-fill"></i></a>
             </div>
           </div>
         </div>
@@ -1080,12 +1083,12 @@
       <p>&copy; 2025 Journey Village Church. All rights reserved.</p>
     </div>
   </footer>
+
   <!-- Firebase SDK -->
   <script type="module">
     // Import Firebase functions
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     // Firebase configuration
     const firebaseConfig = {
@@ -1101,39 +1104,28 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const auth = getAuth(app);
-
-    // Check authentication state
-    onAuthStateChanged(auth, (user) => {
-      const accountBtn = document.getElementById('account-btn');
-      
-      if (user) {
-        // User is signed in
-        accountBtn.textContent = 'Logout';
-        accountBtn.onclick = handleLogout;
+    
+    // Make navbar sticky
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.nav__bar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
       } else {
-        // User is signed out
-        accountBtn.textContent = 'Login';
-        accountBtn.onclick = redirectToLogin;
+        navbar.classList.remove('scrolled');
       }
     });
 
-    // Handle logout
-    function handleLogout() {
-      signOut(auth).then(() => {
-        // Sign-out successful
-        alert('You have been logged out successfully.');
-        window.location.reload();
-      }).catch((error) => {
-        // An error happened
-        console.error('Logout error:', error);
-        alert('Error logging out. Please try again.');
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') 
+          ? '<i class="ri-close-line"></i>' 
+          : '<i class="ri-menu-line"></i>';
       });
-    }
-
-    // Redirect to login page
-    function redirectToLogin() {
-      window.location.href = 'index.html'; // Redirect to your login page
     }
 
     // Contact form submission
@@ -1207,19 +1199,6 @@
       setTimeout(() => {
         statusElement.style.display = 'none';
       }, 5000);
-    }
-
-    // Mobile menu toggle
-    const menuBtn = document.getElementById('menu-btn');
-    const navLinks = document.getElementById('nav-links');
-    
-    if (menuBtn && navLinks) {
-      menuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        menuBtn.innerHTML = navLinks.classList.contains('active') 
-          ? '<i class="ri-close-line"></i>' 
-          : '<i class="ri-menu-line"></i>';
-      });
     }
   </script>
 </body>

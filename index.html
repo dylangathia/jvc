@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Journey Village Church - A Christ-centered community in Kikuyu">
-  <title>Journey Village Church | Faith, Fellowship, Community</title>
+  <title>Journey Village Church</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -209,19 +209,169 @@
       margin-right: auto;
     }
 
-    /* Navigation */
+    /* ===== Image Slider ===== */
+    .image-slider {
+      background-color: var(--dark-bg);
+      padding: 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slider-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+      position: relative;
+    }
+
+    .slider-header {
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    .slider-header h2 {
+      font-size: 2rem;
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .slider-header p {
+      color: var(--lighter-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .slider-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      flex: 0 0 20%; /* Show 5 images at a time (100%/5) */
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .slide img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
+    }
+
+    .slider-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    .slider-btn {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.2rem;
+    }
+
+    .slider-btn:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    .slider-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--medium-gray);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .slider-dot.active {
+      background: var(--secondary-color);
+      transform: scale(1.2);
+    }
+
+    /* Modal for enlarged image */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: var(--white);
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* Navigation - UPDATED FOR STICKY NAVBAR */
     .nav__bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 2rem;
-      position: absolute;
+      position: fixed; /* Changed from absolute to fixed */
       top: 0;
       left: 0;
       right: 0;
-      z-index: 10;
+      z-index: 1000; /* Increased z-index */
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
       transition: var(--transition);
+      max-width: var(--max-width); /* Added for centering */
+      margin: 0 auto; /* Added for centering */
+      width: 100%; /* Added for centering */
     }
 
     .nav__bar.scrolled {
@@ -244,6 +394,7 @@
       display: flex;
       gap: 2rem;
       list-style: none;
+      margin: 0 auto; /* Added for centering */
     }
 
     .nav__links a {
@@ -283,7 +434,7 @@
       z-index: 11;
     }
 
-    /* Account Button - Gold Style */
+    /* Pray With Us Button - Gold Style */
     .nav__action__btn .btn {
       background: var(--secondary-color);
       color: var(--text-dark);
@@ -302,7 +453,7 @@
         position: fixed;
         top: 0;
         left: -100%;
-        width: 80%;
+        width: 75%;
         height: 100vh;
         background: var(--dark-bg);
         flex-direction: column;
@@ -330,7 +481,7 @@
       }
     }
 
-    /* Social Icons */
+    /* Social Icons - FIXED */
     .header__socials {
       position: absolute;
       bottom: 2rem;
@@ -339,6 +490,7 @@
       display: flex;
       justify-content: center;
       gap: 2rem;
+      z-index: 5; /* Added z-index to ensure visibility */
     }
 
     .social__icon {
@@ -353,6 +505,7 @@
       font-size: 1.5rem;
       color: var(--white);
       transition: var(--transition);
+      z-index: 6; /* Added z-index */
     }
 
     .social__icon:hover {
@@ -375,6 +528,7 @@
       opacity: 0;
       visibility: hidden;
       transition: var(--transition);
+      z-index: 7; /* Added z-index */
     }
 
     .social__icon:hover .tooltip {
@@ -491,6 +645,53 @@
       margin-bottom: 1rem;
       position: relative;
       z-index: 1;
+    }
+
+    /* ===== Video Section ===== */
+    .video-section {
+      background-color: var(--light-bg);
+      padding: 5rem 0;
+      text-align: center;
+    }
+
+    .video-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-content {
+      margin-top: 2rem;
+    }
+
+    .video-content h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+    }
+
+    .video-content p {
+      color: var(--light-gray);
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     /* ===== Giving Section ===== */
@@ -823,6 +1024,11 @@
       .about__card.reverse {
         direction: ltr;
       }
+      
+      /* Slider adjustments for tablet */
+      .slide {
+        flex: 0 0 25%; /* Show 4 images at a time on tablets */
+      }
     }
 
     @media (max-width: 768px) {
@@ -869,6 +1075,15 @@
       .giving__image {
         order: -1;
       }
+      
+      /* Slider adjustments for mobile */
+      .slide {
+        flex: 0 0 33.333%; /* Show 3 images at a time on mobile */
+      }
+      
+      .slide img {
+        height: 150px;
+      }
     }
 
     @media (max-width: 576px) {
@@ -901,6 +1116,15 @@
       .nav__bar {
         padding: 1rem;
       }
+      
+      /* Slider adjustments for small mobile */
+      .slide {
+        flex: 0 0 50%; /* Show 2 images at a time on small mobile */
+      }
+      
+      .slide img {
+        height: 120px;
+      }
     }
   </style>
 </head>
@@ -922,80 +1146,28 @@
         <div class="nav__menu__btn" id="menu-btn">
           <i class="ri-menu-line"></i>
         </div>
-        
-        <!-- Account Authentication Modal -->
-        <div class="account-modal" id="account-modal">
-          <div class="modal-content">
-            <span class="close-modal" id="account-modal-close">&times;</span>
-            
-            <div class="auth-tabs">
-              <button class="auth-tab active" data-tab="login">Sign In</button>
-              <button class="auth-tab" data-tab="register">Create Account</button>
-            </div>
-            
-            <!-- Login -->
-            <div class="auth-content active" id="login">
-              <form class="auth-form" id="login-form">
-                <div class="form-group">
-                  <label for="login-email">Email</label>
-                  <input type="email" id="login-email" required>
-                </div>
-                <div class="form-group">
-                  <label for="login-password">Password</label>
-                  <input type="password" id="login-password" required>
-                </div>
-                <button type="submit" class="btn btn__primary">Sign In</button>
-                <a href="#forgot-password" class="text-link">Forgot password?</a>
-              </form>
-            </div>
-            
-            <!-- Register -->
-            <div class="auth-content" id="register">
-              <form class="auth-form" id="register-form">
-                <div class="form-group">
-                  <label for="reg-email">Email</label>
-                  <input type="email" id="reg-email" required>
-                </div>
-                <div class="form-group">
-                  <label for="reg-password">Password</label>
-                  <input type="password" id="reg-password" minlength="8" required>
-                </div>
-                <button type="submit" class="btn btn__primary">Create Account</button>
-              </form>
-            </div>
-          </div>
-        </div>
 
-        <div class="account-modal" id="username-modal" style="display:none;">
-          <div class="modal-content">
-            <span class="close-modal" id="username-modal-close">&times;</span>
-            <h3>Choose a Username</h3>
-            <form id="username-form">
-              <div class="form-group">
-                <label for="username-input">Username</label>
-                <input type="text" id="username-input" required>
-              </div>
-              <button type="submit" class="btn btn__primary">Save Username</button>
-            </form>
-          </div>
-        </div>
+        <!-- Removed Account Authentication Modal -->
 
-        <div class="nav__action__btn">
-          <button class="btn" id="account-btn">
-            <span><i class="ri-user-line"></i></span> Account
-          </button>
+        <div class="nav__actions">
+          <div class="nav__action__btn">
+            <a href="https://wa.me/254113713742?text=Hello%2C%20I%20would%20like%20to%20pray%20with%20you" target="_blank" class="btn">
+              Pray With Us
+            </a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
+          </div>
         </div>
       </div>
     </nav>
 
     <div class="hero__content">
       <div class="hero__text">
-        <h3>Welcome to</h3>
-        <h1>Journey Village Church in Kikuyu</h1>
-        <p>Inviting people to live that way of Christ</p>
+        <h1>Inviting people to live the way of Christ</h1>
         <div class="hero__cta">
-          <a href="contact.html" class="btn btn__primary">Visit Us</a>
-          <a href="https://www.youtube.com/@journeyvillage3430" class="btn btn__outline">Our Youtube Channel</a>
+          <a href="https://www.google.com/maps/dir//QM54%2BJ2H,+Rungiri/@-1.2409474,36.5727137,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x182f1f003322a533:0x9be881fed4c6ca29!2m2!1d36.6551157!2d-1.2409487?entry=ttu&g_ep=EgoyMDI1MDkyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn__primary">Visit Us</a>
+          <a href="contact.html" class="btn btn__outline">Service Times</a>
         </div>
       </div>
     </div>
@@ -1013,8 +1185,40 @@
         <i class="ri-instagram-fill"></i>
         <span class="tooltip">Instagram</span>
       </a>
+      <a href="https://www.youtube.com/@journeyvillage3430" target="_blank" aria-label="YouTube" class="social__icon">
+        <i class="ri-youtube-fill"></i>
+        <span class="tooltip">YouTube</span>
+      </a>
     </div>
   </header>
+
+  <!-- Image Slider Section -->
+  <section class="image-slider">
+    <div class="slider-container">
+      <div class="slider-header">
+        <h2>Our Journey Together</h2>
+        <p>Experience the vibrant life of our community through these moments captured during our worship, fellowship, and service.</p>
+      </div>
+      
+      <div class="slider-wrapper">
+        <div class="slider-track" id="slider-track">
+          <!-- Slides will be added dynamically via JavaScript -->
+        </div>
+      </div>
+      
+      <div class="slider-nav">
+        <button class="slider-btn" id="prev-btn">
+          <i class="ri-arrow-left-s-line"></i>
+        </button>
+        <div class="slider-dots" id="slider-dots">
+          <!-- Dots will be added dynamically via JavaScript -->
+        </div>
+        <button class="slider-btn" id="next-btn">
+          <i class="ri-arrow-right-s-line"></i>
+        </button>
+      </div>
+    </div>
+  </section>
 
   <!-- Main Content Sections -->
   <main>
@@ -1029,18 +1233,18 @@
               <img src="images/worship.jpg" alt="Worship service" loading="lazy">
             </div>
             <div class="about__text">
-              <h3>Our Worship Gathering</h3>
+              <h3>Encounter Sunday</h3>
               <p>Every Sunday we gather to worship Christ—seeking a fresh encounter with Him, being shaped into His likeness, and growing together as a community of faith. From this place of worship, we are sent out into the world to join God's mission with love and courage.</p>
             </div>
           </div>
 
           <div class="about__card reverse">
             <div class="about__image">
-              <img src="images/pastorpic (2).jpg" alt="Worship service" loading="lazy">
+              <img src="images/teens.JPG" alt="Worship service" loading="lazy">
             </div>
             <div class="about__text">
-              <h3>Next Gen. Ministry</h3>
-              <p>We are deeply committed to raising up the next generation in the way of Jesus. Our Next Gen Ministry serves children of all ages, not merely through programs, but through relationships that nurture faith and point them to Christ. We believe that discipleship is a generational calling—passing on the story of God's love so that every child may encounter Christ personally, grow in His likeness, and live for His purposes in the world.</p>
+              <h3>Village Kids</h3>
+              <p>Our Village Kids Ministry serves children of all ages, not merely through programs, but through relationships that nurture faith and point them to Christ. We focus on sharing the story of God's love so that every child may encounter Christ personally, grow in His likeness, and live for His purposes in the world.</p>
             </div>
           </div>
 
@@ -1050,7 +1254,7 @@
             </div>
             <div class="about__text">
               <h3>Village Bomas</h3>
-              <p>We treasure life together in fellowship. In our Bomas we check in on one another, celebrate together, and carry each other in prayer. Each month, neighbours gather to remember that life is best lived in circles, not isolation, with Christ at the centre, holding us in His love and shaping us to reflect Him to the world.</p>
+              <p>Each month, neighbours in our community gather to remember that life is best lived in circles. To live the way of Christ is to step out of isolation and into belonging, knowing that faith is never a solo project but a shared journey. In our Bomas we check in on one another, celebrate together, and carry each other's burdens.</p>
             </div>
           </div>
         </div>
@@ -1092,26 +1296,34 @@
       </div>
     </section>
 
-    <!-- Giving Section -->
-    <section class="giving">
+     <!-- Video Section -->
+    <section class="video-section">
       <div class="section__container">
-        <div class="giving__content">
-          <h2 class="section__header">We Could Be Your Village</h2>
-          <p>Everyone goes through seasons of struggle or uncertainty. At Journey Village Church, we're here with open doors—to listen, encourage, pray, and support you.
-Reach out to us through these platforms.</p>
-          <ul class="giving__list">
-            <a href=""><li><i class="ri-check-line"></i> Send Us An Email</li></a>
-            <a href="https://www.instagram.com/journeyvillage.ke/"><li><i class="ri-check-line"></i> DM Us on Instagram</li></a>
-            <a href="https://wa.me/254113713742"><li><i class="ri-check-line"></i> Text Us on WhatsApp</li></a>
-          </ul>
-          <a href="contact.html" class="btn btn__primary">Contact Us Here</a>
-        </div>
-        <div class="giving__image">
-          <img src="images/outreach.jpg" alt="Community outreach" loading="lazy">
+        <h2 class="section__upperheader">Our Community At A Glance</h2>
+        <div class="video-container">
+          <div class="video-wrapper">
+            <!-- Replace the src with your actual YouTube or Vimeo video embed URL -->
+            <iframe src="timelapse.mp4" 
+                    title="Journey Village Church Experience" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-content">
+            <p>Watch this highlight video to get a glimpse of our vibrant community at Journey Village Church.</p>
+          </div>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Image Modal -->
+  <div class="image-modal" id="image-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <img id="modal-image" src="" alt="Enlarged image">
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="footer">
@@ -1152,48 +1364,8 @@ Reach out to us through these platforms.</p>
     </div>
   </footer>
 
-  <script type="module">
-    import { 
-      initializeApp 
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-    import { 
-      getAuth, 
-      createUserWithEmailAndPassword, 
-      signInWithEmailAndPassword, 
-      onAuthStateChanged, 
-      signOut 
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-    import { 
-      getFirestore, 
-      doc, 
-      setDoc, 
-      getDoc,
-      getDocs,
-      query,
-      collection,
-      where
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-    // ✅ Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
-      authDomain: "journeyvill.firebaseapp.com",
-      projectId: "journeyvill",
-      storageBucket: "journeyvill.firebasestorage.app",
-      messagingSenderId: "494172807963",
-      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
-      measurementId: "G-E1RNC9M7CK"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // 🔑 Pastor UID (replace with actual UID from Firebase Auth console)
-    const PASTOR_UID = "DV79sAoDttTb5MR3uEDyBCGvlbm1";
-
+  <script>
+    // Simple JavaScript for mobile menu toggle
     const menuBtn = document.getElementById("menu-btn");
     const navLinks = document.getElementById("nav-links");
 
@@ -1201,167 +1373,170 @@ Reach out to us through these platforms.</p>
       navLinks.classList.toggle("active");
     });
 
-    // 🔹 Register
-    document.getElementById("register-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("reg-email").value;
-      const password = document.getElementById("reg-password").value;
-
-      try {
-        const userCred = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCred.user;
-
-        // Create Firestore profile without username yet
-        await setDoc(doc(db, "users", user.uid), {
-          email: email,
-          username: null,
-          role: user.uid === PASTOR_UID ? "admin" : "member"
-        });
-
-        alert("✅ Account created. Please choose a username.");
-        closeModal();
-        showUsernameModal();
-
-      } catch (err) {
-        alert("❌ " + err.message);
-      }
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav__links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
     });
 
-    // 🔹 Login
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("login-email").value;
-      const password = document.getElementById("login-password").value;
-
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        closeModal();
-        // redirection happens in onAuthStateChanged
-      } catch (err) {
-        alert("❌ " + err.message);
-      }
-    });
-
-    // 🔹 Session Management
-    onAuthStateChanged(auth, async (user) => {
-      const accountBtn = document.getElementById("account-btn");
-      if (user) {
-        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Logout`;
-
-        // Fetch profile
-        const docRef = doc(db, "users", user.uid);
-        const snap = await getDoc(docRef);
-
-        if (snap.exists()) {
-          const data = snap.data();
-
-          // If no username → force user to pick one
-          if (!data.username) {
-            showUsernameModal();
-            return;
-          }
-
-          // Always redirect admin
-          if (data.role === "admin") {
-            const hasWelcomed = sessionStorage.getItem("welcomed");
-            if (!hasWelcomed) {
-              alert("Welcome Admin 🚀");
-              sessionStorage.setItem("welcomed", "true");
-            }
-            window.location.href = "admin-dashboard.html"; // ✅ always redirect
-            return;
-          }
-
-          // For normal users → only show welcome once
-          const hasWelcomed = sessionStorage.getItem("welcomed");
-          if (!hasWelcomed) {
-            alert("Welcome back, " + data.username + "!");
-            sessionStorage.setItem("welcomed", "true");
-          }
-        }
+    // Add scroll effect to navbar
+    window.addEventListener('scroll', () => {
+      const navBar = document.querySelector('.nav__bar');
+      if (window.scrollY > 50) {
+        navBar.classList.add('scrolled');
       } else {
-        accountBtn.innerHTML = `<span><i class="ri-user-line"></i></span> Login`;
+        navBar.classList.remove('scrolled');
       }
     });
 
-
-
-    // 🔹 Logout / Open Modal
-    document.getElementById("account-btn").addEventListener("click", async () => {
-      const user = auth.currentUser;
-      if (user) {
-        await signOut(auth);
-        alert("✅ Signed out");
-      } else {
-        document.getElementById("account-modal").style.display = "flex";
-      }
-    });
-
-    // 🔹 Save Username
-    document.getElementById("username-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const username = document.getElementById("username-input").value.trim();
-      const user = auth.currentUser;
-
-      if (!user) return;
-      if (username.length < 3) {
-        alert("❌ Username must be at least 3 characters long.");
-        return;
-      }
-
-      // Check for username uniqueness
-      const usernameQuery = await getDocs(query(collection(db, "users"), where("username", "==", username)));
-      if (!usernameQuery.empty) {
-        alert("❌ Username already taken.");
-        return;
-      }
-
-      try {
-        await setDoc(doc(db, "users", user.uid), {
-          email: user.email,
-          username: username,
-          role: user.uid === PASTOR_UID ? "admin" : "member"
+    // Image Slider Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sample images - replace with your actual images
+      const images = [
+        'images/worship.jpg',
+        'images/teens.JPG',
+        'images/comm.jpg',
+        'images/building.jpeg',
+        'images/worship.jpg',
+        'images/teens.JPG',
+        'images/comm.jpg',
+        'images/building.jpeg',
+        'images/worship.jpg',
+        'images/teens.JPG'
+      ];
+      
+      const sliderTrack = document.getElementById('slider-track');
+      const sliderDots = document.getElementById('slider-dots');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const modal = document.getElementById('image-modal');
+      const modalImage = document.getElementById('modal-image');
+      const closeModal = document.getElementById('close-modal');
+      
+      let currentIndex = 0;
+      const slidesToShow = 5;
+      
+      // Create slides
+      images.forEach((image, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        
+        const img = document.createElement('img');
+        img.src = image;
+        img.alt = `Church image ${index + 1}`;
+        img.loading = 'lazy';
+        
+        // Add click event to open modal
+        img.addEventListener('click', () => {
+          modalImage.src = image;
+          modal.style.display = 'flex';
         });
-
-        alert("✅ Username set successfully!");
-        closeUsernameModal();
-
-        // Redirect after username set
-        if (user.uid === PASTOR_UID) {
-          window.location.href = "/admin";
-        } else {
-          window.location.href = "index.html";
-        }
-
-      } catch (err) {
-        alert("❌ " + err.message);
+        
+        slide.appendChild(img);
+        sliderTrack.appendChild(slide);
+      });
+      
+      // Create dots
+      const totalSlides = images.length;
+      const totalDots = Math.ceil(totalSlides / slidesToShow);
+      
+      for (let i = 0; i < totalDots; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'slider-dot';
+        if (i === 0) dot.classList.add('active');
+        
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          updateSlider();
+        });
+        
+        sliderDots.appendChild(dot);
       }
-    });
-
-    // 🔹 Modal Helpers
-    function closeModal() {
-      document.getElementById("account-modal").style.display = "none";
-    }
-    function showUsernameModal() {
-      document.getElementById("username-modal").style.display = "flex";
-    }
-    function closeUsernameModal() {
-      document.getElementById("username-modal").style.display = "none";
-    }
-    document.getElementById("account-modal-close").addEventListener("click", closeModal);
-    document.getElementById("username-modal-close").addEventListener("click", closeUsernameModal);
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const params = new URLSearchParams(window.location.search);
-
-        if (params.get("login") === "true") {
-          // Example if using Bootstrap modal
-          const modal = new bootstrap.Modal(document.getElementById('loginModal'));
-          modal.show();
-
-          // If using custom modal:
-          // document.getElementById("loginModal").style.display = "block";
+      
+      // Navigation functions
+      function updateSlider() {
+        const slideWidth = 100 / slidesToShow;
+        const translateX = -currentIndex * slideWidth * slidesToShow;
+        sliderTrack.style.transform = `translateX(${translateX}%)`;
+        
+        // Update active dot
+        document.querySelectorAll('.slider-dot').forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentIndex);
+        });
+      }
+      
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateSlider();
         }
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        if (currentIndex < totalDots - 1) {
+          currentIndex++;
+          updateSlider();
+        }
+      });
+      
+      // Close modal
+      closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+      
+      // Close modal when clicking outside the image
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+      
+      // Initialize slider
+      updateSlider();
+      
+      // Responsive adjustments
+      function handleResize() {
+        const width = window.innerWidth;
+        let newSlidesToShow = 5;
+        
+        if (width <= 992) newSlidesToShow = 4;
+        if (width <= 768) newSlidesToShow = 3;
+        if (width <= 576) newSlidesToShow = 2;
+        
+        // Update slide widths
+        document.querySelectorAll('.slide').forEach(slide => {
+          slide.style.flex = `0 0 ${100 / newSlidesToShow}%`;
+        });
+        
+        // Recalculate dots
+        const newTotalDots = Math.ceil(totalSlides / newSlidesToShow);
+        
+        // Update dots if needed
+        if (newTotalDots !== totalDots) {
+          sliderDots.innerHTML = '';
+          for (let i = 0; i < newTotalDots; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'slider-dot';
+            if (i === currentIndex) dot.classList.add('active');
+            
+            dot.addEventListener('click', () => {
+              currentIndex = i;
+              updateSlider();
+            });
+            
+            sliderDots.appendChild(dot);
+          }
+        }
+        
+        updateSlider();
+      }
+      
+      // Add resize listener
+      window.addEventListener('resize', handleResize);
+      
+      // Initial responsive setup
+      handleResize();
     });
   </script>
 </body>

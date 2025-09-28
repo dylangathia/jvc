@@ -75,7 +75,7 @@
 
     .btn {
       display: inline-flex;
-      align-items: center;
+      align-items: start;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
       border-radius: 5px;
@@ -163,16 +163,14 @@
     /* ===== Header/Hero ===== */
     .header {
       position: relative;
-      min-height: 80vh;
+      min-height: 50vh;
       background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                   url('images/building.jpeg') no-repeat center center/cover;
       color: var(--white);
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding-top: 150px;
-      padding-bottom: 150px;
+      padding-top: 125px;
+      padding-bottom: 70px;
       overflow: hidden;
     }
 
@@ -191,11 +189,14 @@
       padding: 2rem;
       position: relative;
       z-index: 2;
+      text-align: left;
+      margin-left: 2rem;
     }
 
     .hero__content h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
+      font-size: 2.6rem;
+      margin-bottom: 3rem;
+      text-align: left;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       line-height: 1.1;
       color: var(--white);
@@ -205,8 +206,22 @@
       font-size: 1.2rem;
       margin-bottom: 2rem;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+    }
+
+    .hero__cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* Service times text styling */
+    .service-times {
+      color: var(--secondary-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     /* ===== Image Slider ===== */
@@ -256,7 +271,7 @@
 
     .slide {
       flex: 0 0 20%; /* Show 5 images at a time (100%/5) */
-      padding: 0 10px;
+      padding: 0 5px; /* Reduced padding for less space between images */
       box-sizing: border-box;
     }
 
@@ -274,52 +289,7 @@
       box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
     }
 
-    .slider-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 2rem;
-      gap: 1rem;
-    }
-
-    .slider-btn {
-      background: var(--secondary-color);
-      color: var(--text-dark);
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-      font-size: 1.2rem;
-    }
-
-    .slider-btn:hover {
-      background: var(--accent-color);
-      transform: translateY(-3px);
-    }
-
-    .slider-dots {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .slider-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--medium-gray);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .slider-dot.active {
-      background: var(--secondary-color);
-      transform: scale(1.2);
-    }
+    /* Removed slider navigation styles */
 
     /* Modal for enlarged image */
     .image-modal {
@@ -473,24 +443,25 @@
       }
 
       .hero__content h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
       }
       
       .hero__content {
         margin-top: 60px;
+        margin-left: 1rem;
       }
     }
 
     /* Social Icons - FIXED */
     .header__socials {
       position: absolute;
-      bottom: 2rem;
-      left: 0;
-      right: 0;
+      padding-bottom: 10px;
+      right: 2rem;
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      z-index: 5; /* Added z-index to ensure visibility */
+      flex-direction: column;
+      gap: 0.8rem; /* More space between icons */
+      align-items: flex-end;
+      z-index: 5;
     }
 
     .social__icon {
@@ -650,12 +621,12 @@
     /* ===== Video Section ===== */
     .video-section {
       background-color: var(--light-bg);
-      padding: 5rem 0;
+      padding: 8rem 0; /* Increased padding for more length */
       text-align: center;
     }
 
     .video-container {
-      max-width: 800px;
+      max-width: 1000px; /* Increased max-width for larger video */
       margin: 0 auto;
       position: relative;
     }
@@ -1014,7 +985,7 @@
       }
       
       .hero__content h1 {
-        font-size: 2.8rem;
+        font-size: 1.8rem;
       }
       
       .about__card {
@@ -1056,11 +1027,12 @@
       }
 
       .hero__content h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
       }
       
       .hero__cta {
-        flex-direction: column;
+        flex-direction:column;
+        align-items: start;
         gap: 1rem;
       }
       
@@ -1134,7 +1106,7 @@
     <nav>
       <div class="nav__bar">
         <div class="logo nav__logo">
-          <a href="index.html"><img src="logo.png" alt="Journey Village Church Logo" loading="lazy"></a>
+          <a href="index.html"><img src="www.journeyvillage.org (1)-1.png" alt="Journey Village Church Logo" loading="lazy"></a>
         </div>
         <ul class="nav__links" id="nav-links">
           <li><a href="index.html" class="active">Home</a></li>
@@ -1155,9 +1127,6 @@
               Pray With Us
             </a>
           </div>
-          <div class="nav__menu__btn" id="menu-btn">
-            <i class="ri-menu-line"></i>
-          </div>
         </div>
       </div>
     </nav>
@@ -1167,7 +1136,7 @@
         <h1>Inviting people to live the way of Christ</h1>
         <div class="hero__cta">
           <a href="https://www.google.com/maps/dir//QM54%2BJ2H,+Rungiri/@-1.2409474,36.5727137,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x182f1f003322a533:0x9be881fed4c6ca29!2m2!1d36.6551157!2d-1.2409487?entry=ttu&g_ep=EgoyMDI1MDkyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn__primary">Visit Us</a>
-          <a href="contact.html" class="btn btn__outline">Service Times</a>
+          <div class="service-times">Join us every Sunday at 10:30 AM</div>
         </div>
       </div>
     </div>
@@ -1195,28 +1164,12 @@
   <!-- Image Slider Section -->
   <section class="image-slider">
     <div class="slider-container">
-      <div class="slider-header">
-        <h2>Our Journey Together</h2>
-        <p>Experience the vibrant life of our community through these moments captured during our worship, fellowship, and service.</p>
-      </div>
-      
       <div class="slider-wrapper">
         <div class="slider-track" id="slider-track">
           <!-- Slides will be added dynamically via JavaScript -->
         </div>
       </div>
-      
-      <div class="slider-nav">
-        <button class="slider-btn" id="prev-btn">
-          <i class="ri-arrow-left-s-line"></i>
-        </button>
-        <div class="slider-dots" id="slider-dots">
-          <!-- Dots will be added dynamically via JavaScript -->
-        </div>
-        <button class="slider-btn" id="next-btn">
-          <i class="ri-arrow-right-s-line"></i>
-        </button>
-      </div>
+      <!-- Removed slider navigation buttons -->
     </div>
   </section>
 
@@ -1299,18 +1252,13 @@
      <!-- Video Section -->
     <section class="video-section">
       <div class="section__container">
-        <h2 class="section__upperheader">Our Community At A Glance</h2>
         <div class="video-container">
           <div class="video-wrapper">
             <!-- Replace the src with your actual YouTube or Vimeo video embed URL -->
-            <iframe src="timelapse.mp4" 
-                    title="Journey Village Church Experience" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-            </iframe>
-          </div>
-          <div class="video-content">
-            <p>Watch this highlight video to get a glimpse of our vibrant community at Journey Village Church.</p>
+            <video autoplay muted loop playsinline controls width="100%">
+              <source src="timelapse.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>
@@ -1407,15 +1355,13 @@
       ];
       
       const sliderTrack = document.getElementById('slider-track');
-      const sliderDots = document.getElementById('slider-dots');
-      const prevBtn = document.getElementById('prev-btn');
-      const nextBtn = document.getElementById('next-btn');
       const modal = document.getElementById('image-modal');
       const modalImage = document.getElementById('modal-image');
       const closeModal = document.getElementById('close-modal');
       
       let currentIndex = 0;
-      const slidesToShow = 5;
+      let slidesToShow = 5;
+      let autoScrollInterval;
       
       // Create slides
       images.forEach((image, index) => {
@@ -1437,48 +1383,21 @@
         sliderTrack.appendChild(slide);
       });
       
-      // Create dots
-      const totalSlides = images.length;
-      const totalDots = Math.ceil(totalSlides / slidesToShow);
-      
-      for (let i = 0; i < totalDots; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'slider-dot';
-        if (i === 0) dot.classList.add('active');
-        
-        dot.addEventListener('click', () => {
-          currentIndex = i;
-          updateSlider();
-        });
-        
-        sliderDots.appendChild(dot);
-      }
-      
-      // Navigation functions
+      // Function to update slider position
       function updateSlider() {
         const slideWidth = 100 / slidesToShow;
         const translateX = -currentIndex * slideWidth * slidesToShow;
         sliderTrack.style.transform = `translateX(${translateX}%)`;
-        
-        // Update active dot
-        document.querySelectorAll('.slider-dot').forEach((dot, index) => {
-          dot.classList.toggle('active', index === currentIndex);
-        });
       }
       
-      prevBtn.addEventListener('click', () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          updateSlider();
-        }
-      });
-      
-      nextBtn.addEventListener('click', () => {
-        if (currentIndex < totalDots - 1) {
-          currentIndex++;
-          updateSlider();
-        }
-      });
+      // Function to auto-scroll to next slide
+      function autoScroll() {
+        const totalSlides = images.length;
+        const totalGroups = Math.ceil(totalSlides / slidesToShow);
+        
+        currentIndex = (currentIndex + 1) % totalGroups;
+        updateSlider();
+      }
       
       // Close modal
       closeModal.addEventListener('click', () => {
@@ -1495,39 +1414,31 @@
       // Initialize slider
       updateSlider();
       
+      // Start auto-scrolling
+      autoScrollInterval = setInterval(autoScroll, 3000); // Change slide every 3 seconds
+      
+      // Pause auto-scroll on hover
+      sliderTrack.addEventListener('mouseenter', () => {
+        clearInterval(autoScrollInterval);
+      });
+      
+      // Resume auto-scroll when mouse leaves
+      sliderTrack.addEventListener('mouseleave', () => {
+        autoScrollInterval = setInterval(autoScroll, 3000);
+      });
+      
       // Responsive adjustments
       function handleResize() {
         const width = window.innerWidth;
-        let newSlidesToShow = 5;
         
-        if (width <= 992) newSlidesToShow = 4;
-        if (width <= 768) newSlidesToShow = 3;
-        if (width <= 576) newSlidesToShow = 2;
+        if (width <= 992) slidesToShow = 4;
+        if (width <= 768) slidesToShow = 3;
+        if (width <= 576) slidesToShow = 2;
         
         // Update slide widths
         document.querySelectorAll('.slide').forEach(slide => {
-          slide.style.flex = `0 0 ${100 / newSlidesToShow}%`;
+          slide.style.flex = `0 0 ${100 / slidesToShow}%`;
         });
-        
-        // Recalculate dots
-        const newTotalDots = Math.ceil(totalSlides / newSlidesToShow);
-        
-        // Update dots if needed
-        if (newTotalDots !== totalDots) {
-          sliderDots.innerHTML = '';
-          for (let i = 0; i < newTotalDots; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'slider-dot';
-            if (i === currentIndex) dot.classList.add('active');
-            
-            dot.addEventListener('click', () => {
-              currentIndex = i;
-              updateSlider();
-            });
-            
-            sliderDots.appendChild(dot);
-          }
-        }
         
         updateSlider();
       }

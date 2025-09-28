@@ -75,7 +75,7 @@
 
     .btn {
       display: inline-flex;
-      align-items: start;
+      align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
       border-radius: 5px;
@@ -195,7 +195,7 @@
 
     .hero__content h1 {
       font-size: 2.6rem;
-      margin-bottom: 3rem;
+      margin-bottom: 1rem;
       text-align: left;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       line-height: 1.1;
@@ -404,17 +404,37 @@
       z-index: 11;
     }
 
-    /* Pray With Us Button - Gold Style */
+    /* Pray With Us Button - Gold Style with WhatsApp Icon */
     .nav__action__btn .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       background: var(--secondary-color);
       color: var(--text-dark);
       border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .nav__action__btn .btn:hover {
       background: var(--accent-color);
       transform: translateY(-3px);
       box-shadow: 0 5px 15px var(--gold-opacity-30);
+    }
+
+    /* Desktop prayer button text */
+    .nav__action__btn .btn span.full-text {
+      display: inline;
+    }
+
+    .nav__action__btn .btn span.short-text {
+      display: none;
     }
 
     /* Mobile Navigation Styles */
@@ -449,6 +469,20 @@
       .hero__content {
         margin-top: 60px;
         margin-left: 1rem;
+      }
+      
+      /* Mobile-specific prayer button text */
+      .nav__action__btn .btn span.full-text {
+        display: none;
+      }
+      
+      .nav__action__btn .btn span.short-text {
+        display: inline;
+      }
+      
+      /* Adjust button padding for mobile */
+      .nav__action__btn .btn {
+        padding: 0.6rem 1.2rem;
       }
     }
 
@@ -1124,7 +1158,9 @@
         <div class="nav__actions">
           <div class="nav__action__btn">
             <a href="https://wa.me/254113713742?text=Hello%2C%20I%20would%20like%20to%20pray%20with%20you" target="_blank" class="btn">
-              Pray With Us
+              <i class="ri-whatsapp-fill"></i>
+              <span class="full-text">Pray With Us</span>
+              <span class="short-text">Pray</span>
             </a>
           </div>
         </div>

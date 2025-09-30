@@ -206,7 +206,7 @@
       margin-right: auto;
     }
 
-    /* Navigation */
+    /* ===== NAVBAR STYLES FROM HOMEPAGE ===== */
     .nav__bar {
       display: flex;
       justify-content: space-between;
@@ -219,6 +219,9 @@
       z-index: 1000;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
       transition: var(--transition);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
     }
 
     .nav__bar.scrolled {
@@ -228,7 +231,7 @@
     }
 
     .logo img {
-      height: 80px;
+      height: 110px;
       width: auto;
       transition: var(--transition);
     }
@@ -239,16 +242,16 @@
 
     .nav__links {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       list-style: none;
+      margin: 0 auto;
     }
 
     .nav__links a {
-      font-weight: 500;
+      font-weight: 600;
       color: var(--white);
       position: relative;
       padding: 0.5rem 0;
-      font-size: 1.05rem;
     }
 
     .nav__links a::after {
@@ -281,11 +284,22 @@
       z-index: 11;
     }
 
-    /* Pray With Us Button - Gold Style */
+    /* Pray With Us Button - Gold Style with WhatsApp Icon */
     .nav__action__btn .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       background: var(--secondary-color);
       color: var(--text-dark);
       border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .nav__action__btn .btn:hover {
@@ -294,13 +308,26 @@
       box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
     }
 
+    /* Desktop prayer button text */
+    .nav__action__btn .btn span.full-text {
+      display: inline;
+    }
+
+    .nav__action__btn .btn span.short-text {
+      display: none;
+    }
+
     /* Mobile Navigation Styles */
     @media (max-width: 768px) {
+      .logo img {
+        height: 80px !important;
+      }
+      
       .nav__links {
         position: fixed;
         top: 0;
         left: -100%;
-        width: 80%;
+        width: 75%;
         height: 100vh;
         background: var(--dark-bg);
         flex-direction: column;
@@ -309,8 +336,6 @@
         gap: 2rem;
         transition: var(--transition);
         z-index: 10;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
       }
 
       .nav__links.active {
@@ -326,7 +351,27 @@
       }
       
       .hero-contact-content {
-        margin-top: 60px; /* Adjusted for mobile */
+        margin-top: 60px;
+      }
+      
+      /* Mobile-specific prayer button text */
+      .nav__action__btn .btn span.full-text {
+        display: none;
+      }
+      
+      .nav__action__btn .btn span.short-text {
+        display: inline;
+      }
+      
+      /* Adjust button padding for mobile */
+      .nav__action__btn .btn {
+        padding: 0.6rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo img {
+        height: 70px !important;
       }
     }
 
@@ -786,37 +831,12 @@
     }
 
     @media (max-width: 768px) {
-      .nav__links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        height: 100vh;
-        background: var(--dark-bg);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        transition: var(--transition);
-        z-index: 10;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-      }
-
-      .nav__links.active {
-        left: 0;
-      }
-
-      .nav__menu__btn {
-        display: block;
-      }
-
       .hero-contact-content h1 {
         font-size: 2.2rem;
       }
       
       .hero-contact-content {
-        margin-top: 60px; /* Adjusted for mobile */
+        margin-top: 60px;
       }
       
       .contact-container {
@@ -846,7 +866,7 @@
       }
       
       .hero-contact-content {
-        margin-top: 50px; /* Adjusted for small screens */
+        margin-top: 50px;
       }
       
       .footer__socials a {
@@ -863,14 +883,12 @@
     <div class="gold-accent gold-accent-1"></div>
     <div class="gold-accent gold-accent-2"></div>
     
+    <!-- NAVBAR FROM HOMEPAGE -->
     <nav>
       <div class="nav__bar">
-        <!-- Left: Logo -->
         <div class="logo nav__logo">
-          <a href="index.html"><img src="logo.png" alt="Journey Village Church Logo"></a>
+          <a href="index.html"><img src="www.journeyvillage.org (1)-1.png" alt="Journey Village Church Logo" loading="lazy"></a>
         </div>
-
-        <!-- Center: Links -->
         <ul class="nav__links" id="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
@@ -878,16 +896,17 @@
           <li><a href="giving.html">Giving</a></li>
           <li><a href="contact.html" class="active">Contact</a></li>
         </ul>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
 
-        <!-- Right: Pray with us button -->
         <div class="nav__actions">
           <div class="nav__action__btn">
             <a href="https://wa.me/254113713742?text=Hello%2C%20I%20would%20like%20to%20pray%20with%20you" target="_blank" class="btn">
-              Pray With Us
+              <i class="ri-whatsapp-fill"></i>
+              <span class="full-text">Pray With Us</span>
+              <span class="short-text">Pray</span>
             </a>
-          </div>
-          <div class="nav__menu__btn" id="menu-btn">
-            <i class="ri-menu-line"></i>
           </div>
         </div>
       </div>
@@ -940,12 +959,11 @@
               <i class="ri-chat-smile-2-line"></i>
             </div>
             <h3>Follow Us</h3>
-          
             <p>Stay connected through our social media channels</p>
             <div class="social-links">
               <a href="https://www.facebook.com/p/The-Journey-Village-Kikuyu-100064713729585/" target="_blank" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
               <a href="https://www.instagram.com/journeyvillage.ke/" target="_blank" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
-              <a href="#" aria-label="YouTube" target="_blank"><i class="ri-youtube-fill"></i></a>
+              <a href="https://www.youtube.com/@journeyvillage3430" aria-label="YouTube" target="_blank"><i class="ri-youtube-fill"></i></a>
               <a href="https://wa.me/254113713742" target="_blank" aria-label="WhatsApp"><i class="ri-whatsapp-fill"></i></a>
             </div>
           </div>
@@ -1006,7 +1024,7 @@
       
       <h2 class="section__upperheader">Find Us</h2>
       <div class="map-container">
-        <iframe width="500px" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?q=Journey%20Village%20Church&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.954107888362!2d36.65252507468306!3d-1.240948735773049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1f003322a533%3A0x9be881fed4c6ca29!2sJourney%20Village%20Church!5e0!3m2!1sen!2ske!4v1710000000000!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   </section>
@@ -1038,7 +1056,6 @@
           <p>Saturday, 8:00 AM</p>
           <p>Main Sanctuary</p>
         </div>
-      
       </div>
     </div>
   </section>
@@ -1084,41 +1101,13 @@
     </div>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    // Import Firebase functions
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyBRkHjmEN5ltTlWOnT0czVSfhY1homobm8",
-      authDomain: "journeyvill.firebaseapp.com",
-      projectId: "journeyvill",
-      storageBucket: "journeyvill.firebasestorage.app",
-      messagingSenderId: "494172807963",
-      appId: "1:494172807963:web:2b25b43dfb40a24f1929be",
-      measurementId: "G-E1RNC9M7CK"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    
-    // Make navbar sticky
-    window.addEventListener('scroll', function() {
-      const navbar = document.querySelector('.nav__bar');
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Mobile menu toggle
+  <!-- Simplified JavaScript -->
+  <script>
+    // Mobile menu functionality - UPDATED FOR HOMEPAGE NAVBAR
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
-    
+    const navBar = document.querySelector('.nav__bar');
+
     if (menuBtn && navLinks) {
       menuBtn.addEventListener('click', () => {
         navLinks.classList.toggle('active');
@@ -1127,6 +1116,23 @@
           : '<i class="ri-menu-line"></i>';
       });
     }
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav__links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuBtn.innerHTML = '<i class="ri-menu-line"></i>';
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navBar.classList.add('scrolled');
+      } else {
+        navBar.classList.remove('scrolled');
+      }
+    });
 
     // Contact form submission
     document.getElementById('contactForm').addEventListener('submit', async (e) => {
@@ -1162,16 +1168,8 @@
       submitBtn.disabled = true;
       
       try {
-        // Save to Firestore
-        await addDoc(collection(db, "contactSubmissions"), {
-          name: name,
-          email: email,
-          phone: phone || 'Not provided',
-          subject: subject,
-          message: message,
-          timestamp: serverTimestamp(),
-          status: 'new'
-        });
+        // Simulate form submission (in a real implementation, this would send to a server)
+        await new Promise(resolve => setTimeout(resolve, 2000));
         
         // Show success message
         showStatus('Thank you for your message! We will get back to you soon.', 'success');

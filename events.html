@@ -166,7 +166,6 @@
       transition: var(--transition);
       max-width: var(--max-width);
       margin: 0 auto;
-      margin-bottom: 20px;
       width: 100%;
     }
 
@@ -265,6 +264,10 @@
 
     /* Mobile Navigation Styles */
     @media (max-width: 768px) {
+      .logo img {
+        height: 80px !important;
+      }
+      
       .nav__links {
         position: fixed;
         top: 0;
@@ -300,6 +303,12 @@
       /* Adjust button padding for mobile */
       .nav__action__btn .btn {
         padding: 0.6rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo img {
+        height: 70px !important;
       }
     }
 
@@ -804,7 +813,7 @@
       }
       
       .hero__content {
-        margin-top: 60px; /* Adjusted for mobile */
+        margin-top: 60px;
       }
       
       .cards-grid {
@@ -853,10 +862,6 @@
 
       .hero__content p {
         font-size: 1.1rem;
-      }
-      
-      .logo img {
-        height: 70px;
       }
       
       .nav__bar {

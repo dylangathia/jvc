@@ -170,7 +170,7 @@
       display: flex;
       align-items: center;
       padding-top: 125px;
-      padding-bottom: 50px;
+      padding-bottom: 5px;
       overflow: hidden;
     }
 
@@ -266,7 +266,7 @@
 
     .slider-track {
       display: flex;
-      transition: transform 1.2s ease; /* Slowed down transition */
+      transition: transform ease 6s; /* Slowed down transition even more */
     }
 
     .slide {
@@ -447,7 +447,7 @@
       cursor: pointer;
     }
 
-    /* Navigation - UPDATED FOR STICKY NAVBAR */
+    /* Navigation - UPDATED FOR STICKY NAVBAR AND LOGO ALIGNMENT */
     .nav__bar {
       display: flex;
       justify-content: space-between;
@@ -472,7 +472,7 @@
     }
 
     .logo img {
-      height: 100px; /* Increased logo size */
+      height: 110px; /* Increased logo size */
       width: auto;
       transition: var(--transition);
     }
@@ -615,7 +615,7 @@
       gap: 1rem; /* Adjusted gap for horizontal layout */
       align-items: center;
       justify-content: flex-start;
-      margin-top: 1.5rem; /* Space below the Visit Us button */
+      margin-top: 4rem; /* Space below the Visit Us button */
       z-index: 5;
     }
 
@@ -1513,7 +1513,7 @@
 
     // Image Slider Functionality
     document.addEventListener('DOMContentLoaded', function() {
-      // Sample images - replace with your actual images
+      // Sample images - replaced with more images and added 2 more
       const images = [
         'images/worship.jpg',
         'images/teens.JPG',
@@ -1524,7 +1524,9 @@
         'images/comm.jpg',
         'images/building.jpeg',
         'images/worship.jpg',
-        'images/teens.JPG'
+        'images/teens.JPG',
+        'images/comm.jpg',  // Added 2 more images
+        'images/building.jpeg'
       ];
       
       const sliderTrack = document.getElementById('slider-track');
@@ -1597,7 +1599,7 @@
       
       // Resume auto-scroll when mouse leaves
       sliderTrack.addEventListener('mouseleave', () => {
-        autoScrollInterval = setInterval(autoScroll, 5000);
+        autoScrollInterval = setInterval(autoScroll, 6000);
       });
       
       // Responsive adjustments

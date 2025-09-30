@@ -289,139 +289,6 @@
       box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
     }
 
-    /* Update responsive breakpoints for slider */
-    @media (max-width: 992px) {
-      .logo{
-        height: 80px;
-      }
-      .section__header {
-        font-size: 2rem;
-      }
-      
-      .hero__content h1 {
-        font-size: 1.8rem;
-      }
-      
-      .about__card {
-        grid-template-columns: 1fr;
-      }
-      
-      .about__card.reverse {
-        direction: ltr;
-      }
-      
-      /* Slider adjustments for tablet - show 3 images */
-      .slide {
-        flex: 0 0 33.333%; /* Show 3 images at a time on tablets */
-      }
-    }
-
-    @media (max-width: 768px) {
-      .logo{
-        height: 80px;
-      }
-
-      .nav__links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        height: 100vh;
-        background: var(--dark-bg);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        transition: var(--transition);
-        z-index: 10;
-      }
-
-      .nav__links.active {
-        left: 0;
-      }
-
-      .nav__menu__btn {
-        display: block;
-      }
-
-      .hero__content h1 {
-        font-size: 1.8rem;
-      }
-      
-      .hero__cta {
-        flex-direction:column;
-        align-items: start;
-        gap: 1rem;
-      }
-      
-      .giving .section__container {
-        grid-template-columns: 1fr;
-      }
-      
-      .giving__content {
-        padding-right: 0;
-      }
-      
-      .giving__image {
-        order: -1;
-      }
-      
-      /* Slider adjustments for mobile - show 2 images */
-      .slide {
-        flex: 0 0 50%; /* Show 2 images at a time on mobile */
-      }
-      
-      .slide img {
-        height: 150px;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .logo{
-        height: 70px;
-      }
-      html {
-        font-size: 14px;
-      }
-
-      .section__container {
-        padding: 3rem 1rem;
-      }
-
-      .hero__content h1 {
-        font-size: 2rem;
-      }
-
-      .hero__content p {
-        font-size: 1rem;
-      }
-      
-      .header__socials {
-        gap: 1rem;
-      }
-      
-      .social__icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-      }
-      
-      .nav__bar {
-        padding: 1rem;
-      }
-      
-      /* Slider adjustments for small mobile - show 1 image */
-      .slide {
-        flex: 0 0 100%; /* Show 1 image at a time on small mobile */
-      }
-      
-      .slide img {
-        height: 120px;
-      }
-    }
-
-    /* Removed slider navigation styles */
-
     /* Modal for enlarged image */
     .image-modal {
       display: none;
@@ -568,55 +435,6 @@
       display: none;
     }
 
-    /* Mobile Navigation Styles */
-    @media (max-width: 768px) {
-      .nav__links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 75%;
-        height: 100vh;
-        background: var(--dark-bg);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        transition: var(--transition);
-        z-index: 10;
-      }
-
-      .nav__links.active {
-        left: 0;
-      }
-
-      .nav__menu__btn {
-        display: block;
-      }
-
-      .hero__content h1 {
-        font-size: 1.8rem;
-      }
-      
-      .hero__content {
-        margin-top: 60px;
-        margin-left: 1rem;
-      }
-      
-      /* Mobile-specific prayer button text */
-      .nav__action__btn .btn span.full-text {
-        display: none;
-      }
-      
-      .nav__action__btn .btn span.short-text {
-        display: inline;
-      }
-      
-      /* Adjust button padding for mobile */
-      .nav__action__btn .btn {
-        padding: 0.6rem 1.2rem;
-      }
-    }
-
     /* Social Icons - HORIZONTAL BELOW VISIT US BUTTON */
     .header__socials {
       position: static; /* Changed from absolute */
@@ -672,20 +490,6 @@
       opacity: 1;
       visibility: visible;
       top: -35px;
-    }
-
-    /* Mobile adjustments for horizontal social icons */
-    @media (max-width: 768px) {
-      .header__socials {
-        justify-content: center; /* Center on mobile */
-        margin-top: 1rem;
-      }
-      
-      .social__icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-      }
     }
 
     /* ===== About Section ===== */
@@ -1178,11 +982,16 @@
       
       /* Slider adjustments for tablet */
       .slide {
-        flex: 0 0 25%; /* Show 4 images at a time on tablets */
+        flex: 0 0 33.333%; /* Show 3 images at a time on tablets */
       }
     }
 
     @media (max-width: 768px) {
+      /* Logo size adjustment for mobile */
+      .logo img {
+        height: 80px !important; /* Force 80px height on mobile */
+      }
+
       .nav__links {
         position: fixed;
         top: 0;
@@ -1228,17 +1037,48 @@
         order: -1;
       }
       
+      /* Mobile-specific prayer button text */
+      .nav__action__btn .btn span.full-text {
+        display: none;
+      }
+      
+      .nav__action__btn .btn span.short-text {
+        display: inline;
+      }
+      
+      /* Adjust button padding for mobile */
+      .nav__action__btn .btn {
+        padding: 0.6rem 1.2rem;
+      }
+      
       /* Slider adjustments for mobile */
       .slide {
-        flex: 0 0 33.333%; /* Show 3 images at a time on mobile */
+        flex: 0 0 50%; /* Show 2 images at a time on mobile */
       }
       
       .slide img {
         height: 150px;
       }
+      
+      /* Mobile adjustments for horizontal social icons */
+      .header__socials {
+        justify-content: center; /* Center on mobile */
+        margin-top: 1rem;
+      }
+      
+      .social__icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
     }
 
     @media (max-width: 576px) {
+      /* Logo size adjustment for very small mobile */
+      .logo img {
+        height: 70px !important; /* Even smaller on very small screens */
+      }
+      
       html {
         font-size: 14px;
       }
@@ -1271,7 +1111,7 @@
       
       /* Slider adjustments for small mobile */
       .slide {
-        flex: 0 0 50%; /* Show 2 images at a time on small mobile */
+        flex: 0 0 100%; /* Show 1 image at a time on small mobile */
       }
       
       .slide img {

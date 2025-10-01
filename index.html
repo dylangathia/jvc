@@ -202,6 +202,18 @@
       color: var(--white);
     }
 
+    /* Mission statement split into two lines */
+    .mission-line-1 {
+      display: block;
+      font-size: 2.6rem;
+    }
+
+    .mission-line-2 {
+      display: block;
+      font-size: 2.6rem;
+      margin-top: 0.2rem;
+    }
+
     .hero__content p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
@@ -227,7 +239,7 @@
     /* ===== Image Slider ===== */
     .image-slider {
       background-color: var(--dark-bg);
-      padding: 3rem 0;
+      padding: 1rem 0;
       position: relative;
       overflow: hidden;
     }
@@ -435,21 +447,23 @@
       display: none;
     }
 
-    /* Social Icons - HORIZONTAL BELOW VISIT US BUTTON */
+    /* Social Icons - LOWER POSITION ABOVE SLIDER */
     .header__socials {
-      position: static; /* Changed from absolute */
+      position: static; /* Changed from static to absolute */
       display: flex;
-      flex-direction: row; /* Changed from column */
-      gap: 1rem; /* Adjusted gap for horizontal layout */
+      flex-direction: row;
+      gap: 1rem;
       align-items: center;
+      padding-top: 50px;
       justify-content: flex-start;
-      margin-top: 4rem; /* Space below the Visit Us button */
+      left: 2rem; /* Align with hero content */
       z-index: 5;
+      margin-top: 0; /* Remove top margin */
     }
 
     .social__icon {
       position: relative;
-      width: 45px; /* Slightly smaller for horizontal layout */
+      width: 45px;
       height: 45px;
       display: flex;
       align-items: center;
@@ -972,6 +986,11 @@
         font-size: 1.8rem;
       }
       
+      .mission-line-1,
+      .mission-line-2 {
+        font-size: 1.8rem;
+      }
+      
       .about__card {
         grid-template-columns: 1fr;
       }
@@ -1017,12 +1036,44 @@
 
       .hero__content h1 {
         font-size: 1.8rem;
+        text-align: left; /* Ensure left alignment on mobile */
+      }
+      
+      .mission-line-1,
+      .mission-line-2 {
+        font-size: 1.8rem;
+      }
+      
+      .hero__content {
+        margin-left: 0; /* Remove left margin on mobile */
+        padding: 1rem; /* Adjust padding for mobile */
+        text-align: left; /* Ensure all content is left-aligned */
       }
       
       .hero__cta {
-        flex-direction:column;
-        align-items: start;
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the left */
         gap: 1rem;
+      }
+      
+      .service-times {
+        text-align: left; /* Left-align service times */
+      }
+      
+      /* Mobile adjustments for social icons */
+      .header__socials {
+        position: relative; /* Change to relative on mobile */
+        bottom: auto;
+        left: auto;
+        justify-content: flex-start; /* Align social icons to the left */
+        margin-top: 2rem; /* Add some space above on mobile */
+        margin-bottom: 1rem; /* Add space below to separate from slider */
+      }
+      
+      .social__icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
       }
       
       .giving .section__container {
@@ -1059,18 +1110,6 @@
       .slide img {
         height: 150px;
       }
-      
-      /* Mobile adjustments for horizontal social icons */
-      .header__socials {
-        justify-content: center; /* Center on mobile */
-        margin-top: 1rem;
-      }
-      
-      .social__icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-      }
     }
 
     @media (max-width: 576px) {
@@ -1089,14 +1128,23 @@
 
       .hero__content h1 {
         font-size: 2rem;
+        text-align: left; /* Ensure left alignment on very small screens */
+      }
+      
+      .mission-line-1,
+      .mission-line-2 {
+        font-size: 2rem;
       }
 
       .hero__content p {
         font-size: 1rem;
       }
       
+      /* Mobile adjustments for social icons */
       .header__socials {
         gap: 1rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
       }
       
       .social__icon {
@@ -1155,7 +1203,10 @@
 
     <div class="hero__content">
       <div class="hero__text">
-        <h1>Inviting people to live the way of Christ</h1>
+        <h1>
+          <span class="mission-line-1">Inviting people to live</span>
+          <span class="mission-line-2">the way of Christ</span>
+        </h1>
         <div class="hero__cta">
           <a href="https://www.google.com/maps/dir//QM54%2BJ2H,+Rungiri/@-1.2409474,36.5727137,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x182f1f003322a533:0x9be881fed4c6ca29!2m2!1d36.6551157!2d-1.2409487?entry=ttu&g_ep=EgoyMDI1MDkyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn__primary">Visit Us</a>
           <div class="service-times">Join us every Sunday at 10:30 AM</div>

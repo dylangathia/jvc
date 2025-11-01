@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Village Movements | Journey Village Church</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    /* ===== Base Styles ===== */
+    :root {
+      --primary-color: #000000;          /* Black */
+      --secondary-color: #C0A86A;        /* Toned down gold */
+      --accent-color: #A8925D;           /* Darker, more subtle gold for accents */
+      --dark-bg: #1A1A1A;                /* Very dark gray (almost black) */
+      --medium-gray: #333333;            /* Dark gray */
+      --light-gray: #666666;             /* Medium gray */
+      --lighter-gray: #888888;           /* Light gray for transitions */
+      --light-bg: #F5F5F5;               /* Light gray background */
+      --text-dark: #222222;              /* Dark text */
+      --text-light: #FFFFFF;             /* Light text */
+      --white: #FFFFFF;
+      --black: #000000;
+      --max-width: 1200px;
+      --header-font: "Playfair Display", serif;
+      --body-font: "Montserrat", sans-serif;
+      --transition: all 0.3s ease;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --gold-gradient: linear-gradient(135deg, #C0A86A 0%, #D6C390 50%, #A8925D 100%);
+      --section-gradient: linear-gradient(to bottom, var(--light-bg), #EAEAEA);
+      --gold-opacity-10: rgba(192, 168, 106, 0.1);
+      --gold-opacity-20: rgba(192, 168, 106, 0.2);
+      --gold-opacity-30: rgba(192, 168, 106, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--body-font);
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--header-font);
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 1rem;
+    }
+
+    .btn__primary {
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn__primary:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px var(--gold-opacity-30);
+    }
+
+    .btn__outline {
+      border: 2px solid var(--secondary-color);
+      color: var(--secondary-color);
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn__outline:hover {
+      background: var(--gold-opacity-10);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px var(--gold-opacity-20);
+    }
+
+    .section__container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 5rem 1rem;
+      position: relative;
+    }
+
+    .section__upperheader {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--secondary-color);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section__upperheader::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 2px;
+      background: var(--secondary-color);
+      margin: 1rem auto;
+    }
+
+    .section__header {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+    }
+
+    /* Decorative elements for better color blending */
+    .gold-accent {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--secondary-color);
+      opacity: 0.05;
+      border-radius: 50%;
+      filter: blur(40px);
+      z-index: 0;
+    }
+
+    /* ===== Header/Hero ===== */
+    .header {
+      position: relative;
+      min-height: 60vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                  url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 150px;
+      padding-bottom: 150px;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      z-index: 1;
+    }
+
+    .hero__content {
+      max-width: 800px;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero__content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .hero__content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Navigation - Updated to match homepage */
+    .nav__bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+      transition: var(--transition);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .nav__bar.scrolled {
+      background: rgba(0, 0, 0, 0.95);
+      padding: 1rem 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo img {
+      height: 110px;
+      width: auto;
+      transition: var(--transition);
+    }
+
+    .logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0 auto;
+    }
+
+    .nav__links a {
+      font-weight: 600;
+      color: var(--white);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .nav__links a:hover::after,
+    .nav__links a.active::after {
+      width: 100%;
+    }
+
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav__menu__btn {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--white);
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    /* Pray With Us Button - Gold Style with WhatsApp Icon */
+    .nav__action__btn .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .nav__action__btn .btn:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px var(--gold-opacity-30);
+    }
+
+    /* Desktop prayer button text */
+    .nav__action__btn .btn span.full-text {
+      display: inline;
+    }
+
+    .nav__action__btn .btn span.short-text {
+      display: none;
+    }
+
+    /* Mobile Navigation Styles */
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 75%;
+        height: 100vh;
+        background: var(--dark-bg);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        z-index: 10;
+      }
+
+      .nav__links.active {
+        left: 0;
+      }
+
+      .nav__menu__btn {
+        display: block;
+      }
+
+      .hero__content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero__content {
+        margin-top: 60px; /* Adjusted for mobile */
+      }
+      
+      /* Mobile-specific prayer button text */
+      .nav__action__btn .btn span.full-text {
+        display: none;
+      }
+      
+      .nav__action__btn .btn span.short-text {
+        display: inline;
+      }
+      
+      /* Adjust button padding for mobile */
+      .nav__action__btn .btn {
+        padding: 0.6rem 1.2rem;
+      }
+    }
+
+    /* Mobile logo size adjustments */
+    @media (max-width: 768px) {
+      .logo img {
+        height: 80px !important;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo img {
+        height: 70px !important;
+      }
+    }
+
+    /* Intro Section */
+    .intro-section {
+      padding: 5rem 0;
+      background: var(--section-gradient);
+      position: relative;
+    }
+
+    .intro-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .intro-content h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--black);
+    }
+
+    .intro-content p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .anchor-verse {
+      background: var(--gold-opacity-10);
+      border-left: 4px solid var(--secondary-color);
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 5px;
+      text-align: center;
+      font-style: italic;
+      position: relative;
+    }
+
+    .anchor-verse p {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--black);
+    }
+
+    .verse-reference {
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+
+    /* Village Movements Section - IMPROVED */
+    .movements-section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .movements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .movement-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border-top: 4px solid var(--secondary-color);
+    }
+
+    .movement-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: var(--gold-opacity-10);
+      transition: var(--transition);
+    }
+
+    .movement-card:hover::before {
+      height: 100%;
+    }
+
+    .movement-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .movement-number {
+      width: 40px;
+      height: 40px;
+      background: var(--secondary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      color: var(--text-dark);
+      position: relative;
+      z-index: 1;
+    }
+
+    .movement-card h3 {
+      color: var(--black);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Call to Action */
+    .cta-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                  url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+      color: var(--white);
+      text-align: center;
+      padding: 6rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold-gradient);
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .cta-content {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-content h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      padding-top: 5rem;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--secondary-color);
+    }
+
+    .footer__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .footer__logo img {
+      width: 220px;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer__col p {
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+
+    .footer__socials {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer__socials a {
+      font-size: 1.2rem;
+      color: var(--white);
+      opacity: 0.8;
+      transition: var(--transition);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer__socials a:hover {
+      opacity: 1;
+      background: var(--secondary-color);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+    }
+
+    .footer__col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer__col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--secondary-color);
+    }
+
+    .footer__col ul {
+      list-style: none;
+    }
+
+    .footer__col ul li {
+      margin-bottom: 1rem;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer__col ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--secondary-color);
+    }
+
+    .footer__col ul li a {
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer__col ul li a:hover {
+      opacity: 1;
+      color: var(--secondary-color);
+      padding-left: 5px;
+    }
+
+    .footer__bottom {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    /* Decorative elements */
+    .gold-accent-1 {
+      top: 10%;
+      left: 5%;
+      width: 200px;
+      height: 200px;
+    }
+
+    .gold-accent-2 {
+      bottom: 10%;
+      right: 5%;
+      width: 150px;
+      height: 150px;
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 992px) {
+      .section__header {
+        font-size: 2rem;
+      }
+      
+      .hero__content h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero__content h1 {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      html {
+        font-size: 14px;
+      }
+
+      .section__container {
+        padding: 3rem 1rem;
+      }
+
+      .hero__content h1 {
+        font-size: 2rem;
+      }
+
+      .hero__content p {
+        font-size: 1rem;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 80px;
+      }
+      
+      .nav__bar {
+        padding: 0.75rem;
+      }
+      
+      .nav__menu__btn {
+        right: 0.75rem;
+        top: 1.25rem;
+      }
+    }
+    
+    /* Extra small devices */
+    @media (max-width: 400px) {
+      .nav__links {
+        width: 85%;
+      }
+      
+      .hero__content h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section__upperheader {
+        font-size: 1.5rem;
+      }
+      
+      .section__header {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header class="header" id="home">
+    <div class="gold-accent gold-accent-1"></div>
+    <div class="gold-accent gold-accent-2"></div>
+    
+    <nav>
+      <div class="nav__bar">
+        <!-- Left: Logo -->
+        <div class="logo nav__logo">
+          <a href="index.html"><img src="www.journeyvillage.org (1)-1.png" alt="Journey Village Church Logo"></a>
+        </div>
+
+        <!-- Center: Links -->
+        <ul class="nav__links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="movements.html" class="active">Village Movements</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="giving.html">Giving</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="nav__menu__btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
+        </div>
+
+        <!-- Right: Menu button and Pray With Us button -->
+        <div class="nav__actions">
+          <div class="nav__action__btn">
+            <a href="https://wa.me/254113713742?text=Hello%2C%20I%20would%20like%20to%20pray%20with%20you" target="_blank" class="btn">
+              <i class="ri-whatsapp-fill"></i>
+              <span class="full-text">Pray With Us</span>
+              <span class="short-text">Pray</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero__content">
+      <h1>Village Movements</h1>
+      <p>Discover what shapes and guides our community at Journey Village Church</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Intro Section -->
+    <section class="intro-section">
+      <div class="section__container">
+        <div class="gold-accent" style="top: 10%; left: 10%;"></div>
+        <div class="gold-accent" style="bottom: 10%; right: 10%;"></div>
+        
+        <div class="intro-content">
+          <h2>What Shapes and Guides Us</h2>
+          <p>At Journey Village Church, we exist to invite people to live the way of Christ—through Christ-Encounter, Formation, Community, and Mission. These movements represent the rhythms and directions that shape our life together as a community of faith.</p>
+          <p>Each movement reflects a dimension of following Jesus that we believe is essential for a vibrant, transformative faith. Together, they form a holistic picture of what it means to be disciples of Christ in our world today.</p>
+          
+          <div class="anchor-verse">
+            <p>"A thief is only there to steal and kill and destroy. I came so they can have real and eternal life, more and better life than they ever dreamed of."</p>
+            <p class="verse-reference">John 10:10 (The Message)</p>
+          </div>
+          
+          <p>This promise of abundant life in Christ is our anchor and our hope. We long to be vessels of this promise, embodying and sharing the abundant life that Christ Himself offers. The Village Movements are our way of living into this reality.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Village Movements Section -->
+    <section class="movements-section">
+      <div class="section__container">
+        <div class="gold-accent" style="top: 10%; left: 5%;"></div>
+        <div class="gold-accent" style="bottom: 10%; right: 5%;"></div>
+        
+        <h2 class="section__upperheader">The Village Movements</h2>
+        
+        <div class="movements-grid">
+          <div class="movement-card">
+            <div class="movement-number">1</div>
+            <h3>Movement Upward (Worship)</h3>
+            <p>We are anchored in the truth that we were created for worship—to love the Lord with all our heart, soul, mind, and strength. Our greatest joy is found in glorifying Him and delighting in His presence. This is our call to worship, the very life we were made for.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">2</div>
+            <h3>Movement Inward (Wholeness)</h3>
+            <p>We believe that Christ invites us into a journey of salvation, healing, and restoration—a transformation that touches every part of our being. As His life takes root within us, we are shaped by the Spirit and begin to bear His fruit.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">3</div>
+            <h3>Movement Withward (Community)</h3>
+            <p>We embrace the truth that faith is lived in community, for none of us are the body of Christ alone. We grow as we give and receive grace, share burdens, and celebrate joys. In community, our gifts take shape, our love becomes visible, and together we become a living witness of Christ's presence.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">4</div>
+            <h3>Movement Downward (Service)</h3>
+            <p>At the end of His ministry, Jesus washed His disciples' feet and called us to the same way of love. For us at the Village, we believe that true greatness is found in humility, as we follow Christ who came not to be served but to serve.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">5</div>
+            <h3>Movement Outward (Missional)</h3>
+            <p>We believe that as followers of Jesus, we are a sent people—called to the poor, to make disciples, and to be salt and light in the world. Faith is never private; it overflows into our neighborhoods, workplaces, and even to the ends of the earth.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">6</div>
+            <h3>Movement Backward (Rooted)</h3>
+            <p>We stand in the truth that to know where we're going, we must first look back at where we've been. God's story of grace—from creation to Christ to the promised new heaven and new earth—now includes us, and we root ourselves in His Word to be shaped as His people.</p>
+          </div>
+          
+          <div class="movement-card">
+            <div class="movement-number">7</div>
+            <h3>Movement Forward (Journey)</h3>
+            <p>We affirm with conviction that God has ordained a purpose for each of us today, and as we live it out, we join His work of shaping the future He desires. We are not called merely to exist but to leave fingerprints of faith, hope, and love where we are planted.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>Join the Movement</h2>
+        <p>Ready to explore these movements in your own life? We'd love to journey with you.</p>
+        <div class="cta-buttons">
+          <a href="https://www.google.com/maps/dir//QM54%2BJ2H,+Rungiri/@-1.2409474,36.5727137,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x182f1f003322a533:0x9be881fed4c6ca29!2m2!1d36.6551157!2d-1.2409487?entry=ttu&g_ep=EgoyMDI1MDkyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn__primary">Visit This Sunday</a>
+          <a href="contact.html" class="btn btn__outline">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+          <img src="www.journeyvillage.org (1)-1.png" alt="Journey Village Church Logo">
+        </div>
+        <p>QM54+ J2H, Rungiri<br>Kiambu, Kenya</p>
+        <div class="footer__socials">
+          <a href="https://www.facebook.com/p/The-Journey-Village-Kikuyu-100064713729585/" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+          <a href="https://www.instagram.com/journeyvillage.ke/" aria-label="Instagram"><i class="ri-instagram-fill"></i></a>
+          <a href="https://www.youtube.com/@journeyvillage3430" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer__col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="movements.html">Village Movements</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h3>Get Involved</h3>
+        <ul>
+          <li><a href="events.html">Serve</a></li>
+          <li><a href="giving.html">Give</a></li>
+          <li><a href="contact.html">Visit Us</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer__bottom">
+      <p>&copy; 2025 Journey Village Church. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Simplified JavaScript -->
+  <script>
+    // Mobile menu functionality
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    const navBar = document.querySelector('.nav__bar');
+    
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') 
+          ? '<i class="ri-close-line"></i>' 
+          : '<i class="ri-menu-line"></i>';
+      });
+    }
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navBar.classList.add('scrolled');
+      } else {
+        navBar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

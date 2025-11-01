@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events Admin - Journey Village Church</title>
+    <title>Admin Login - Journey Village Church</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -109,12 +109,128 @@
             color: var(--text-dark);
         }
 
+        /* Login Modal Styles */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 1rem;
+        }
+
+        .login-content {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .login-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-family: var(--header-font);
+        }
+
+        .login-content p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-bg);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 16px;
+            min-height: 44px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(192, 168, 106, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            min-height: 44px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--text-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--dark-bg);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .error-message {
+            color: #dc3545;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            text-align: left;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
         /* Admin Header */
         .admin-header {
             background: var(--dark-bg);
             color: var(--white);
             padding: 1.5rem 0;
             margin-bottom: 2rem;
+            display: none;
         }
 
         .admin-header-content {
@@ -145,6 +261,7 @@
             grid-template-columns: 1fr;
             gap: 2rem;
             margin-bottom: 3rem;
+            display: none;
         }
 
         /* Sidebar */
@@ -209,18 +326,6 @@
             font-family: var(--header-font);
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark-bg);
-        }
-
-        .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
@@ -233,7 +338,6 @@
             transition: var(--transition);
         }
 
-        .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
@@ -252,33 +356,6 @@
             gap: 1rem;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 1rem;
-            min-height: 44px;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background-color: var(--secondary-color);
-            color: var(--text-dark);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(192, 168, 106, 0.3);
-        }
-
         .btn-danger {
             background-color: #dc3545;
             color: var(--white);
@@ -286,16 +363,6 @@
 
         .btn-danger:hover {
             background-color: #bd2130;
-            transform: translateY(-3px);
-        }
-
-        .btn-secondary {
-            background-color: var(--dark-bg);
-            color: var(--white);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--primary-color);
             transform: translateY(-3px);
         }
 
@@ -498,6 +565,7 @@
             color: var(--white);
             padding: 3rem 0 1.5rem;
             margin-top: 3rem;
+            display: none;
         }
 
         .footer-content {
@@ -978,6 +1046,28 @@
     </style>
 </head>
 <body>
+    <!-- Login Modal -->
+    <div class="login-modal" id="login-modal">
+        <div class="login-content">
+            <h2>Admin Login</h2>
+            <p>Please log in with your admin credentials to access the Events Admin Dashboard.</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="admin@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="Enter your password">
+                </div>
+                <div class="error-message" id="login-error"></div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="ri-login-box-line"></i> Login
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div id="toast" class="toast">
         <i class="ri-checkbox-circle-fill"></i>
         <span id="toast-message"></span>
@@ -1002,7 +1092,7 @@
         </div>
     </header>
 
-    <div class="admin-header">
+    <div class="admin-header" id="admin-header">
         <div class="container admin-header-content">
             <h1 class="admin-title">Events Administration</h1>
             <div class="admin-actions">
@@ -1016,7 +1106,7 @@
         </div>
     </div>
 
-    <main class="container main-content">
+    <main class="container main-content" id="main-content">
         <!-- Sidebar Navigation -->
         <aside class="admin-sidebar">
             <ul class="admin-nav">
@@ -1338,7 +1428,7 @@
         </div>
     </main>
 
-    <footer>
+    <footer id="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
@@ -1539,7 +1629,6 @@
             measurementId: "G-E1RNC9M7CK"
         };
 
-
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
@@ -1563,31 +1652,6 @@
         let editEventImageFile = null;
         let editAnnouncementImageFile = null;
 
-        // 🔒 Auth + Role Check
-        auth.onAuthStateChanged(async (user) => {
-            if (!user) {
-                window.location.href = "index.html";
-                return;
-            }
-
-            try {
-                const doc = await db.collection("users").doc(user.uid).get();
-                if (!doc.exists || doc.data().role !== "admin") {
-                    showToast("⛔ Access denied. Admins only.", "error");
-                    setTimeout(() => window.location.href = "index.html", 500);
-                } else {
-                    // ✅ Admin is logged in → load data
-                    loadEvents();
-                    loadAnnouncements();
-                    loadUsers();
-                    loadInquiries();
-                }
-            } catch (err) {
-                console.error("Error verifying admin:", err);
-                window.location.href = "index.html";
-            }
-        });
-
         // ✅ Toast Notification
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
@@ -1596,6 +1660,94 @@
             toast.className = `toast ${type} show`;
             setTimeout(() => { toast.className = 'toast'; }, 3000);
         }
+
+        // Show admin dashboard
+        function showAdminDashboard() {
+            document.getElementById('login-modal').style.display = 'none';
+            document.getElementById('admin-header').style.display = 'block';
+            document.getElementById('main-content').style.display = 'grid';
+            document.getElementById('footer').style.display = 'block';
+        }
+
+        // Hide admin dashboard
+        function hideAdminDashboard() {
+            document.getElementById('login-modal').style.display = 'flex';
+            document.getElementById('admin-header').style.display = 'none';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('footer').style.display = 'none';
+        }
+
+        // Check if user is already logged in
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                try {
+                    const doc = await db.collection("users").doc(user.uid).get();
+                    if (doc.exists && doc.data().role === "admin") {
+                        // User is admin, show dashboard
+                        showAdminDashboard();
+                        // Load admin data
+                        loadEvents();
+                        loadAnnouncements();
+                        loadUsers();
+                        loadInquiries();
+                    } else {
+                        // User is not admin, show login
+                        hideAdminDashboard();
+                        showToast("⛔ Access denied. Admins only.", "error");
+                    }
+                } catch (err) {
+                    console.error("Error verifying admin:", err);
+                    hideAdminDashboard();
+                }
+            } else {
+                // No user logged in, show login
+                hideAdminDashboard();
+            }
+        });
+
+        // Handle login form submission
+        document.getElementById("login-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+            const errorElement = document.getElementById("login-error");
+            
+            try {
+                // Clear any previous error
+                errorElement.classList.remove("show");
+                
+                // Sign in with Firebase Auth
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Check if user has admin role
+                const doc = await db.collection("users").doc(user.uid).get();
+                
+                if (!doc.exists || doc.data().role !== "admin") {
+                    // User is not admin, sign them out and show error
+                    await auth.signOut();
+                    errorElement.textContent = "⛔ Access denied. Admins only.";
+                    errorElement.classList.add("show");
+                    return;
+                }
+                
+                // User is admin, show dashboard
+                showAdminDashboard();
+                showToast("Welcome back, Admin!");
+                
+                // Load admin data
+                loadEvents();
+                loadAnnouncements();
+                loadUsers();
+                loadInquiries();
+                
+            } catch (error) {
+                console.error("Login error:", error);
+                errorElement.textContent = "❌ " + error.message;
+                errorElement.classList.add("show");
+            }
+        });
 
         // Mobile menu toggle
         document.getElementById('mobile-menu-toggle').addEventListener('click', function(e) {
@@ -2669,7 +2821,8 @@
         // Logout button
         document.getElementById("admin-logout").addEventListener("click", () => {
             firebase.auth().signOut().then(() => {
-                window.location.href = "index.html";
+                hideAdminDashboard();
+                showToast("You have been logged out successfully.");
             }).catch((error) => {
                 console.error("Error signing out: ", error);
             });
@@ -2680,8 +2833,9 @@
             setupTabs();
             setupModals();
             setupImageUploads();
-            loadEvents();
-            loadAnnouncements();
+            
+            // Hide admin dashboard initially (login modal will be shown)
+            hideAdminDashboard();
         });
 
         // Make functions available globally
